@@ -4,7 +4,7 @@ To run this application you need the .NET 5.0 SDK on your device.
 
 
 
-#TODO:
+- TODO:
 
 Kalender anzeigen mit ASCII-Darstellung - zeigt eine Terminbelegung einer Werkstatt an
 Kunde kann ein Konto anlegen / Name und Passwort + sich in bestehendem Konto anmelden
