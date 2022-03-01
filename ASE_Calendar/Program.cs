@@ -1,4 +1,5 @@
 ﻿using System;
+using ASE_Calendar.Classes;
 
 namespace ASE_Calendar
 {
@@ -7,6 +8,9 @@ namespace ASE_Calendar
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            
+            Calendar test;
+            test.CreateCalendar();
         }
     }
 }
