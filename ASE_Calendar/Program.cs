@@ -10,7 +10,7 @@ namespace ASE_Calendar
             Console.WriteLine("Hello World!");
             
             Calendar test = new Calendar();
-            test.CreateCalendar();
+            test.CreateCalendarThisMonth();
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASE_Calendar.Classes
 {
@@ -11,51 +13,51 @@ namespace ASE_Calendar.Classes
             switch (month)
             {
 
-                case 0:
+                case 1:
                     returnMonthString = "Jan";
                     break;
 
-                case 1:
+                case 2:
                     returnMonthString = "Feb";
                     break;
 
-                case 2:
+                case 3:
                     returnMonthString = "Mar";
                     break;
 
-                case 3:
+                case 4:
                     returnMonthString = "Apr";
                     break;
 
-                case 4:
+                case 5:
                     returnMonthString = "Mai";
                     break;
 
-                case 5:
+                case 6:
                     returnMonthString = "Jun";
                     break;
 
-                case 6:
+                case 7:
                     returnMonthString = "Jul";
                     break;
 
-                case 7:
+                case 8:
                     returnMonthString = "Aug";
                     break;
 
-                case 8:
+                case 9:
                     returnMonthString = "Sep";
                     break;
 
-                case 9:
+                case 10:
                     returnMonthString = "Okt";
                     break;
 
-                case 10:
+                case 11:
                     returnMonthString = "Nov";
                     break;
 
-                case 11:
+                case 12:
                     returnMonthString = "Dez";
                     break;
 
@@ -74,11 +76,11 @@ namespace ASE_Calendar.Classes
             switch (month)
             {
 
-                case 0:
+                case 1:
                     maxMonthDays = thirtyone;
                     break;
 
-                case 1:
+                case 2:
                     if (isLeapYear)
                     {
                         maxMonthDays = 29;
@@ -89,24 +91,20 @@ namespace ASE_Calendar.Classes
                     }
                     break;
 
-                case 2:
-                    maxMonthDays = thirtyone;
-                    break;
-
                 case 3:
-                    maxMonthDays = thirty;
+                    maxMonthDays = thirtyone;
                     break;
 
                 case 4:
-                    maxMonthDays = thirtyone;
-                    break;
-
-                case 5:
                     maxMonthDays = thirty;
                     break;
 
-                case 6:
+                case 5:
                     maxMonthDays = thirtyone;
+                    break;
+
+                case 6:
+                    maxMonthDays = thirty;
                     break;
 
                 case 7:
@@ -114,18 +112,22 @@ namespace ASE_Calendar.Classes
                     break;
 
                 case 8:
-                    maxMonthDays = thirty;
-                    break;
-
-                case 9:
                     maxMonthDays = thirtyone;
                     break;
 
-                case 10:
+                case 9:
                     maxMonthDays = thirty;
                     break;
 
+                case 10:
+                    maxMonthDays = thirtyone;
+                    break;
+
                 case 11:
+                    maxMonthDays = thirty;
+                    break;
+
+                case 12:
                     maxMonthDays = thirtyone;
                     break;
 
@@ -149,6 +151,41 @@ namespace ASE_Calendar.Classes
             {
                 Console.WriteLine("\n\n\n\n\n\n\n\n\n\n");
             }
+        }
+
+        public string CalendarBuilderDays(int month, int year)
+        {
+            string calendar = null;
+            
+            Tuple<string> lastday = new Tuple<string>("15:00 - 16:00:");
+
+            Tuple<string, string, string, string, string, string, string, Tuple<string>> appointmentsPerDayTuple =
+                new Tuple<string, string, string, string, string, string, string, Tuple<string>>
+                    ("07:00 - 08:00:",
+                        "08:00 - 09:00:",
+                        "09:00 - 10:00:",
+                        "10:00 - 11:00:",
+                        "11:00 - 12:00:",
+                        "13:00 - 14:00:",
+                        "14:00 - 15:00:",
+                        lastday);
+
+            IDictionary<int, Tuple<string, string, string, string, string, string, string, Tuple<string>>>
+                appointmentsAndDayDict =
+                    new Dictionary<int, Tuple<string, string, string, string, string, string, string, Tuple<string>>>();
+
+            for (int i = 1; i <= GetMaxMonthDayInt(month, year); i++)
+            {
+                appointmentsAndDayDict.Add(i,appointmentsPerDayTuple);
+            }
+
+            for (int i = 1; i <= appointmentsAndDayDict.Count; i++)
+            {
+                calendar = calendar + i.ToString() + ":" + appointmentsAndDayDict[i].ToString() + "\n";
+                
+            }
+
+            return calendar;
         }
     }
 }

@@ -1,11 +1,22 @@
-﻿namespace ASE_Calendar.Classes
+﻿using System;
+
+namespace ASE_Calendar.Classes
 {
     public class Calendar
     {
-        public void CreateCalendar()
+        public void CreateCalendarThisMonth()
         {
+            CalendarHelper HelperCalendar = new CalendarHelper();
+
+            DateTime TimeNow = new DateTime();
+            TimeNow = DateTime.Now;
+            Console.WriteLine(TimeNow + "\n");
+
+            Console.WriteLine(HelperCalendar.GetMonthdayString(TimeNow.Month) + "\n");
 
 
+
+            Console.WriteLine(HelperCalendar.CalendarBuilderDays(TimeNow.Month,TimeNow.Year));
         }
     }
 
