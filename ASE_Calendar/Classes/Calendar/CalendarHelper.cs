@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace ASE_Calendar.Classes
+namespace ASE_Calendar.Classes.Calendar
 {
     public class CalendarHelper
     {

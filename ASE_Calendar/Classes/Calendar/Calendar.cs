@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ASE_Calendar.Classes
+namespace ASE_Calendar.Classes.Calendar
 {
     public class Calendar
     {
