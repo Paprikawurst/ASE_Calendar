@@ -1,15 +1,13 @@
-﻿using System;
-using ASE_Calendar.Classes;
+﻿using ASE_Calendar.Classes;
 
 namespace ASE_Calendar
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
-            
             Calendar test = new Calendar();
+
             test.CreateCalendarThisMonth();
         }
     }
