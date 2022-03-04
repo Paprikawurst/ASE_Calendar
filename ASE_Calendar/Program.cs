@@ -1,5 +1,6 @@
 ﻿using ASE_Calendar.Classes;
 using ASE_Calendar.Classes.Calendar;
+using System;
 
 namespace ASE_Calendar
 {
@@ -7,9 +8,36 @@ namespace ASE_Calendar
     {
         static void Main()
         {
-            Calendar test = new Calendar();
+            DateTime TimeNow = new DateTime();
+            TimeNow = DateTime.Now;
+            Calendar Calendar = new Calendar(TimeNow);
+            var startProgramm = true;
 
-            test.CreateCalendarThisMonth();
+            Calendar.CreateCalendarThisMonth();
+         
+
+            while (startProgramm)
+            {
+                Console.WriteLine("Für vorherigen Monat 1 eingeben, für nächsten Monat 2 und für Abbruch 3.");
+                var input = Console.ReadLine();
+                   
+                switch (input) 
+                {
+       
+                    case "1":
+                        Calendar.ClearScreen();
+                        Calendar.CreateCalendarPrevMonth();
+                        break;
+                    case "2":
+                        Calendar.ClearScreen();
+                        Calendar.CreateCalendarNextMonth();
+                        break;
+                    case "3":
+                        startProgramm = false;
+                        break;
+                }
+
+            }
         }
     }
 }

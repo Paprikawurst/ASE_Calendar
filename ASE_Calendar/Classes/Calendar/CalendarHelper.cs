@@ -143,15 +143,6 @@ namespace ASE_Calendar.Classes.Calendar
             return false;
         }
 
-        public void clear_screen()
-        {
-            int n;
-            for (n = 0; n < 10; n++)
-            {
-                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n");
-            }
-        }
-
         public string CalendarBuilderDays(int month, int year)
         {
             string calendar = null;
