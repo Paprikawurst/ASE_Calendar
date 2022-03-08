@@ -9,4 +9,6 @@
     <Folder Include="temp\" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties temp_4users_1json__JsonSchema="https://github.com/go-vela/types/releases/latest/download/schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

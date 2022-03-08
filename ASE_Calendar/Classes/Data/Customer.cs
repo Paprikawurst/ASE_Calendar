@@ -3,7 +3,7 @@
     public class Customer
     {
         private static int instancesCreated = 0;
-        public int customerNumber { get; set; }
+        public string customerNumber { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         
@@ -13,7 +13,7 @@
             this.username = username;
             this.password = password;
             instancesCreated++;
-            customerNumber = instancesCreated;
+            customerNumber = instancesCreated.ToString();
         }
     }
 }

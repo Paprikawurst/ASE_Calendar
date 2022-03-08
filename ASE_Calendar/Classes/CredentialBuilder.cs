@@ -10,16 +10,16 @@ namespace ASE_Calendar.Classes
     class CredentialBuilder
     {
         public Customer Customer { get; set; }
-        public Admin Admin { get; set; }
-        public CarDealer CarDealer { get; set; }
-        public Employee Employee { get; set; }
+        //public Admin Admin { get; set; }
+        //public CarDealer CarDealer { get; set; }
+        //public Employee Employee { get; set; }
         
         public CredentialBuilder(Customer Customer)
         {
             this.Customer = Customer;
         }
 
-        public CredentialBuilder(Admin Admin)
+        /*public CredentialBuilder(Admin Admin)
         {
             this.Admin = Admin;
         }
@@ -40,6 +40,6 @@ namespace ASE_Calendar.Classes
             {
                 
             }
-        }
+        }*/
     }
 }

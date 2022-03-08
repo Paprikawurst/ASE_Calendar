@@ -14,11 +14,11 @@ namespace ASE_Calendar.Classes
         public SaveCredentials(CredentialBuilder Credentials)
         {
             this.Credentials = Credentials;
+            CredentialsToJson();
         }
 
-        public string CredentialsToJson()
+        private void CredentialsToJson()
         {
-            
             string jsonString = JsonSerializer.Serialize(Credentials);
             Console.WriteLine(jsonString);
 
@@ -27,8 +27,8 @@ namespace ASE_Calendar.Classes
             _data.Add(jsonString);
             string json = JsonSerializer.Serialize(_data);
             string systemUserName = Environment.UserName;
-            File.WriteAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json", json);
-            return jsonString;
+            File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json", json);
+            
         }
     }
 }

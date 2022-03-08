@@ -18,26 +18,41 @@ namespace ASE_Calendar.Classes
 
             if (selection == "n" || selection == "N")
             {
-                StartUserRegistration();
+                StartRegistration();
+            }
+
+            if (selection == "y" || selection == "Y")
+            {
+                StartLogin();
             }
         }
 
-        public void StartUserRegistration()
+        public void StartRegistration()
         {
+            Console.WriteLine("Registrieren");
+            Console.WriteLine("__________________________");
             Console.WriteLine("Bitte geben sie Ihren Usernamen ein:");
             string inputUsernameRegistration = Console.ReadLine();
-            Console.WriteLine("Bitte geben sie Ihr Passwort ein (Mindestens 5 Zeichen):");
+            Console.WriteLine("Bitte geben sie ein Passwort ein (Mindestens 5 Zeichen):");
             string inputPasswordRegistration = Console.ReadLine();
             inputPasswordRegistration = CheckPassword(inputPasswordRegistration);
 
             CredentialBuilder Credentials = new CredentialBuilder(new Data.Customer(inputUsernameRegistration,inputPasswordRegistration));
             SaveCredentials SavedCredentials = new SaveCredentials(Credentials);
-            SavedCredentials.CredentialsToJson();
+            
         }
 
         public void StartLogin()
         {
+            Console.WriteLine("Login");
+            Console.WriteLine("__________________________");
+            Console.WriteLine("Bitte geben sie Ihren Usernamen ein:");
+            string inputUsernameLogin = Console.ReadLine();
+            Console.WriteLine("Bitte geben sie ihr Passwort ein (Mindestens 5 Zeichen):");
+            string inputPasswordLogin = Console.ReadLine();
 
+            ReadCredentials ReadCredentials = new ReadCredentials(inputUsernameLogin,inputPasswordLogin);
+            ReadCredentials.test();
         }
 
         private string CheckPassword(string password)
