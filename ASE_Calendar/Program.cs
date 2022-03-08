@@ -14,15 +14,14 @@ namespace ASE_Calendar
             Authentification Auth = new Authentification();
             var startProgramm = true;
 
-        
-         
+            Auth.StartAuthentification();
+            Calendar.ClearScreen();
+          
+
             while (startProgramm)
             {
-                Auth.StartAuthentification();
-                Calendar.ClearScreen();
-                Auth.StartLogin();
                 Calendar.CreateCalendarThisMonth();
-
+                Calendar.ClearScreen();
                 Console.WriteLine("Für vorherigen Monat 1 eingeben, für nächsten Monat 2 und für Abbruch 3.");
                 var input = Console.ReadLine();
                    

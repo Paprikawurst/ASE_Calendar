@@ -42,11 +42,7 @@ namespace ASE_Calendar.Classes.Calendar
 
         public void ClearScreen()
         {
-            int n;
-            for (n = 0; n < 10; n++)
-            {
-                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n");
-            }
+             Console.WriteLine("\n\n");
         }
     }
 }
