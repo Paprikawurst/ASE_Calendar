@@ -58,7 +58,7 @@ namespace ASE_Calendar.Classes
         private string CheckPassword(string password)
         {
             bool passwordIncorectLoop = true;
-            string inputPasswordRegistration = "";
+            string inputPasswordRegistration = password;
 
             if( password.Length < 5) 
             { 

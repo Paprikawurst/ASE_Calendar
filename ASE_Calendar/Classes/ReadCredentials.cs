@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -25,12 +26,38 @@ namespace ASE_Calendar.Classes
         public void ReadFromJsonFile()
         {
             string systemUserName = Environment.UserName;
-            List<string> _data = new List<string>();
-            string text = File.ReadAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json");
-            _data = JsonSerializer.Deserialize<List<string>>(text);
-            
-            Console.WriteLine(_data);
+            string json = File.ReadAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json");
+            string[] jsonSplit = json.Split("\n");
 
+            foreach(var subString in jsonSplit)
+            {
+                var credentialBuilder = Newtonsoft.Json.JsonConvert.DeserializeObject<CredentialBuilder>(subString);
+
+                if (credentialBuilder != null)
+                {
+                    if(credentialBuilder.Customer != null)
+                    {
+                        if (credentialBuilder.Customer.username == this.username && credentialBuilder.Customer.password == this.password)
+                        {
+                            Console.WriteLine("Login erfolgreich");
+                        } 
+                    }
+                    if (credentialBuilder.CarDealer != null)
+                    {
+
+                    }
+                    if (credentialBuilder.Admin != null)
+                    {
+
+                    }
+                    if (credentialBuilder.Employee != null)
+                    {
+
+                    }
+                }
+                
+            }
+            
         }
 
         public void test()

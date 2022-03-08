@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace ASE_Calendar.Classes
 {
@@ -19,15 +22,9 @@ namespace ASE_Calendar.Classes
 
         private void CredentialsToJson()
         {
-            string jsonString = JsonSerializer.Serialize(Credentials);
-            Console.WriteLine(jsonString);
-
-            List<string> _data = new List<string>();
-
-            _data.Add(jsonString);
-            string json = JsonSerializer.Serialize(_data);
+            string json = JsonConvert.SerializeObject(Credentials);
             string systemUserName = Environment.UserName;
-            File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json", json);
+            File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json", json + "\n");
             
         }
     }
