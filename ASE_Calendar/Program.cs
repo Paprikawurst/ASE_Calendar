@@ -11,13 +11,15 @@ namespace ASE_Calendar
             DateTime TimeNow = new DateTime();
             TimeNow = DateTime.Now;
             Calendar Calendar = new Calendar(TimeNow);
+            Authentification Auth = new Authentification();
             var startProgramm = true;
 
-            Calendar.CreateCalendarThisMonth();
+        
          
-
             while (startProgramm)
             {
+                Auth.StartAuthentification();
+                Calendar.CreateCalendarThisMonth();
                 Console.WriteLine("Für vorherigen Monat 1 eingeben, für nächsten Monat 2 und für Abbruch 3.");
                 var input = Console.ReadLine();
                    
