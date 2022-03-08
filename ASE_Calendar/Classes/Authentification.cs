@@ -20,12 +20,6 @@ namespace ASE_Calendar.Classes
             {
                 StartUserRegistration();
             }
-
-            Console.WriteLine("Bitte geben sie Ihren Usernamen ein:");
-            inputUsername = Console.ReadLine();
-            Console.WriteLine("Bitte geben sie Ihr Passwort ein:");
-            inputPassword = Console.ReadLine();
-
         }
 
         public void StartUserRegistration()
@@ -34,8 +28,9 @@ namespace ASE_Calendar.Classes
             string inputUsernameRegistration = Console.ReadLine();
             Console.WriteLine("Bitte geben sie Ihr Passwort ein (Mindestens 5 Zeichen):");
             string inputPasswordRegistration = Console.ReadLine();
+            inputPasswordRegistration = CheckPassword(inputPasswordRegistration);
 
-            CredentialBuilder Credentials = new CredentialBuilder(inputUsernameRegistration, inputPasswordRegistration);
+            CredentialBuilder Credentials = new CredentialBuilder(new Data.Customer(inputUsernameRegistration,inputPasswordRegistration));
             SaveCredentials SavedCredentials = new SaveCredentials(Credentials);
             SavedCredentials.CredentialsToJson();
         }
@@ -44,5 +39,27 @@ namespace ASE_Calendar.Classes
         {
 
         }
+
+        private string CheckPassword(string password)
+        {
+            bool passwordIncorectLoop = true;
+            string inputPasswordRegistration = "";
+
+            if( password.Length < 5) 
+            { 
+                while (passwordIncorectLoop)
+                {
+                    Console.WriteLine("Das Passwort muss mindestens 5 Zeichen lang sein!");
+                    inputPasswordRegistration = Console.ReadLine();
+
+                    if(inputPasswordRegistration.Length >= 5)
+                    {
+                        passwordIncorectLoop = false;
+                    }
+                }
+            }
+            return inputPasswordRegistration;
+        }
+
     }
 }

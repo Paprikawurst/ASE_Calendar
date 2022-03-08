@@ -19,7 +19,10 @@ namespace ASE_Calendar
             while (startProgramm)
             {
                 Auth.StartAuthentification();
+                Calendar.ClearScreen();
+
                 Calendar.CreateCalendarThisMonth();
+
                 Console.WriteLine("Für vorherigen Monat 1 eingeben, für nächsten Monat 2 und für Abbruch 3.");
                 var input = Console.ReadLine();
                    

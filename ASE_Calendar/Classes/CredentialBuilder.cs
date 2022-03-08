@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ASE_Calendar.Classes.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,37 @@ namespace ASE_Calendar.Classes
 {
     class CredentialBuilder
     {
-        private static int instancesCreated = 0;
-        public int customerNumber { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-      
-        public CredentialBuilder(string username, string password)
+        public Customer Customer { get; set; }
+        public Admin Admin { get; set; }
+        public CarDealer CarDealer { get; set; }
+        public Employee Employee { get; set; }
+        
+        public CredentialBuilder(Customer Customer)
         {
-            this.username = username;
-            this.password = password;
-            instancesCreated++;
-            customerNumber = instancesCreated;
+            this.Customer = Customer;
+        }
 
+        public CredentialBuilder(Admin Admin)
+        {
+            this.Admin = Admin;
+        }
+
+        public CredentialBuilder(CarDealer CarDealer)
+        {
+            this.CarDealer = CarDealer;
+        }
+
+        public CredentialBuilder(Employee Employee)
+        {
+            this.Employee = Employee;
+        }
+
+        public void CheckForNull()
+        {
+            if (this.Customer == null)
+            {
+                
+            }
         }
     }
 }
