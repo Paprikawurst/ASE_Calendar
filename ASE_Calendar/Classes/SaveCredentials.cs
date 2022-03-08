@@ -26,7 +26,8 @@ namespace ASE_Calendar.Classes
 
             _data.Add(jsonString);
             string json = JsonSerializer.Serialize(_data);
-            File.WriteAllText(@"C:\Users\Adrian\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json", json);
+            string systemUserName = Environment.UserName;
+            File.WriteAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json", json);
             return jsonString;
         }
     }
