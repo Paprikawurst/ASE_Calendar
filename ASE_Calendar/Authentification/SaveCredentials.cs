@@ -7,27 +7,30 @@ namespace ASE_Calendar.Authentification
     class SaveCredentials
     {
         private CredentialBuilder Credentials;
-        public SaveCredentials(CredentialBuilder Credentials)
+        public SaveCredentials(CredentialBuilder credentials)
         {
-            this.Credentials = Credentials;
+            Credentials = credentials;
             CredentialsToJson();
         }
 
         private void CredentialsToJson()
         {
-            string json = JsonConvert.SerializeObject(Credentials);
-            string systemUserName = Environment.UserName;
-            //TODO: create filepath in case it does not exist
-            bool fileExists = File.Exists(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json");
-            //TODO: schauen ob wir was mit dem pfad machen können um die datei zu speichern
-            string path = Directory.GetCurrentDirectory();
+            var json = JsonConvert.SerializeObject(Credentials);
+            var systemUserName = Environment.UserName;
+            var filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            //bool fileExists = File.Exists(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json");
+            var fileExists = File.Exists(filePath + @"\ASECalendarUsers.json");
+
             if (fileExists)
             {
-                File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json", json + "\n");
+                //File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json", json + "\n");
+                File.AppendAllText(filePath + "ASECalendarUsers.json", json + "\n");
             }
             else if (!fileExists)
             {
-                // TODO: file or complete path has to be created
+                File.Create(filePath + "ASECalendarUsers.json");
+                //TODO: created user has to be added after
             }
         }
     }
