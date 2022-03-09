@@ -8,6 +8,9 @@ namespace ASE_Calendar
     {
         static void Main()
         {
+            //TODO: only works on Windows - comment out this line if a PlatformNotSupportedException appears
+            Console.SetWindowSize(150, 50);
+
             DateTime TimeNow = new DateTime();
             TimeNow = DateTime.Now;
             Calendar Calendar = new Calendar(TimeNow);
@@ -21,10 +24,12 @@ namespace ASE_Calendar
             while (startProgramm)
             {
                 Calendar.CreateCalendarThisMonth();
-                Calendar.ClearScreen();
+
+                //Calendar.ClearScreen();
                 Console.WriteLine("Previous month: 1 | Next month: 2 | Close application: 3");
                 var input = Console.ReadLine();
-                   
+                Console.Clear();
+
                 switch (input) 
                 {
        

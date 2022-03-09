@@ -26,7 +26,8 @@ namespace ASE_Calendar.Classes
             string systemUserName = Environment.UserName;
             //TODO: create filepath in case it does not exist
             bool fileExists = File.Exists(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json");
-
+            //TODO: schauen ob wir was mit dem pfad machen können um die datei zu speichern
+            string path = Directory.GetCurrentDirectory();
             if (fileExists)
             {
                 File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json", json + "\n");
