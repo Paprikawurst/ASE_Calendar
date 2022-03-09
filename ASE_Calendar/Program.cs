@@ -22,18 +22,20 @@ namespace ASE_Calendar
             {
                 Calendar.CreateCalendarThisMonth();
                 Calendar.ClearScreen();
-                Console.WriteLine("Für vorherigen Monat 1 eingeben, für nächsten Monat 2 und für Abbruch 3.");
+                Console.WriteLine("Previous month: 1 | Next month: 2 | Close application: 3");
                 var input = Console.ReadLine();
                    
                 switch (input) 
                 {
        
                     case "1":
-                        Calendar.ClearScreen();
+                        //Calendar.ClearScreen();
+                        Console.Clear();
                         Calendar.CreateCalendarPrevMonth();
                         break;
                     case "2":
-                        Calendar.ClearScreen();
+                        //Calendar.ClearScreen();
+                        Console.Clear();
                         Calendar.CreateCalendarNextMonth();
                         break;
                     case "3":

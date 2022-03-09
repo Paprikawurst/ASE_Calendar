@@ -24,8 +24,17 @@ namespace ASE_Calendar.Classes
         {
             string json = JsonConvert.SerializeObject(Credentials);
             string systemUserName = Environment.UserName;
-            File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json", json + "\n");
-            
+            //TODO: create filepath in case it does not exist
+            bool fileExists = File.Exists(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json");
+
+            if (fileExists)
+            {
+                File.AppendAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\temp\ASECalendarUsers.json", json + "\n");
+            }
+            else if (!fileExists)
+            {
+                // TODO: file or complete path has to be created
+            }
         }
     }
 }
