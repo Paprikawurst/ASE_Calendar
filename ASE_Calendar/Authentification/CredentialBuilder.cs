@@ -1,11 +1,6 @@
-﻿using ASE_Calendar.Classes.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ASE_Calendar.Entities;
 
-namespace ASE_Calendar.Classes
+namespace ASE_Calendar.Authentification
 {
     class CredentialBuilder
     {

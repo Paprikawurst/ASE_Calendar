@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Text.Json;
+using ASE_Calendar.Entities;
 
-namespace ASE_Calendar.Classes
+namespace ASE_Calendar.Authentification
 {
     public class Authentification
     {
@@ -37,7 +37,7 @@ namespace ASE_Calendar.Classes
             string inputPasswordRegistration = Console.ReadLine();
             inputPasswordRegistration = CheckPassword(inputPasswordRegistration);
 
-            CredentialBuilder Credentials = new CredentialBuilder(new Data.Customer(inputUsernameRegistration,inputPasswordRegistration));
+            CredentialBuilder Credentials = new CredentialBuilder(new Customer(inputUsernameRegistration,inputPasswordRegistration));
             SaveCredentials SavedCredentials = new SaveCredentials(Credentials);
             
         }

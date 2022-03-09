@@ -1,6 +1,4 @@
-﻿using ASE_Calendar.Classes;
-using ASE_Calendar.Classes.Calendar;
-using System;
+﻿using System;
 
 namespace ASE_Calendar
 {
@@ -13,8 +11,8 @@ namespace ASE_Calendar
 
             DateTime TimeNow = new DateTime();
             TimeNow = DateTime.Now;
-            Calendar Calendar = new Calendar(TimeNow);
-            Authentification Auth = new Authentification();
+            Calendar.Calendar Calendar = new Calendar.Calendar(TimeNow);
+            Authentification.Authentification Auth = new Authentification.Authentification();
             var startProgramm = true;
 
             Auth.StartAuthentification();

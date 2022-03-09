@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace ASE_Calendar.Classes
+namespace ASE_Calendar.Authentification
 {
     class SaveCredentials
     {

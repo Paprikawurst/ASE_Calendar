@@ -1,4 +1,4 @@
-﻿namespace ASE_Calendar.Classes.Data
+﻿namespace ASE_Calendar.Entities
 {
     public class Customer
     {
