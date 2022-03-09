@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="temp\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
   <ItemGroup>
