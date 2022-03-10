@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ASE_Calendar.Entities;
 
 namespace ASE_Calendar.Authentification
 {
@@ -17,7 +18,7 @@ namespace ASE_Calendar.Authentification
 
        
 
-        public void ReadFromJsonFile()
+        public User ReadFromJsonFile()
         {
             string systemUserName = Environment.UserName;
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
@@ -29,17 +30,19 @@ namespace ASE_Calendar.Authentification
 
                 if (credentialBuilder != null)
                 {
-                    if(credentialBuilder.user != null)
+                    if (credentialBuilder.user.username == this.username &&
+                        credentialBuilder.user.password == this.password)
                     {
-                        if (credentialBuilder.user.username == this.username && credentialBuilder.user.password == this.password)
-                        {
-                            Console.WriteLine("Login erfolgreich");
-                        } 
+                        Console.WriteLine("Login erfolgreich");
+                        return credentialBuilder.user;
                     }
                 }
-                
+
+                return credentialBuilder.user;
             }
-            
+
+            return null;
+
         }
 
         public void test()
