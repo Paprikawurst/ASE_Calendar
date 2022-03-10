@@ -13,35 +13,30 @@ namespace ASE_Calendar
             TimeNow = DateTime.Now;
             Calendar.Calendar Calendar = new Calendar.Calendar(TimeNow);
             Authentification.Authentification Auth = new Authentification.Authentification();
-            var startProgramm = true;
+            var startProgram = true;
 
             Auth.StartAuthentification();
             Console.Clear();
             Calendar.CreateCalendarThisMonth();
 
-            while (startProgramm)
+            while (startProgram)
             {
-
-                //Calendar.ClearScreen();
                 Console.WriteLine("Previous month: 1 | Next month: 2 | Close application: 3");
                 var input = Console.ReadLine();
                 Console.Clear();
 
                 switch (input) 
                 {
-       
                     case "1":
-                        //Calendar.ClearScreen();
                         Console.Clear();
                         Calendar.CreateCalendarPrevMonth();
                         break;
                     case "2":
-                        //Calendar.ClearScreen();
                         Console.Clear();
                         Calendar.CreateCalendarNextMonth();
                         break;
                     case "3":
-                        startProgramm = false;
+                        startProgram = false;
                         break;
                 }
 

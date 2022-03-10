@@ -39,10 +39,5 @@ namespace ASE_Calendar.Calendar
             Console.WriteLine(HelperCalendar.CalendarBuilderDays(monthNow, timeNow.Year));
 
         }
-
-        public void ClearScreen()
-        {
-             Console.WriteLine("\n\n");
-        }
     }
 }
