@@ -37,15 +37,12 @@ namespace ASE_Calendar.Authentification
                         } 
                     }
                 }
-                
             }
-            
         }
 
         public void test()
         {
             ReadFromJsonFile();
-           
         }
     }
 }

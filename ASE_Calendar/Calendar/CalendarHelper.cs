@@ -129,7 +129,6 @@ namespace ASE_Calendar.Calendar
                 case 12:
                     maxMonthDays = thirtyone;
                     break;
-
             }
             return maxMonthDays;
         }
@@ -174,7 +173,6 @@ namespace ASE_Calendar.Calendar
                 calendar = calendar + i.ToString() + ":" + appointmentsAndDayDict[i].ToString() + "\n";
                 
             }
-
             return calendar;
         }
     }

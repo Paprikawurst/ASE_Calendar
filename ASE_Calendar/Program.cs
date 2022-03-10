@@ -39,7 +39,6 @@ namespace ASE_Calendar
                         startProgram = false;
                         break;
                 }
-
             }
         }
     }

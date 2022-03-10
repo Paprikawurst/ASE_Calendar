@@ -14,8 +14,5 @@ namespace ASE_Calendar.Authentification
         {
             this.user = user;
         }
-
-
-        
     }
 }

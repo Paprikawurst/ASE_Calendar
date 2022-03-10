@@ -81,6 +81,5 @@ namespace ASE_Calendar.Authentification
             }
             return inputPasswordRegistration;
         }
-
     }
 }

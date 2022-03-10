@@ -37,7 +37,6 @@ namespace ASE_Calendar.Calendar
             Console.WriteLine(timeNow + "\n");
             Console.WriteLine(HelperCalendar.GetMonthdayString(monthNow) + "\n");
             Console.WriteLine(HelperCalendar.CalendarBuilderDays(monthNow, timeNow.Year));
-
         }
     }
 }
