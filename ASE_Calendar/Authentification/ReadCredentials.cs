@@ -20,7 +20,6 @@ namespace ASE_Calendar.Authentification
 
         public User ReadFromJsonFile()
         {
-            string systemUserName = Environment.UserName;
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
             string[] jsonSplit = json.Split("\n");
 
@@ -43,12 +42,6 @@ namespace ASE_Calendar.Authentification
 
             return null;
 
-        }
-
-        public void test()
-        {
-            ReadFromJsonFile();
-           
         }
     }
 }
