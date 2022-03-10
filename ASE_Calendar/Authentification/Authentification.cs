@@ -38,9 +38,9 @@ namespace ASE_Calendar.Authentification
             inputPasswordRegistration = CheckPassword(inputPasswordRegistration); 
             User User = new User(inputUsernameRegistration, inputPasswordRegistration, "customer");
 
-            if (User.userId == "1")
+            if (User.UserId == "1")
             {
-                User.role = "admin";
+                User.Role = "admin";
             }
 
             CredentialBuilder Credentials = new CredentialBuilder(User);

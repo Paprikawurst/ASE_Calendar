@@ -68,66 +68,32 @@ namespace ASE_Calendar.Calendar
         {
             int maxMonthDays = 0;
 
-            const int thirtyone = 31;
-            const int thirty = 30;
             bool isLeapYear = GetLeapYear(year);
 
             switch (month)
             {
-
                 case 1:
-                    maxMonthDays = thirtyone;
+                case 3:
+                case 5:
+                case 7:
+                case 8: 
+                case 10:
+                case 12:
+                    maxMonthDays = 31;
+                    break;
+
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    maxMonthDays = 30;
                     break;
 
                 case 2:
                     if (isLeapYear)
-                    {
                         maxMonthDays = 29;
-                    }
                     else
-                    {
                         maxMonthDays = 28;
-                    }
-                    break;
-
-                case 3:
-                    maxMonthDays = thirtyone;
-                    break;
-
-                case 4:
-                    maxMonthDays = thirty;
-                    break;
-
-                case 5:
-                    maxMonthDays = thirtyone;
-                    break;
-
-                case 6:
-                    maxMonthDays = thirty;
-                    break;
-
-                case 7:
-                    maxMonthDays = thirtyone;
-                    break;
-
-                case 8:
-                    maxMonthDays = thirtyone;
-                    break;
-
-                case 9:
-                    maxMonthDays = thirty;
-                    break;
-
-                case 10:
-                    maxMonthDays = thirtyone;
-                    break;
-
-                case 11:
-                    maxMonthDays = thirty;
-                    break;
-
-                case 12:
-                    maxMonthDays = thirtyone;
                     break;
             }
             return maxMonthDays;
@@ -135,7 +101,7 @@ namespace ASE_Calendar.Calendar
 
         private bool GetLeapYear(int year)
         {
-            if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
             {
                 return true;
             }
@@ -146,7 +112,7 @@ namespace ASE_Calendar.Calendar
         {
             string calendar = null;
             
-            Tuple<string> lastday = new Tuple<string>("15:00 - 16:00:");
+            Tuple<string> lastDay = new Tuple<string>("15:00 - 16:00:");
 
             Tuple<string, string, string, string, string, string, string, Tuple<string>> appointmentsPerDayTuple =
                 new Tuple<string, string, string, string, string, string, string, Tuple<string>>
@@ -157,7 +123,7 @@ namespace ASE_Calendar.Calendar
                         "11:00 - 12:00:",
                         "13:00 - 14:00:",
                         "14:00 - 15:00:",
-                        lastday);
+                        lastDay);
 
             IDictionary<int, Tuple<string, string, string, string, string, string, string, Tuple<string>>>
                 appointmentsAndDayDict =
@@ -170,8 +136,7 @@ namespace ASE_Calendar.Calendar
 
             for (int i = 1; i <= appointmentsAndDayDict.Count; i++)
             {
-                calendar = calendar + i.ToString() + ":" + appointmentsAndDayDict[i].ToString() + "\n";
-                
+                calendar = calendar + i + ":" + appointmentsAndDayDict[i] + "\n";
             }
             return calendar;
         }
