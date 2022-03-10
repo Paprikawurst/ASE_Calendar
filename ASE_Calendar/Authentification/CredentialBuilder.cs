@@ -4,15 +4,15 @@ namespace ASE_Calendar.Authentification
 {
     class CredentialBuilder
     {
-        public User user { get; set; }
+        public User User { get; set; }
 
         public CredentialBuilder()
         {
         }
 
-        public CredentialBuilder(User user)
+        public CredentialBuilder(User User)
         {
-            this.user = user;
+            this.User = User;
         }
     }
 }

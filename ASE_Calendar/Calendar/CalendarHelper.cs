@@ -67,33 +67,64 @@ namespace ASE_Calendar.Calendar
         public int GetMaxMonthDayInt(int month, int year)
         {
             int maxMonthDays = 0;
+            const int thirtyone = 31;
+            const int thirty = 30;
 
             bool isLeapYear = GetLeapYear(year);
 
             switch (month)
             {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8: 
-                case 10:
-                case 12:
-                    maxMonthDays = 31;
-                    break;
 
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    maxMonthDays = 30;
+                case 1:
+                    maxMonthDays = thirtyone;
                     break;
 
                 case 2:
                     if (isLeapYear)
+                    {
                         maxMonthDays = 29;
+                    }
                     else
+                    {
                         maxMonthDays = 28;
+                    }
+                    break;
+
+                case 3:
+                    maxMonthDays = thirtyone;
+                    break;
+
+                case 4:
+                    maxMonthDays = thirty;
+                    break;
+
+                case 5:
+                    maxMonthDays = thirtyone;
+                    break;
+
+                case 6:
+                    maxMonthDays = thirty;
+                    break;
+
+                case 7:
+                    maxMonthDays = thirtyone;
+                    break;
+
+                case 8:
+                    maxMonthDays = thirtyone;
+                    break;
+
+                case 9:
+                    maxMonthDays = thirty;
+                    break;
+                case 10:
+                    maxMonthDays = thirtyone;
+                    break;
+                case 11:
+                    maxMonthDays = thirty;
+                    break;
+                case 12:
+                    maxMonthDays = thirtyone;
                     break;
             }
             return maxMonthDays;

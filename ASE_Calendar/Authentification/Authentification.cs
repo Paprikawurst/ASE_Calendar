@@ -88,6 +88,7 @@ namespace ASE_Calendar.Authentification
             if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt"))
             {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt");
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
             }
             else
             {
