@@ -35,9 +35,15 @@ namespace ASE_Calendar.Authentification
             string inputUsernameRegistration = Console.ReadLine();
             Console.WriteLine("Bitte geben sie ein Passwort ein (Mindestens 5 Zeichen):");
             string inputPasswordRegistration = Console.ReadLine();
-            inputPasswordRegistration = CheckPassword(inputPasswordRegistration);
+            inputPasswordRegistration = CheckPassword(inputPasswordRegistration); 
+            User User = new User(inputUsernameRegistration, inputPasswordRegistration, "customer");
 
-            CredentialBuilder Credentials = new CredentialBuilder(new Customer(inputUsernameRegistration,inputPasswordRegistration));
+            if (User.userId == "1")
+            {
+                User.role = "admin";
+            }
+
+            CredentialBuilder Credentials = new CredentialBuilder(User);
             SaveCredentials SavedCredentials = new SaveCredentials(Credentials);
             
         }

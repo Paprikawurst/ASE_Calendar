@@ -16,12 +16,11 @@ namespace ASE_Calendar
             var startProgramm = true;
 
             Auth.StartAuthentification();
-            Calendar.ClearScreen();
-          
+            Console.Clear();
+            Calendar.CreateCalendarThisMonth();
 
             while (startProgramm)
             {
-                Calendar.CreateCalendarThisMonth();
 
                 //Calendar.ClearScreen();
                 Console.WriteLine("Previous month: 1 | Next month: 2 | Close application: 3");

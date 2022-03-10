@@ -20,7 +20,7 @@ namespace ASE_Calendar.Authentification
         public void ReadFromJsonFile()
         {
             string systemUserName = Environment.UserName;
-            string json = File.ReadAllText(@"C:\Users\" + systemUserName + @"\Source\Repos\ASE_Calendar\ASE_Calendar\temp\Users.json");
+            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
             string[] jsonSplit = json.Split("\n");
 
             foreach(var subString in jsonSplit)
@@ -29,24 +29,12 @@ namespace ASE_Calendar.Authentification
 
                 if (credentialBuilder != null)
                 {
-                    if(credentialBuilder.Customer != null)
+                    if(credentialBuilder.user != null)
                     {
-                        if (credentialBuilder.Customer.username == this.username && credentialBuilder.Customer.password == this.password)
+                        if (credentialBuilder.user.username == this.username && credentialBuilder.user.password == this.password)
                         {
                             Console.WriteLine("Login erfolgreich");
                         } 
-                    }
-                    if (credentialBuilder.CarDealer != null)
-                    {
-
-                    }
-                    if (credentialBuilder.Admin != null)
-                    {
-
-                    }
-                    if (credentialBuilder.Employee != null)
-                    {
-
                     }
                 }
                 

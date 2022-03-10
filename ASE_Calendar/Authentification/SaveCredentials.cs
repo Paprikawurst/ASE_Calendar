@@ -7,9 +7,9 @@ namespace ASE_Calendar.Authentification
     class SaveCredentials
     {
         private CredentialBuilder Credentials;
-        public SaveCredentials(CredentialBuilder credentials)
+        public SaveCredentials(CredentialBuilder Credentials)
         {
-            Credentials = credentials;
+            this.Credentials = Credentials;
             CredentialsToJson();
         }
 
