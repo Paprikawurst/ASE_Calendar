@@ -16,7 +16,6 @@ namespace ASE_Calendar.Authentification
         private void CredentialsToJson()
         {
             var json = JsonConvert.SerializeObject(Credentials);
-            var systemUserName = Environment.UserName;
          
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", json + "\n");
         }
