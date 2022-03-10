@@ -7,7 +7,7 @@ namespace ASE_Calendar
         static void Main()
         {
             //TODO: only works on Windows - comment out this line if a PlatformNotSupportedException appears
-            Console.SetWindowSize(150, 50);
+            //Console.SetWindowSize(150, 50);
 
             DateTime TimeNow = new DateTime();
             TimeNow = DateTime.Now;
