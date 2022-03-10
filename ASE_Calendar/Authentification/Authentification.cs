@@ -1,12 +1,11 @@
 ﻿using System;
+using System.IO;
 using ASE_Calendar.Entities;
 
 namespace ASE_Calendar.Authentification
 {
     public class Authentification
     {
-        private string inputUsername;
-        private string inputPassword;
         public Authentification()
         {
         }
@@ -19,11 +18,13 @@ namespace ASE_Calendar.Authentification
             if (selection == "n" || selection == "N")
             {
                 StartRegistration();
+                Console.Clear();
             }
 
             if (selection == "y" || selection == "Y")
             {
                 StartLogin();
+                Console.Clear();
             }
         }
 
@@ -38,9 +39,9 @@ namespace ASE_Calendar.Authentification
             inputPasswordRegistration = CheckPassword(inputPasswordRegistration); 
             User User = new User(inputUsernameRegistration, inputPasswordRegistration, "customer");
 
-            if (User.UserId == "1")
+            if (User.userId == "1")
             {
-                User.Role = "admin";
+                User.role = "admin";
             }
 
             CredentialBuilder Credentials = new CredentialBuilder(User);
@@ -80,6 +81,18 @@ namespace ASE_Calendar.Authentification
                 }
             }
             return inputPasswordRegistration;
+        }
+
+        public void ResetUserId()
+        {
+            if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt"))
+            {
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt");
+            }
+            else
+            {
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
+            }
         }
     }
 }

@@ -1,21 +1,34 @@
-﻿namespace ASE_Calendar.Entities
+﻿using System;
+using System.IO;
+
+namespace ASE_Calendar.Entities
 {
     public class User
     {
-        private static int _instancesCreated = 0;
-        public string UserId { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        public string userId { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
 
 
         public User(string username, string password, string role)
         {
-            Username = username;
-            password = password;
-            role = role;
-            _instancesCreated++;
-            UserId = _instancesCreated.ToString();
+            this.username = username;
+            this.password = password;
+            this.role = role;
+            userId = AddUserId();
+        }
+
+        private string AddUserId()
+        {
+            string userId = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt");
+
+            int newUserId = Int16.Parse(userId) + 1;
+      
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", newUserId.ToString());
+
+            return userId;
+
         }
     }
 }

@@ -13,12 +13,12 @@ namespace ASE_Calendar
             TimeNow = DateTime.Now;
             Calendar.Calendar Calendar = new Calendar.Calendar(TimeNow);
             Authentification.Authentification Auth = new Authentification.Authentification();
-            var startProgram = true;
-
+            Auth.ResetUserId();
             Auth.StartAuthentification();
             Console.Clear();
             Calendar.CreateCalendarThisMonth();
 
+            var startProgram = true;
             while (startProgram)
             {
                 Console.WriteLine("Previous month: 1 | Next month: 2 | Close application: 3");
