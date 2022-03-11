@@ -59,7 +59,7 @@ namespace ASE_Calendar.Authentification
             string inputPasswordLogin = Console.ReadLine();
 
             ReadCredentials ReadCredentials = new ReadCredentials(inputUsernameLogin,inputPasswordLogin);
-            ReadCredentials.test();
+            User LogedInUser = ReadCredentials.ReadFromJsonFile();
         }
 
         private string CheckPassword(string password)

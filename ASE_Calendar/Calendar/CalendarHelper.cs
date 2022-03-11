@@ -78,7 +78,6 @@ namespace ASE_Calendar.Calendar
                 case 1:
                     maxMonthDays = thirtyone;
                     break;
-
                 case 2:
                     if (isLeapYear)
                     {
@@ -89,31 +88,24 @@ namespace ASE_Calendar.Calendar
                         maxMonthDays = 28;
                     }
                     break;
-
                 case 3:
                     maxMonthDays = thirtyone;
                     break;
-
                 case 4:
                     maxMonthDays = thirty;
                     break;
-
                 case 5:
                     maxMonthDays = thirtyone;
                     break;
-
                 case 6:
                     maxMonthDays = thirty;
                     break;
-
                 case 7:
                     maxMonthDays = thirtyone;
                     break;
-
                 case 8:
                     maxMonthDays = thirtyone;
                     break;
-
                 case 9:
                     maxMonthDays = thirty;
                     break;

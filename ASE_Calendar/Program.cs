@@ -21,7 +21,7 @@ namespace ASE_Calendar
             var startProgram = true;
             while (startProgram)
             {
-                Console.WriteLine("Previous month: 1 | Next month: 2 | Close application: 3");
+                Console.WriteLine("Previous month: 1 | Next month: 2 | Make an Appointment: 3 | Logout: 4 | Close application: 5");
                 var input = Console.ReadLine();
                 Console.Clear();
 
@@ -36,6 +36,12 @@ namespace ASE_Calendar
                         Calendar.CreateCalendarNextMonth();
                         break;
                     case "3":
+                        
+                        break;
+                    case "4":
+                        
+                        break;
+                    case "5":
                         startProgram = false;
                         break;
                 }
