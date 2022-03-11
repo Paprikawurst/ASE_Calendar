@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ASE_Calendar.Application\ASE_Calendar.Application.csproj" />
+    <ProjectReference Include="..\ASE_Calendar.Domain\ASE_Calendar.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
