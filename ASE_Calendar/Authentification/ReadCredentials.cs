@@ -29,8 +29,7 @@ namespace ASE_Calendar.Authentification
 
                 if (credentialBuilder != null)
                 {
-                    if (credentialBuilder.User.username == this.username &&
-                        credentialBuilder.User.password == this.password)
+                    if (credentialBuilder.User.username == username && credentialBuilder.User.password == password)
                     {
                         Console.WriteLine("Login erfolgreich");
                         return credentialBuilder.User;
