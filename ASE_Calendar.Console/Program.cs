@@ -28,16 +28,18 @@ namespace ASE_Calendar.Console
                     case "1":
                         System.Console.Clear();
                         Calendar.CreateCalendarPrevMonth();
+                        //PreviousMonth.Show();
                         break;
                     case "2":
                         System.Console.Clear();
                         Calendar.CreateCalendarNextMonth();
+                        //NextMonth.Show();
                         break;
                     case "3":
-                        
+                        //AddAppointment.Create();
                         break;
                     case "4":
-                        
+                        //Logout();
                         break;
                     case "5":
                         startProgram = false;
