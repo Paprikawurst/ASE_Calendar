@@ -17,8 +17,9 @@ namespace ASE_Calendar.Application.Repositories
         private void CredentialsToJson()
         {
             var json = JsonConvert.SerializeObject(Credentials);
-         
+           
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", json + "\n");
+            
         }
     }
 }

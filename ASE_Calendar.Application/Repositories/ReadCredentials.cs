@@ -18,8 +18,6 @@ namespace ASE_Calendar.Application.Repositories
             
         }
 
-       
-
         public UserEntity ReadFromJsonFile()
         {
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
@@ -31,11 +29,11 @@ namespace ASE_Calendar.Application.Repositories
 
                 if (credentialBuilder != null)
                 {
-                    if (credentialBuilder.UserEntity.username == username && credentialBuilder.UserEntity.password == password)
+                    /*if (credentialBuilder.UserEntity._UserDataReg.username == username && credentialBuilder.UserEntity._UserDataReg.password == password)
                     {
                         Console.WriteLine("Login erfolgreich");
                         return credentialBuilder.UserEntity;
-                    }
+                    }*/
                 }
 
                 return credentialBuilder.UserEntity;

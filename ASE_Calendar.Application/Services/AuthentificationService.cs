@@ -38,14 +38,13 @@ namespace ASE_Calendar.Application.Services
             Console.WriteLine("Bitte geben sie ein Passwort ein (Mindestens 5 Zeichen):");
             string inputPasswordRegistration = Console.ReadLine();
             inputPasswordRegistration = CheckPassword(inputPasswordRegistration);
-            UserEntity User = new UserEntity(inputUsernameRegistration, inputPasswordRegistration, "customer");
-
-            if (User.userId == "1")
-            {
-                User.role = "admin";
-            }
-
+            Console.WriteLine("Bitte geben sie Ihre Rolle ein:");
+            Console.WriteLine("0: Admin, 1: CarDealer, 2: Employee, 3: Customer");
+            var userRole = Console.ReadLine();
+            UserEntity User = new UserEntity(inputUsernameRegistration, inputPasswordRegistration, Int16.Parse(userRole));
+           
             CredentialBuilderService Credentials = new CredentialBuilderService(User);
+            
             SaveCredentials SavedCredentials = new SaveCredentials(Credentials);
             
         }
@@ -88,12 +87,12 @@ namespace ASE_Calendar.Application.Services
         {
             if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt"))
             {
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt");
-                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
+                //File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt");
+                //File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
             }
             else
             {
-                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
+                //File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
             }
         }
     }
