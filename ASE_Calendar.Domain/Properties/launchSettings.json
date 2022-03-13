@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "ASE_Calendar.Domain": {
+      "commandName": "Executable"
+    }
+  }
+}
