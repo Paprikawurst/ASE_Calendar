@@ -14,6 +14,7 @@ namespace ASE_Calendar.ConsoleUI
             var currentTime = new DateTime();
             currentTime = DateTime.Now;
             var calendar = new Calendar(currentTime);
+            
             UserEntity currentUser = null;
             var auth = new Authentification();
 
@@ -37,10 +38,12 @@ namespace ASE_Calendar.ConsoleUI
                     break;
             }
 
+            Console.Clear();
+            calendar.CreateCalendarCurrentMonth();
+
             while (currentUser != null)
             {
-                Console.Clear();
-                calendar.CreateCalendarCurrentMonth();
+                
                 Console.WriteLine("Previous month: left arrow | Next month: right arrow | Book an appointment: F1 | Show my appointments: F2 | exit applicatiopn: F3");
                 var input = Console.ReadKey();
                 
@@ -50,20 +53,20 @@ namespace ASE_Calendar.ConsoleUI
                 {
                     case ConsoleKey.LeftArrow:
                         Console.Clear();
-                        calendar.CreateCalendarPrevMonth();
+                        currentTime = calendar.CreateCalendarPrevMonth(currentTime);
                         
                         break;
                     case ConsoleKey.RightArrow:
                         Console.Clear();
-                        calendar.CreateCalendarNextMonth();
+                        currentTime = calendar.CreateCalendarNextMonth(currentTime);
                         
                         break;
                     case ConsoleKey.F1:
-                        appointmentManager = new AppointmentManager(currentUser);
+                        appointmentManager = new AppointmentManager(currentUser, currentTime);
                         appointmentManager.CreateAppointment();
                         break;
                     case ConsoleKey.F2:
-                        appointmentManager = new AppointmentManager(currentUser);
+                        appointmentManager = new AppointmentManager(currentUser, currentTime);
                         appointmentManager.LoadAppointments();
                         break;
                     case ConsoleKey.F3:

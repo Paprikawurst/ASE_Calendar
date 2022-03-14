@@ -132,14 +132,14 @@ namespace ASE_Calendar.Application.Services
             return false;
         }
 
-        public string CalendarBuilderDays(int month, int year)
+        public string CalendarBuilderDays(DateTime selectedDate)
         {
             string calendar = null;
             
 
             IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
 
-            for (int i = 1; i <= GetMaxMonthDayInt(month, year); i++)
+            for (int i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Month); i++)
             {
                 appointmentsAndDayDict.Add(i,"");
             }

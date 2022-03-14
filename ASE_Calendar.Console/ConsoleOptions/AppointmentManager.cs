@@ -13,9 +13,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         public DateTime Date { get; set; }
         public DateTime currentTime = DateTime.Now;
         public UserEntity currentUser;
-        public AppointmentManager(UserEntity currentUser)
+        public DateTime dateSelected;
+        public AppointmentManager(UserEntity currentUser, DateTime currentMonth)
         {
             this.currentUser = currentUser;
+            this.dateSelected = currentMonth;
         }
 
         public bool CreateAppointment()
@@ -29,7 +31,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             Console.WriteLine("Please select a timeslot: 8-9 = 1, 9-10 = 2, 10-11 = 3, 11-12 = 4\n13-14 = 5, 14-15 = 6, 15-16 = 7, 16-17 = 8");
             var timeSlot = Console.ReadLine();
 
-            Date = new DateTime(currentTime.Year, currentTime.Month, Int32.Parse(day));
+            Date = new DateTime(dateSelected.Year, dateSelected.Month, Int32.Parse(day));
             
             AppointmentEntity Appointment = new AppointmentEntity(Date, Int32.Parse(timeSlot), currentUser.userId);
             AppointmentService appointmentService = new AppointmentService();

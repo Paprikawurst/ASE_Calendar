@@ -31,7 +31,7 @@ namespace ASE_Calendar.Application.Repositories
                 
                 if (Appointment != null)
                 {
-                    if (Appointment.UserId.userID == User.userId.userID)
+                    if (Appointment.UserId.value == User.userId.value)
                     {
                         appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " + Appointment.AppointmentData.timeSlot + "\n";
                     }
