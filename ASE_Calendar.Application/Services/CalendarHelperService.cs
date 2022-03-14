@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ASE_Calendar.Application.Services
 {
-    public class CalendarHelper
+    public class CalendarHelperService
     {
         public string GetMonthdayString(int month)
         {

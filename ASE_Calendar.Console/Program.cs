@@ -37,7 +37,7 @@ namespace ASE_Calendar.Console
             while (currentUser != null)
             {
                 System.Console.Clear();
-                calendar.CreateCalendarThisMonth();
+                calendar.CreateCalendarCurrentMonth();
                 System.Console.WriteLine("Previous month: left arrow | Next month: right arrow | Book an appointment: F1 | Close application: F2");
                 var input = System.Console.ReadKey();
                 System.Console.Clear();
