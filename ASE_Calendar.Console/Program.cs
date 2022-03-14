@@ -1,5 +1,6 @@
 ﻿using System;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.Console
 {
@@ -7,36 +8,37 @@ namespace ASE_Calendar.Console
     {
         static void Main()
         {
-            DateTime TimeNow = new DateTime();
-            TimeNow = DateTime.Now;
-            Calendar Calendar = new Calendar(TimeNow);
-            Domain.Entities.UserEntity currentUser;
-
-
-            ConsoleOptions.Authentification Auth = new ConsoleOptions.Authentification();
+            var currentTime = new DateTime();
+            currentTime = DateTime.Now;
+            var calendar = new Calendar(currentTime);
+            UserEntity currentUser = null;
+            var auth = new ConsoleOptions.Authentification();
 
             System.Console.WriteLine("Haben Sie bereits ein Benutzerkonto? Y/N");
-            string selection = System.Console.ReadLine();
 
-            if (selection == "n" || selection == "N")
+            switch (System.Console.ReadLine())
             {
-                Auth.StartRegistration();
-                System.Console.Clear();
-                currentUser = Auth.StartLogin();
+                case "n":
+                case "N":
+                    auth.StartRegistration();
+                    System.Console.Clear();
+                    currentUser = auth.StartLogin();
+                    break;
+                case "y":
+                case "Y":
+                    currentUser = auth.StartLogin();
+                    System.Console.Clear();
+                    break;
+                default:
+                    System.Console.WriteLine("Wrong input!");
+                    break;
             }
 
-            if (selection == "y" || selection == "Y")
+            while (currentUser != null)
             {
-                currentUser = Auth.StartLogin();
                 System.Console.Clear();
-            }
-            System.Console.Clear();
-            Calendar.CreateCalendarThisMonth();
-
-            var startProgram = true;
-            while (startProgram)
-            {
-                System.Console.WriteLine("Previous month: Left Arrow | Next month: Right Arrow | Make an Appointment: F1 | Logout: F2 | Close application: F4");
+                calendar.CreateCalendarThisMonth();
+                System.Console.WriteLine("Previous month: Left Arrow | Next month: Right Arrow | Make an Appointment: F1 | Close application: F2");
                 var input = System.Console.ReadKey();
                 System.Console.Clear();
                
@@ -45,22 +47,20 @@ namespace ASE_Calendar.Console
                 {
                     case ConsoleKey.LeftArrow:
                         System.Console.Clear();
-                        Calendar.CreateCalendarPrevMonth();
+                        calendar.CreateCalendarPrevMonth();
                         //PreviousMonth.Show();
                         break;
                     case ConsoleKey.RightArrow:
                         System.Console.Clear();
-                        Calendar.CreateCalendarNextMonth();
+                        calendar.CreateCalendarNextMonth();
                         //NextMonth.Show();
                         break;
                     case ConsoleKey.F1:
                         //AddAppointment.Create();
                         break;
                     case ConsoleKey.F2:
-                        //Logout();
-                        break;
-                    case ConsoleKey.F4:
-                        startProgram = false;
+                        System.Console.Clear();
+                        currentUser = null;
                         break;
                 }
             }
