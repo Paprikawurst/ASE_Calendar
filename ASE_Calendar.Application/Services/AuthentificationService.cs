@@ -7,93 +7,30 @@ namespace ASE_Calendar.Application.Services
 {
     public class AuthentificationService
     {
+        
         public AuthentificationService()
         {
         }
 
-        public void StartAuthentification()
+        public void StartRegistration(string username, string password, string roleId)
         {
-            Console.WriteLine("Haben Sie bereits ein Benutzerkonto? Y/N");
-            string selection = Console.ReadLine();
-
-            if (selection == "n" || selection == "N")
-            {
-                StartRegistration();
-                Console.Clear();
-            }
-
-            if (selection == "y" || selection == "Y")
-            {
-                StartLogin();
-                Console.Clear();
-            }
-        }
-
-        public void StartRegistration()
-        {
-            Console.WriteLine("Registrieren");
-            Console.WriteLine("__________________________");
-            Console.WriteLine("Bitte geben sie Ihren Usernamen ein:");
-            string inputUsernameRegistration = Console.ReadLine();
-            Console.WriteLine("Bitte geben sie ein Passwort ein (Mindestens 5 Zeichen):");
-            string inputPasswordRegistration = Console.ReadLine();
-            inputPasswordRegistration = CheckPassword(inputPasswordRegistration);
-            Console.WriteLine("Bitte geben sie Ihre Rolle ein:");
-            Console.WriteLine("0: Admin, 1: CarDealer, 2: Employee, 3: Customer");
-            var userRole = Console.ReadLine();
-            UserEntity User = new UserEntity(inputUsernameRegistration, inputPasswordRegistration, Int16.Parse(userRole));
-           
-            CredentialBuilderService Credentials = new CredentialBuilderService(User);
             
+            UserEntity User = new UserEntity(username, password, Int16.Parse(roleId));
+            CredentialBuilderService Credentials = new CredentialBuilderService(User);
             SaveCredentials SavedCredentials = new SaveCredentials(Credentials);
             
         }
 
-        public void StartLogin()
+        public UserEntity StartLogin(string username, string password)
         {
-            Console.WriteLine("Login");
-            Console.WriteLine("__________________________");
-            Console.WriteLine("Bitte geben sie Ihren Usernamen ein:");
-            string inputUsernameLogin = Console.ReadLine();
-            Console.WriteLine("Bitte geben sie ihr Passwort ein (Mindestens 5 Zeichen):");
-            string inputPasswordLogin = Console.ReadLine();
+            ReadCredentials ReadCredentials = new ReadCredentials(username,password);
+            UserEntity LoggedInUser = ReadCredentials.ReadFromJsonFile();
 
-            ReadCredentials ReadCredentials = new ReadCredentials(inputUsernameLogin,inputPasswordLogin);
-            UserEntity LogedInUser = ReadCredentials.ReadFromJsonFile();
-        }
-
-        private string CheckPassword(string password)
-        {
-            bool passwordIncorrectLoop = true;
-            string inputPasswordRegistration = password;
-
-            if( password.Length < 5) 
-            { 
-                while (passwordIncorrectLoop)
-                {
-                    Console.WriteLine("Das Passwort muss mindestens 5 Zeichen lang sein!");
-                    inputPasswordRegistration = Console.ReadLine();
-
-                    if(inputPasswordRegistration.Length >= 5)
-                    {
-                        passwordIncorrectLoop = false;
-                    }
-                }
-            }
-            return inputPasswordRegistration;
-        }
-
-        public void ResetUserId()
-        {
-            if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt"))
+            if (LoggedInUser.UserDataRegistered.username == username && LoggedInUser.UserDataRegistered.password == password)
             {
-                //File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt");
-                //File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
+                return LoggedInUser;
             }
-            else
-            {
-                //File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUserIds.txt", "1");
-            }
+            return null;
         }
     }
 }

@@ -29,14 +29,11 @@ namespace ASE_Calendar.Application.Repositories
 
                 if (credentialBuilder != null)
                 {
-                    /*if (credentialBuilder.UserEntity._UserDataReg.username == username && credentialBuilder.UserEntity._UserDataReg.password == password)
+                    if (credentialBuilder.UserEntity.UserDataRegistered.username == username && credentialBuilder.UserEntity.UserDataRegistered.password == password)
                     {
-                        Console.WriteLine("Login erfolgreich");
                         return credentialBuilder.UserEntity;
-                    }*/
+                    }
                 }
-
-                return credentialBuilder.UserEntity;
             }
 
             return null;

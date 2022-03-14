@@ -10,9 +10,26 @@ namespace ASE_Calendar.Console
             DateTime TimeNow = new DateTime();
             TimeNow = DateTime.Now;
             Calendar Calendar = new Calendar(TimeNow);
-            AuthentificationService Auth = new AuthentificationService();
-            Auth.ResetUserId();
-            Auth.StartAuthentification();
+            Domain.Entities.UserEntity currentUser;
+
+
+            ConsoleOptions.Authentification Auth = new ConsoleOptions.Authentification();
+
+            System.Console.WriteLine("Haben Sie bereits ein Benutzerkonto? Y/N");
+            string selection = System.Console.ReadLine();
+
+            if (selection == "n" || selection == "N")
+            {
+                Auth.StartRegistration();
+                System.Console.Clear();
+                currentUser = Auth.StartLogin();
+            }
+
+            if (selection == "y" || selection == "Y")
+            {
+                currentUser = Auth.StartLogin();
+                System.Console.Clear();
+            }
             System.Console.Clear();
             Calendar.CreateCalendarThisMonth();
 
