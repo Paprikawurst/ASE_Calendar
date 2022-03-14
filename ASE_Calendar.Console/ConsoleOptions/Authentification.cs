@@ -12,14 +12,14 @@ namespace ASE_Calendar.Console.ConsoleOptions
 
         public void StartRegistration()
         {
-            System.Console.WriteLine("Registrieren");
+            System.Console.WriteLine("Register");
             System.Console.WriteLine("__________________________");
-            System.Console.WriteLine("Bitte geben sie Ihren Usernamen ein:");
-            string inputUsername = System.Console.ReadLine();
-            System.Console.WriteLine("Bitte geben sie ein Passwort ein (Mindestens 5 Zeichen):");
-            string inputPassword = System.Console.ReadLine();
-            System.Console.WriteLine("Bitte geben sie Ihre Rolle ein:");
-            System.Console.WriteLine("0: Admin, 1: CarDealer, 2: Employee, 3: Customer");
+            System.Console.WriteLine("Enter username:");
+            var inputUsername = System.Console.ReadLine();
+            System.Console.WriteLine("Enter password:");
+            var inputPassword = System.Console.ReadLine();
+            System.Console.WriteLine("Choose role:");
+            System.Console.WriteLine("0: Admin | 1: CarDealer | 2: Employee | 3: Customer");
             var inputUserRole = System.Console.ReadLine();
 
             AuthService.StartRegistration(inputUsername, inputPassword, inputUserRole);
@@ -29,10 +29,10 @@ namespace ASE_Calendar.Console.ConsoleOptions
         {
             System.Console.WriteLine("Login");
             System.Console.WriteLine("__________________________");
-            System.Console.WriteLine("Bitte geben sie Ihren Usernamen ein:");
-            string inputUsername = System.Console.ReadLine();
-            System.Console.WriteLine("Bitte geben sie ihr Passwort ein (Mindestens 5 Zeichen):");
-            string inputPassword = System.Console.ReadLine();
+            System.Console.WriteLine("Enter username:");
+            var inputUsername = System.Console.ReadLine();
+            System.Console.WriteLine("Enter password:");
+            var inputPassword = System.Console.ReadLine();
 
             return AuthService.StartLogin(inputUsername, inputPassword);
         }

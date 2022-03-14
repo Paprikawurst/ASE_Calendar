@@ -14,7 +14,7 @@ namespace ASE_Calendar.Console
             UserEntity currentUser = null;
             var auth = new ConsoleOptions.Authentification();
 
-            System.Console.WriteLine("Haben Sie bereits ein Benutzerkonto? Y/N");
+            System.Console.WriteLine("Do you already have an account? Y/N");
 
             switch (System.Console.ReadLine())
             {
@@ -38,7 +38,7 @@ namespace ASE_Calendar.Console
             {
                 System.Console.Clear();
                 calendar.CreateCalendarThisMonth();
-                System.Console.WriteLine("Previous month: Left Arrow | Next month: Right Arrow | Make an Appointment: F1 | Close application: F2");
+                System.Console.WriteLine("Previous month: left arrow | Next month: right arrow | Book an appointment: F1 | Close application: F2");
                 var input = System.Console.ReadKey();
                 System.Console.Clear();
                
