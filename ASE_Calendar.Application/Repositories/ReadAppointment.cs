@@ -11,33 +11,34 @@ namespace ASE_Calendar.Application.Repositories
 {
     class ReadAppointment
     {
-        public UserEntity user { get; set; }
+        public UserEntity User { get; set; }
 
         public ReadAppointment(UserEntity User)
         {
-            this.user = user;
+            this.User = User;
 
         }
 
-        public AppointmentEntity ReadFromJsonFile()
+        public string ReadFromJsonFile()
         {
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
             string[] jsonSplit = json.Split("\n");
+            string appointmentsString = null;
 
             foreach (var subString in jsonSplit)
             {
                 var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
-
+                
                 if (Appointment != null)
                 {
-                    if (Appointment.UserId == user.userId)
+                    if (Appointment.UserId.userID == User.userId.userID)
                     {
-                        return Appointment;
+                        appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " + Appointment.AppointmentData.timeSlot + "\n";
                     }
                 }
             }
 
-            return null;
+            return appointmentsString;
 
         }
     }

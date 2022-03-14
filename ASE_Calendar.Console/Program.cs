@@ -7,6 +7,8 @@ namespace ASE_Calendar.ConsoleUI
 {
     class Program
     {
+        private static AppointmentManager appointmentManager;
+
         static void Main()
         {
             var currentTime = new DateTime();
@@ -39,9 +41,9 @@ namespace ASE_Calendar.ConsoleUI
             {
                 Console.Clear();
                 calendar.CreateCalendarCurrentMonth();
-                Console.WriteLine("Previous month: left arrow | Next month: right arrow | Book an appointment: F1 | Close application: F2");
+                Console.WriteLine("Previous month: left arrow | Next month: right arrow | Book an appointment: F1 | Show my appointments: F2 | exit applicatiopn: F3");
                 var input = Console.ReadKey();
-                Console.Clear();
+                
                
                 
                 switch (input.Key) 
@@ -49,18 +51,22 @@ namespace ASE_Calendar.ConsoleUI
                     case ConsoleKey.LeftArrow:
                         Console.Clear();
                         calendar.CreateCalendarPrevMonth();
-                        //PreviousMonth.Show();
+                        
                         break;
                     case ConsoleKey.RightArrow:
                         Console.Clear();
                         calendar.CreateCalendarNextMonth();
-                        //NextMonth.Show();
+                        
                         break;
                     case ConsoleKey.F1:
-                        AddAppointment addAppointment = new AddAppointment();
-                        addAppointment.Create();
+                        appointmentManager = new AppointmentManager(currentUser);
+                        appointmentManager.CreateAppointment();
                         break;
                     case ConsoleKey.F2:
+                        appointmentManager = new AppointmentManager(currentUser);
+                        appointmentManager.LoadAppointments();
+                        break;
+                    case ConsoleKey.F3:
                         Console.Clear();
                         currentUser = null;
                         break;

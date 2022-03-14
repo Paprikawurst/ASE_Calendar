@@ -8,11 +8,14 @@ namespace ASE_Calendar.Domain.ValueObjects
 {
     public class AppointmentData
     {
-        public DateTime DateAndTime { get; init; }
-       
-        public AppointmentData(DateTime DateAndTime)
+        public DateTime Date { get; init; }
+        public int timeSlot { get; init; }
+
+
+        public AppointmentData(DateTime Date, int timeSlot)
         {
-            this.DateAndTime = DateAndTime;
+            this.Date = Date;
+            this.timeSlot = timeSlot;
         }
 
         public override bool Equals(object obj)

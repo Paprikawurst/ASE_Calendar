@@ -136,26 +136,12 @@ namespace ASE_Calendar.Application.Services
         {
             string calendar = null;
             
-            Tuple<string> lastDay = new Tuple<string>("15:00 - 16:00:");
 
-            Tuple<string, string, string, string, string, string, string, Tuple<string>> appointmentsPerDayTuple =
-                new Tuple<string, string, string, string, string, string, string, Tuple<string>>
-                    ("07:00 - 08:00:",
-                        "08:00 - 09:00:",
-                        "09:00 - 10:00:",
-                        "10:00 - 11:00:",
-                        "11:00 - 12:00:",
-                        "13:00 - 14:00:",
-                        "14:00 - 15:00:",
-                        lastDay);
-
-            IDictionary<int, Tuple<string, string, string, string, string, string, string, Tuple<string>>>
-                appointmentsAndDayDict =
-                    new Dictionary<int, Tuple<string, string, string, string, string, string, string, Tuple<string>>>();
+            IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
 
             for (int i = 1; i <= GetMaxMonthDayInt(month, year); i++)
             {
-                appointmentsAndDayDict.Add(i,appointmentsPerDayTuple);
+                appointmentsAndDayDict.Add(i,"");
             }
 
             for (int i = 1; i <= appointmentsAndDayDict.Count; i++)
