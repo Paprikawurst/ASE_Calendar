@@ -4,8 +4,8 @@ namespace ASE_Calendar.Domain.Entities
 {
     public class AppointmentEntity
     {
-        private ValueObjects.AppointmentData AppointmentData;
-        private ValueObjects.UserID UserId;
+        public ValueObjects.AppointmentData AppointmentData { get; init; }
+        public ValueObjects.UserID UserId { get; init; }
 
         public AppointmentEntity(DateTime Date, ValueObjects.UserID UserId)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ASE_Calendar.Domain.ValueObjects
 {
-    class AppointmentData
+    public class AppointmentData
     {
         public DateTime DateAndTime { get; init; }
        
