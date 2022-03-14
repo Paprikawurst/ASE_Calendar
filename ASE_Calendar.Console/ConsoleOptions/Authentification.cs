@@ -1,10 +1,11 @@
 ﻿using System;
+using ASE_Calendar.Application.Services;
 
-namespace ASE_Calendar.Console.ConsoleOptions
+namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class Authentification
     {
-        public Application.Services.AuthentificationService AuthService = new Application.Services.AuthentificationService();
+        public AuthentificationService AuthService = new AuthentificationService();
         public Authentification()
         {
            
@@ -12,27 +13,27 @@ namespace ASE_Calendar.Console.ConsoleOptions
 
         public void StartRegistration()
         {
-            System.Console.WriteLine("Register");
-            System.Console.WriteLine("__________________________");
-            System.Console.WriteLine("Enter username:");
-            var inputUsername = System.Console.ReadLine();
-            System.Console.WriteLine("Enter password:");
-            var inputPassword = System.Console.ReadLine();
-            System.Console.WriteLine("Choose role:");
-            System.Console.WriteLine("0: Admin | 1: CarDealer | 2: Employee | 3: Customer");
-            var inputUserRole = System.Console.ReadLine();
+            Console.WriteLine("Register");
+            Console.WriteLine("__________________________");
+            Console.WriteLine("Enter username:");
+            var inputUsername = Console.ReadLine();
+            Console.WriteLine("Enter password:");
+            var inputPassword = Console.ReadLine();
+            Console.WriteLine("Choose role:");
+            Console.WriteLine("0: Admin | 1: CarDealer | 2: Employee | 3: Customer");
+            var inputUserRole = Console.ReadLine();
 
             AuthService.StartRegistration(inputUsername, inputPassword, inputUserRole);
         }
 
         public Domain.Entities.UserEntity StartLogin()
         {
-            System.Console.WriteLine("Login");
-            System.Console.WriteLine("__________________________");
-            System.Console.WriteLine("Enter username:");
-            var inputUsername = System.Console.ReadLine();
-            System.Console.WriteLine("Enter password:");
-            var inputPassword = System.Console.ReadLine();
+            Console.WriteLine("Login");
+            Console.WriteLine("__________________________");
+            Console.WriteLine("Enter username:");
+            var inputUsername = Console.ReadLine();
+            Console.WriteLine("Enter password:");
+            var inputPassword = Console.ReadLine();
 
             return AuthService.StartLogin(inputUsername, inputPassword);
         }

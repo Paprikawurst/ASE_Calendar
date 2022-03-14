@@ -1,15 +1,16 @@
 ﻿using System;
+using ASE_Calendar.Domain.ValueObjects;
 
 namespace ASE_Calendar.Domain.Entities
 {
     public class AppointmentEntity
     {
-        public ValueObjects.AppointmentData AppointmentData { get; init; }
-        public ValueObjects.UserID UserId { get; init; }
+        public AppointmentData AppointmentData { get; init; }
+        public UserID UserId { get; init; }
 
-        public AppointmentEntity(DateTime Date, ValueObjects.UserID UserId)
+        public AppointmentEntity(DateTime Date, UserID UserId)
         {
-            AppointmentData = new ValueObjects.AppointmentData(Date);
+            AppointmentData = new AppointmentData(Date);
             this.UserId = UserId;
         }
 

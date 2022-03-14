@@ -1,6 +1,6 @@
 ﻿using System;
-
-namespace ASE_Calendar.Application.Services
+using ASE_Calendar.Application.Services;
+namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class Calendar
     {
@@ -16,26 +16,26 @@ namespace ASE_Calendar.Application.Services
 
         public void CreateCalendarCurrentMonth()
         {
-            System.Console.WriteLine(_currentTime + "\n");
-            System.Console.WriteLine(CalendarHelperService.GetMonthdayString(_currentTime.Month) + "\n");
-            System.Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_currentTime.Month, _currentTime.Year));
+            Console.WriteLine(_currentTime + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthdayString(_currentTime.Month) + "\n");
+            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_currentTime.Month, _currentTime.Year));
         }
 
         public void CreateCalendarNextMonth()
         {
             _currentMonth += 1;
-            System.Console.WriteLine(_currentTime + "\n");
-            System.Console.WriteLine(CalendarHelperService.GetMonthdayString(_currentMonth) + "\n");
-            System.Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_currentMonth, _currentTime.Year));
+            Console.WriteLine(_currentTime + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthdayString(_currentMonth) + "\n");
+            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_currentMonth, _currentTime.Year));
 
         }
 
         public void CreateCalendarPrevMonth()
         {
             _currentMonth -= 1;
-            System.Console.WriteLine(_currentTime + "\n");
-            System.Console.WriteLine(CalendarHelperService.GetMonthdayString(_currentMonth) + "\n");
-            System.Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_currentMonth, _currentTime.Year));
+            Console.WriteLine(_currentTime + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthdayString(_currentMonth) + "\n");
+            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_currentMonth, _currentTime.Year));
         }
     }
 }
