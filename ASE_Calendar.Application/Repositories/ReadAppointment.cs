@@ -57,7 +57,7 @@ namespace ASE_Calendar.Application.Repositories
                 {
                     var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
 
-                    if (Appointment != null && Appointment.AppointmentData.Date.Month == selectedDate.Month)
+                    if (Appointment != null && Appointment.AppointmentData.Date.Month == selectedDate.Month && Appointment.AppointmentData.Date.Year == selectedDate.Year)
                     {
                         if (Appointment.UserId.value == User.userId.value)
                         {
