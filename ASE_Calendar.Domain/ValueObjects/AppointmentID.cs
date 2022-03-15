@@ -6,25 +6,24 @@ using System.Threading.Tasks;
 
 namespace ASE_Calendar.Domain.ValueObjects
 {
-    public class AppointmentData
+    public class AppointmentID
     {
-        public DateTime Date { get; init; }
-        public int timeSlot { get; init; }
+        public Guid value { get; init; }
 
-        public AppointmentData(DateTime Date, int timeSlot)
+        public AppointmentID(Guid value)
         {
-            this.Date = Date;
-            this.timeSlot = timeSlot;
+            this.value = value;
         }
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            return obj is AppointmentID iD &&
+                   value.Equals(iD.value);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return HashCode.Combine(value);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             Date = new DateTime(dateSelected.Year, dateSelected.Month, Int32.Parse(day));
             
-            AppointmentEntity Appointment = new AppointmentEntity(Date, Int32.Parse(timeSlot), currentUser.userId);
+            AppointmentEntity Appointment = new AppointmentEntity(Date, Int32.Parse(timeSlot), currentUser.userId, Guid.NewGuid());
             AppointmentService appointmentService = new AppointmentService();
             appointmentService.createAppointment(Appointment);
 

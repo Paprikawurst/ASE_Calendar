@@ -41,26 +41,34 @@ namespace ASE_Calendar.Application.Repositories
             return appointmentsString;
 
         }
-        public AppointmentEntity ReadFromJsonFileReturnAppointment()
+        public Dictionary<int, AppointmentEntity> ReadFromJsonFileReturnAppointmentDict(DateTime selectedDate)
         {
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            string[] jsonSplit = json.Split("\n");
-            
+  
+            int i = 0;
+            Dictionary<int, AppointmentEntity> appointmentDict = new Dictionary<int, AppointmentEntity>();
+            appointmentDict.Clear();
 
-            foreach (var subString in jsonSplit)
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
-                var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
+                string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+                string[] jsonSplit = json.Split("\n");
 
-                if (Appointment != null)
+                foreach (var subString in jsonSplit)
                 {
-                    if (Appointment.UserId.value == User.userId.value)
+                    var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
+
+                    if (Appointment != null && Appointment.AppointmentData.Date.Month == selectedDate.Month)
                     {
-                        return Appointment;
+                        if (Appointment.UserId.value == User.userId.value)
+                        {
+                            appointmentDict.Add(Appointment.AppointmentData.Date.Day, Appointment);
+                            i++;
+                        }
                     }
                 }
             }
 
-            return null;
+            return appointmentDict;
 
         }
     }

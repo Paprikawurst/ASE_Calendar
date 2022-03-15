@@ -139,21 +139,22 @@ namespace ASE_Calendar.Application.Services
             string calendar = null;
 
             ReadAppointment readAppointment = new ReadAppointment(currentUser);
-            var Appointment = readAppointment.ReadFromJsonFileReturnAppointment();
+            Dictionary<int, AppointmentEntity> AppointmentDict = null;
+            AppointmentDict = readAppointment.ReadFromJsonFileReturnAppointmentDict(selectedDate);
 
             IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
 
             for (int i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Month); i++)
             {
-                
-                if (Appointment != null)
+
+                if (AppointmentDict.ContainsKey(i))
                 {
-                    if (Appointment.UserId.value == currentUser.userId.value
-                        && i == Appointment.AppointmentData.Date.Day
-                        && Appointment.AppointmentData.Date.Month == selectedDate.Month
-                        && Appointment.AppointmentData.Date.Year == selectedDate.Year)
+                    if (AppointmentDict[i].UserId.value == currentUser.userId.value
+                        && i == AppointmentDict[i].AppointmentData.Date.Day
+                        && AppointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
+                        && AppointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        appointmentsAndDayDict.Add(i, Appointment.AppointmentData.timeSlot.ToString());
+                        appointmentsAndDayDict.Add(i, AppointmentDict[i].AppointmentData.timeSlot.ToString());
 
                     }
                     else
