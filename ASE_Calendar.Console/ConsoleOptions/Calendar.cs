@@ -1,26 +1,28 @@
 ﻿using System;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class Calendar
     {
         private DateTime _selectedTime;
-        private int _monthSelected;
+        
         public CalendarHelperService CalendarHelperService = new();
         private CheckDateService CheckDate;
+        UserEntity currentUser;
 
-        public Calendar(DateTime currentTime)
+        public Calendar(DateTime currentTime, UserEntity currentUser)
         {
             _selectedTime = currentTime;
-            _monthSelected = currentTime.Month;
+            this.currentUser = currentUser;
         }
 
         public void CreateCalendarCurrentMonth()
         {
             Console.WriteLine(_selectedTime + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
-            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime));
+            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime, currentUser));
             
         }
 
@@ -31,7 +33,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             Console.WriteLine(_selectedTime + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
-            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime));
+            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime, currentUser));
             
 
             return _selectedTime;
@@ -45,7 +47,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             Console.WriteLine(_selectedTime + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
-            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime));
+            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime, currentUser));
 
 
             return _selectedTime;

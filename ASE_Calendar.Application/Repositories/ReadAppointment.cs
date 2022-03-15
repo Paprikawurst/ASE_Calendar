@@ -19,7 +19,7 @@ namespace ASE_Calendar.Application.Repositories
 
         }
 
-        public string ReadFromJsonFile()
+        public string ReadFromJsonFileReturnString()
         {
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
             string[] jsonSplit = json.Split("\n");
@@ -39,6 +39,28 @@ namespace ASE_Calendar.Application.Repositories
             }
 
             return appointmentsString;
+
+        }
+        public AppointmentEntity ReadFromJsonFileReturnAppointment()
+        {
+            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            string[] jsonSplit = json.Split("\n");
+            
+
+            foreach (var subString in jsonSplit)
+            {
+                var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
+
+                if (Appointment != null)
+                {
+                    if (Appointment.UserId.value == User.userId.value)
+                    {
+                        return Appointment;
+                    }
+                }
+            }
+
+            return null;
 
         }
     }

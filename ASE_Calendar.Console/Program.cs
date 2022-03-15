@@ -13,7 +13,7 @@ namespace ASE_Calendar.ConsoleUI
         {
             var currentTime = new DateTime();
             currentTime = DateTime.Now;
-            var calendar = new Calendar(currentTime);
+            
             
             UserEntity currentUser = null;
             var auth = new Authentification();
@@ -38,6 +38,7 @@ namespace ASE_Calendar.ConsoleUI
                     break;
             }
 
+            var calendar = new Calendar(currentTime,currentUser);
             Console.Clear();
             calendar.CreateCalendarCurrentMonth();
 

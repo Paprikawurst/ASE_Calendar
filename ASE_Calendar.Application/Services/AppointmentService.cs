@@ -25,7 +25,7 @@ namespace ASE_Calendar.Application.Services
         {
             ReadAppointment readAppointment = new ReadAppointment(user);
             
-            return readAppointment.ReadFromJsonFile(); 
+            return readAppointment.ReadFromJsonFileReturnString(); 
         }
     }
 }

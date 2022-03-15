@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using ASE_Calendar;
+using ASE_Calendar.Application.Repositories;
+using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.Application.Services
 {
@@ -132,16 +134,37 @@ namespace ASE_Calendar.Application.Services
             return false;
         }
 
-        public string CalendarBuilderDays(DateTime selectedDate)
+        public string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser )
         {
             string calendar = null;
-            
+
+            ReadAppointment readAppointment = new ReadAppointment(currentUser);
+            var Appointment = readAppointment.ReadFromJsonFileReturnAppointment();
 
             IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
 
             for (int i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Month); i++)
             {
-                appointmentsAndDayDict.Add(i,"");
+                
+                if (Appointment != null)
+                {
+                    if (Appointment.UserId.value == currentUser.userId.value
+                        && i == Appointment.AppointmentData.Date.Day
+                        && Appointment.AppointmentData.Date.Month == selectedDate.Month
+                        && Appointment.AppointmentData.Date.Year == selectedDate.Year)
+                    {
+                        appointmentsAndDayDict.Add(i, Appointment.AppointmentData.timeSlot.ToString());
+
+                    }
+                    else
+                    {
+                        appointmentsAndDayDict.Add(i, "");
+                    }
+                }
+                else
+                {
+                    appointmentsAndDayDict.Add(i, "");
+                }
             }
 
             for (int i = 1; i <= appointmentsAndDayDict.Count; i++)
