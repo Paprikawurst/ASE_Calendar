@@ -23,7 +23,7 @@ namespace ASE_Calendar.Application.Repositories
         {
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
             string[] jsonSplit = json.Split("\n");
-
+            
             foreach(var subString in jsonSplit)
             {
                 var credentialBuilder = JsonConvert.DeserializeObject<CredentialBuilderService>(subString);

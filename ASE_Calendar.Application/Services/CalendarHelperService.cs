@@ -144,7 +144,7 @@ namespace ASE_Calendar.Application.Services
 
             IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
 
-            for (int i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Month); i++)
+            for (int i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Year); i++)
             {
 
                 if (AppointmentDict.ContainsKey(i))
