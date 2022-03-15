@@ -10,9 +10,9 @@ namespace ASE_Calendar.Domain.Entities
         public UserData UserDataRegistered { get; init; }
         public UserID userId { get; init; }
         
-        public UserEntity(string username, string password, int roleId)
+        public UserEntity(string username, string password, int roleId, Guid userIdGuid)
         {
-            userId = new UserID();
+            this.userId = new UserID(userIdGuid);
             UserDataRegistered = new UserData(username, password, roleId);
 
         }

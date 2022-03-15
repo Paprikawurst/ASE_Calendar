@@ -10,9 +10,9 @@ namespace ASE_Calendar.Domain.ValueObjects
     {
         public Guid value { get; init; }
 
-        public UserID()
+        public UserID(Guid value)
         {
-            value = Guid.NewGuid();
+            this.value = value;
         }
 
         public override bool Equals(object obj)

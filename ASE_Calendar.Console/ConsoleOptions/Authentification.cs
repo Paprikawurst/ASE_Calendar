@@ -1,5 +1,6 @@
 ﻿using System;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
@@ -26,7 +27,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             AuthService.StartRegistration(inputUsername, inputPassword, inputUserRole);
         }
 
-        public Domain.Entities.UserEntity StartLogin()
+        public UserEntity StartLogin()
         {
             Console.WriteLine("Login");
             Console.WriteLine("__________________________");

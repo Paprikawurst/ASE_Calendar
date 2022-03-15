@@ -13,8 +13,8 @@ namespace ASE_Calendar.ConsoleUI
         {
             var currentTime = new DateTime();
             currentTime = DateTime.Now;
-            
-            
+
+
             UserEntity currentUser = null;
             var auth = new Authentification();
 

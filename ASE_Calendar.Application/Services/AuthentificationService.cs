@@ -3,6 +3,7 @@ using System.IO;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Domain.Entities;
 using ASE_Calendar;
+using ASE_Calendar.Domain.ValueObjects;
 
 namespace ASE_Calendar.Application.Services
 {
@@ -15,11 +16,9 @@ namespace ASE_Calendar.Application.Services
 
         public void StartRegistration(string username, string password, string roleId)
         {
-            
-            UserEntity User = new UserEntity(username, password, Int16.Parse(roleId));
+            UserEntity User = new UserEntity(username, password, Int16.Parse(roleId), Guid.NewGuid());
             CredentialBuilderService Credentials = new CredentialBuilderService(User);
-            SaveCredentials SavedCredentials = new SaveCredentials(Credentials);
-            
+            SaveCredentials SavedCredentials = new SaveCredentials(Credentials);      
         }
 
         public UserEntity StartLogin(string username, string password)
