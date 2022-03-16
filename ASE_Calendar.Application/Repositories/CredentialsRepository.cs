@@ -24,13 +24,19 @@ namespace ASE_Calendar.Application.Repositories
 
         }
 
+        public CredentialsRepository(string username)
+        {
+            this.Username = username;
+
+        }
+
         public CredentialsRepository(CredentialBuilderService credentials)
         {
             this.Credentials = credentials;
             CreateNewCredentials();
         }
 
-        public UserEntity ReadFromJsonFile()
+        public UserEntity ReadFromJsonFileReturnUser()
         {
             string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
             string[] jsonSplit = json.Split("\n");
@@ -49,6 +55,28 @@ namespace ASE_Calendar.Application.Repositories
             }
 
             return null;
+
+        }
+
+        public bool ReadFromJsonFileReturnTrueIfUsernameExists()
+        {
+            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
+            string[] jsonSplit = json.Split("\n");
+
+            foreach (var subString in jsonSplit)
+            {
+                var credentialBuilder = JsonConvert.DeserializeObject<CredentialBuilderService>(subString);
+
+                if (credentialBuilder != null)
+                {
+                    if (credentialBuilder.UserEntity.UserDataRegistered.Username == Username)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
 
         }
 

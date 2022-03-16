@@ -58,7 +58,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     var isNumber = Regex.IsMatch(day, @"^[0-9]*$");
                     var maxDays = CalendarHelperService.GetMaxMonthDayInt(dateSelected.Month, dateSelected.Year);
 
-                    if (!isNumber || Int16.Parse(day) > maxDays || Int16.Parse(day) <= 0)
+                    if (!isNumber || Int16.Parse(day) > maxDays || Int16.Parse(day) <= 0 || day == "")
                     {
                         Console.WriteLine("\n" + "Please enter the correct day!" + "\n");
                         goto case AppointmentState.userInputDay;
@@ -68,9 +68,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                 case AppointmentState.checkInputTimeSlot:
 
-                    isNumber = Regex.IsMatch(timeSlot, @"^[0-9]*$");
+                    isNumber = Regex.IsMatch(timeSlot, @"[1-8]");
 
-                    if (!isNumber || Int16.Parse(timeSlot) < 1 || Int16.Parse(timeSlot) > 8)
+                    if (!isNumber || timeSlot == "")
                     {
                         Console.WriteLine("\n" + "Please enter a correct time slot!" + "\n");
                         goto case AppointmentState.userInputTimeSlot;

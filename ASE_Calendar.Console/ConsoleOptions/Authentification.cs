@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.Domain.Entities;
 
@@ -64,7 +65,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case RegistrationState.checkRole;
 
                 case RegistrationState.checkUsername:
-
+                    CredentialsRepository credentialsRepository = new CredentialsRepository(inputUsername);
+                    if (credentialsRepository.ReadFromJsonFileReturnTrueIfUsernameExists())
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Username already exists!" + "\n");
+                        goto case RegistrationState.userInputUsername;
+                    }
                     goto case RegistrationState.userInputPassword;
 
                 case RegistrationState.checkPassword:

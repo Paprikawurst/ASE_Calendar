@@ -21,7 +21,7 @@ namespace ASE_Calendar.Application.Services
         public static UserEntity StartLogin(string username, string password)
         {
             CredentialsRepository credentialsRepository = new(username, password);
-            UserEntity LoggedInUser = credentialsRepository.ReadFromJsonFile();
+            UserEntity LoggedInUser = credentialsRepository.ReadFromJsonFileReturnUser();
 
             if (LoggedInUser == null)
             {
