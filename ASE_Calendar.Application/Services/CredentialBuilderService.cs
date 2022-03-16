@@ -2,7 +2,7 @@
 
 namespace ASE_Calendar.Application.Services
 {
-    class CredentialBuilderService
+    public class CredentialBuilderService
     {
         public UserEntity UserEntity { get; set; }
 

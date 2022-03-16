@@ -138,8 +138,8 @@ namespace ASE_Calendar.Application.Services
         {
             string calendar = null;
 
-            ReadAppointment readAppointment = new(currentUser);
-            Dictionary<int, AppointmentEntity> AppointmentDict = readAppointment.ReadFromJsonFileReturnAppointmentDict(selectedDate);
+            AppointmentRepository appointmentRepository = new(currentUser);
+            Dictionary<int, AppointmentEntity> AppointmentDict = appointmentRepository.ReadFromJsonFileReturnAppointmentDict(selectedDate);
 
             IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
 

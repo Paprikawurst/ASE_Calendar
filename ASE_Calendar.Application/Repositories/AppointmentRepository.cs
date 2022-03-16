@@ -1,22 +1,28 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ASE_Calendar.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace ASE_Calendar.Application.Repositories
 {
-    class ReadAppointment
+    public class AppointmentRepository
     {
-        public UserEntity User { get; set; }
+        private UserEntity User { get; set; }
+        private AppointmentEntity _appointment;
 
-        public ReadAppointment(UserEntity User)
+        public AppointmentRepository(UserEntity User)
         {
             this.User = User;
+        }
 
+        public AppointmentRepository(AppointmentEntity Appointment)
+        {
+            this._appointment = Appointment;
+            AppointmentToJson();
         }
 
         public string ReadFromJsonFileReturnString()
@@ -28,7 +34,7 @@ namespace ASE_Calendar.Application.Repositories
             foreach (var subString in jsonSplit)
             {
                 var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
-                
+
                 if (Appointment != null)
                 {
                     if (Appointment.UserId.Value == User.userId.Value)
@@ -43,7 +49,7 @@ namespace ASE_Calendar.Application.Repositories
         }
         public Dictionary<int, AppointmentEntity> ReadFromJsonFileReturnAppointmentDict(DateTime selectedDate)
         {
-  
+
             int i = 0;
             Dictionary<int, AppointmentEntity> appointmentDict = new();
             appointmentDict.Clear();
@@ -69,6 +75,14 @@ namespace ASE_Calendar.Application.Repositories
             }
 
             return appointmentDict;
+
+        }
+
+        private void AppointmentToJson()
+        {
+            var json = JsonConvert.SerializeObject(_appointment);
+
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json", json + "\n");
 
         }
     }

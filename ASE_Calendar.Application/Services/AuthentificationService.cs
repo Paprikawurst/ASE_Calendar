@@ -15,13 +15,13 @@ namespace ASE_Calendar.Application.Services
         {
             UserEntity User = new(username, password, Int16.Parse(roleId), Guid.NewGuid());
             CredentialBuilderService Credentials = new(User);
-            SaveCredentials SavedCredentials = new(Credentials);      
+            CredentialsRepository credentialsToJson = new(Credentials);      
         }
 
         public static UserEntity StartLogin(string username, string password)
         {
-            ReadCredentials ReadCredentials = new(username, password);
-            UserEntity LoggedInUser = ReadCredentials.ReadFromJsonFile();
+            CredentialsRepository credentialsRepository = new(username, password);
+            UserEntity LoggedInUser = credentialsRepository.ReadFromJsonFile();
 
             if (LoggedInUser == null)
             {
