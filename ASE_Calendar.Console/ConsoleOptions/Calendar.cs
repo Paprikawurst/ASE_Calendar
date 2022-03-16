@@ -10,7 +10,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         
         public CalendarHelperService CalendarHelperService = new();
         private CheckDateService CheckDate;
-        UserEntity currentUser;
+        readonly UserEntity currentUser;
 
         public Calendar(DateTime currentTime, UserEntity currentUser)
         {

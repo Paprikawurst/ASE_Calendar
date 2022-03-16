@@ -8,7 +8,7 @@ namespace ASE_Calendar.Application.Repositories
 {
     class SaveCredentials
     {
-        private CredentialBuilderService Credentials;
+        private readonly CredentialBuilderService Credentials;
         public SaveCredentials(CredentialBuilderService credentials)
         {
             this.Credentials = credentials;

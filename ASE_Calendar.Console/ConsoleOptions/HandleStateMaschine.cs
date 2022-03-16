@@ -18,7 +18,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             Exit
         }
 
-        private State _state = State.RegisteredCheck;
+        private readonly State _state = State.RegisteredCheck;
         public HandleStateMaschine()
         {
 
@@ -26,23 +26,18 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void StartStateMaschine()
         {
-            var currentTime = new DateTime();
-            currentTime = DateTime.Now;
-
-            string inputChecked = "init";
+            DateTime currentTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new Authentification();
-            InputCheckService checkInput = new InputCheckService();
+            
 
             switch (_state)
             {
                 case State.RegisteredCheck:
 
                     Console.WriteLine("Do you already have an account? Y/N");
-
                     var userInput = Console.ReadLine();
-                    inputChecked = checkInput.CheckInputYN(userInput);
-
+                   
                     if (userInput == "y" || userInput == "Y")
                     {
                         goto case State.Login;
@@ -60,7 +55,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case State.Login;
 
                 case State.Login:
-                    currentUser = auth.StartLogin();
+                    Authentification authentification = new();
+                    currentUser = authentification.StartLogin();
+                    if (currentUser == null)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Please use valid credentials!");
+                    }
                     Console.Clear();
                     goto case State.Calendarviewer;
 
@@ -107,7 +108,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case State.Calendarviewer;
 
                 case State.Logout:
-                    currentUser = null;
+                    
                     Console.Clear();
                     goto case State.RegisteredCheck;
                     

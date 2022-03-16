@@ -31,9 +31,9 @@ namespace ASE_Calendar.Application.Repositories
                 
                 if (Appointment != null)
                 {
-                    if (Appointment.UserId.value == User.userId.value)
+                    if (Appointment.UserId.Value == User.userId.Value)
                     {
-                        appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " + Appointment.AppointmentData.timeSlot + "\n";
+                        appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " + Appointment.AppointmentData.TimeSlot + "\n";
                     }
                 }
             }
@@ -45,7 +45,7 @@ namespace ASE_Calendar.Application.Repositories
         {
   
             int i = 0;
-            Dictionary<int, AppointmentEntity> appointmentDict = new Dictionary<int, AppointmentEntity>();
+            Dictionary<int, AppointmentEntity> appointmentDict = new();
             appointmentDict.Clear();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -59,7 +59,7 @@ namespace ASE_Calendar.Application.Repositories
 
                     if (Appointment != null && Appointment.AppointmentData.Date.Month == selectedDate.Month && Appointment.AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        if (Appointment.UserId.value == User.userId.value)
+                        if (Appointment.UserId.Value == User.userId.Value)
                         {
                             appointmentDict.Add(Appointment.AppointmentData.Date.Day, Appointment);
                             i++;

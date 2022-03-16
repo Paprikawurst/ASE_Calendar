@@ -33,9 +33,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             Date = new DateTime(dateSelected.Year, dateSelected.Month, Int32.Parse(day));
             
-            AppointmentEntity Appointment = new AppointmentEntity(Date, Int32.Parse(timeSlot), currentUser.userId, Guid.NewGuid());
-            AppointmentService appointmentService = new AppointmentService();
-            appointmentService.createAppointment(Appointment);
+            AppointmentEntity Appointment = new(Date, Int32.Parse(timeSlot), currentUser.userId, Guid.NewGuid());
+            AppointmentService.CreateAppointment(Appointment);
 
             return true;
         }
@@ -43,8 +42,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         public void LoadAppointments()
         {
             Console.WriteLine("Your Appointments:\n");
-            AppointmentService appointmentService = new AppointmentService();
-            var appointmentData = appointmentService.loadAppointments(currentUser);
+            var appointmentData = AppointmentService.LoadAppointments(currentUser);
             Console.WriteLine(appointmentData);
             Console.ReadLine();
 

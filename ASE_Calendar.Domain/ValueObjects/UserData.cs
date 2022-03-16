@@ -8,15 +8,15 @@ namespace ASE_Calendar.Domain.ValueObjects
 {
     public class UserData
     {
-        public string username { get; init; }
-        public string password { get; init; }
-        public int roleId { get; init; }
+        public string Username { get; init; }
+        public string Password { get; init; }
+        public int RoleId { get; init; }
 
         public UserData(string username, string password, int roleId)
         {
-            this.username = username;
-            this.password = password;
-            this.roleId = roleId;
+            this.Username = username;
+            this.Password = password;
+            this.RoleId = roleId;
         }
 
         public override bool Equals(object obj)

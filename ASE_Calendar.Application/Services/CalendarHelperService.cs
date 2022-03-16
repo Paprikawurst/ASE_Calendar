@@ -8,7 +8,7 @@ namespace ASE_Calendar.Application.Services
 {
     public class CalendarHelperService
     {
-        public string GetMonthdayString(int month)
+        public static string GetMonthdayString(int month)
         {
             string returnMonthString = "";
 
@@ -67,7 +67,7 @@ namespace ASE_Calendar.Application.Services
             return returnMonthString;
         }
 
-        public int GetMaxMonthDayInt(int month, int year)
+        public static int GetMaxMonthDayInt(int month, int year)
         {
             int maxMonthDays = 0;
             const int thirtyone = 31;
@@ -125,7 +125,7 @@ namespace ASE_Calendar.Application.Services
             return maxMonthDays;
         }
 
-        private bool GetLeapYear(int year)
+        private static bool GetLeapYear(int year)
         {
             if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
             {
@@ -134,13 +134,12 @@ namespace ASE_Calendar.Application.Services
             return false;
         }
 
-        public string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser )
+        public static string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser )
         {
             string calendar = null;
 
-            ReadAppointment readAppointment = new ReadAppointment(currentUser);
-            Dictionary<int, AppointmentEntity> AppointmentDict = null;
-            AppointmentDict = readAppointment.ReadFromJsonFileReturnAppointmentDict(selectedDate);
+            ReadAppointment readAppointment = new(currentUser);
+            Dictionary<int, AppointmentEntity> AppointmentDict = readAppointment.ReadFromJsonFileReturnAppointmentDict(selectedDate);
 
             IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
 
@@ -149,12 +148,12 @@ namespace ASE_Calendar.Application.Services
 
                 if (AppointmentDict.ContainsKey(i))
                 {
-                    if (AppointmentDict[i].UserId.value == currentUser.userId.value
+                    if (AppointmentDict[i].UserId.Value == currentUser.userId.Value
                         && i == AppointmentDict[i].AppointmentData.Date.Day
                         && AppointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
                         && AppointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        appointmentsAndDayDict.Add(i, AppointmentDict[i].AppointmentData.timeSlot.ToString());
+                        appointmentsAndDayDict.Add(i, AppointmentDict[i].AppointmentData.TimeSlot.ToString());
 
                     }
                     else

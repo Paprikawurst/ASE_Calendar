@@ -8,22 +8,22 @@ namespace ASE_Calendar.Domain.ValueObjects
 {
     public class UserID
     {
-        public Guid value { get; init; }
+        public Guid Value { get; init; }
 
         public UserID(Guid value)
         {
-            this.value = value;
+            this.Value = value;
         }
 
         public override bool Equals(object obj)
         {
             return obj is UserID iD &&
-                   value.Equals(iD.value);
+                   Value.Equals(iD.Value);
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(value);
+            return HashCode.Combine(Value);
         }
     }
 }

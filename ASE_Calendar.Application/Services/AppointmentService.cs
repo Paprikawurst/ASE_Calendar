@@ -16,14 +16,14 @@ namespace ASE_Calendar.Application.Services
             
         }
 
-        public void createAppointment(AppointmentEntity appointment)
+        public static void CreateAppointment(AppointmentEntity appointment)
         {
-            SaveAppointment saveAppointment = new SaveAppointment(appointment);
+            SaveAppointment saveAppointment = new(appointment);
         }
 
-        public string loadAppointments(UserEntity user)
+        public static string LoadAppointments(UserEntity user)
         {
-            ReadAppointment readAppointment = new ReadAppointment(user);
+            ReadAppointment readAppointment = new(user);
             
             return readAppointment.ReadFromJsonFileReturnString(); 
         }

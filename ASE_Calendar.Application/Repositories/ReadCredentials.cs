@@ -9,13 +9,13 @@ namespace ASE_Calendar.Application.Repositories
 {
     class ReadCredentials
     {
-        public string username { get; set; }
-        public string password { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
         public ReadCredentials(string username, string password)
         {
-            this.username = username;
-            this.password = password;
+            this.Username = username;
+            this.Password = password;
             
         }
 
@@ -30,7 +30,7 @@ namespace ASE_Calendar.Application.Repositories
 
                 if (credentialBuilder != null)
                 {
-                    if (credentialBuilder.UserEntity.UserDataRegistered.username == username && credentialBuilder.UserEntity.UserDataRegistered.password == password)
+                    if (credentialBuilder.UserEntity.UserDataRegistered.Username == Username && credentialBuilder.UserEntity.UserDataRegistered.Password == Password)
                     {
                         return credentialBuilder.UserEntity;
                     }

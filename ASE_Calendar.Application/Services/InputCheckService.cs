@@ -12,7 +12,7 @@ namespace ASE_Calendar.Application.Services
         {
         }
 
-        public string CheckInputYN(string userinput)
+        public static string CheckInputUserNamePasswordRole(string userName, string password, string role)
         {
 
 
