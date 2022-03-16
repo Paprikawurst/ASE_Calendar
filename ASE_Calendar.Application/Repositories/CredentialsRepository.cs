@@ -27,7 +27,7 @@ namespace ASE_Calendar.Application.Repositories
         public CredentialsRepository(CredentialBuilderService credentials)
         {
             this.Credentials = credentials;
-            CredentialsToJson();
+            CreateNewCredentials();
         }
 
         public UserEntity ReadFromJsonFile()
@@ -52,7 +52,7 @@ namespace ASE_Calendar.Application.Repositories
 
         }
 
-        private void CredentialsToJson()
+        private void CreateNewCredentials()
         {
             var json = JsonConvert.SerializeObject(Credentials);
 

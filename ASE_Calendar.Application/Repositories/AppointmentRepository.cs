@@ -22,7 +22,7 @@ namespace ASE_Calendar.Application.Repositories
         public AppointmentRepository(AppointmentEntity Appointment)
         {
             this._appointment = Appointment;
-            AppointmentToJson();
+            CreateAppointment();
         }
 
         public string ReadFromJsonFileReturnString()
@@ -78,7 +78,7 @@ namespace ASE_Calendar.Application.Repositories
 
         }
 
-        private void AppointmentToJson()
+        private void CreateAppointment()
         {
             var json = JsonConvert.SerializeObject(_appointment);
 
