@@ -88,8 +88,18 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             Console.WriteLine("Your Appointments:\n");
             var appointmentData = AppointmentService.LoadAppointments(currentUser);
-            Console.WriteLine(appointmentData);
-            Console.ReadLine();
+
+            if (appointmentData != null)
+            {
+                Console.WriteLine(appointmentData);
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("You don't have any appointments at the moment!");
+                Console.WriteLine("Any key to continue!");
+                Console.ReadLine();
+            }
 
         }
     }

@@ -27,26 +27,33 @@ namespace ASE_Calendar.Application.Repositories
 
         public string ReadFromJsonFileReturnString()
         {
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            string[] jsonSplit = json.Split("\n");
-            string appointmentsString = null;
-
-            foreach (var subString in jsonSplit)
+            if (Equals(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json")))
             {
-                var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
+                string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+                string[] jsonSplit = json.Split("\n");
+                string appointmentsString = null;
 
-                if (Appointment != null)
+                foreach (var subString in jsonSplit)
                 {
-                    if (Appointment.UserId.Value == User.userId.Value)
+                    var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
+
+                    if (Appointment != null)
                     {
-                        appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " + Appointment.AppointmentData.TimeSlot + "\n";
+                        if (Appointment.UserId.Value == User.userId.Value)
+                        {
+                            appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " +
+                                                 Appointment.AppointmentData.TimeSlot + "\n";
+                        }
                     }
                 }
+
+                return appointmentsString;
+
             }
 
-            return appointmentsString;
-
+            return null;
         }
+
         public Dictionary<int, AppointmentEntity> ReadFromJsonFileReturnAppointmentDict(DateTime selectedDate)
         {
 
