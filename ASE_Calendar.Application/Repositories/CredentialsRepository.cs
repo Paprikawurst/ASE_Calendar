@@ -60,18 +60,21 @@ namespace ASE_Calendar.Application.Repositories
 
         public bool ReadFromJsonFileReturnTrueIfUsernameExists()
         {
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
-            string[] jsonSplit = json.Split("\n");
-
-            foreach (var subString in jsonSplit)
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
             {
-                var credentialBuilder = JsonConvert.DeserializeObject<CredentialBuilderService>(subString);
+                string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
+                string[] jsonSplit = json.Split("\n");
 
-                if (credentialBuilder != null)
+                foreach (var subString in jsonSplit)
                 {
-                    if (credentialBuilder.UserEntity.UserDataRegistered.Username == Username)
+                    var credentialBuilder = JsonConvert.DeserializeObject<CredentialBuilderService>(subString);
+
+                    if (credentialBuilder != null)
                     {
-                        return true;
+                        if (credentialBuilder.UserEntity.UserDataRegistered.Username == Username)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
