@@ -10,9 +10,9 @@ namespace ASE_Calendar.Domain.Entities
 
         public AppointmentID AppointmentId { get; init; }
 
-        public AppointmentEntity(DateTime Date,int timeSlot, UserID UserId, Guid AppointmentIdGuid)
+        public AppointmentEntity(DateTime Date,int timeSlot, UserID UserId, Guid AppointmentIdGuid, string description)
         {
-            AppointmentData = new AppointmentData(Date, timeSlot);
+            AppointmentData = new AppointmentData(Date, timeSlot, description);
             this.UserId = UserId;
             this.AppointmentId = new AppointmentID(AppointmentIdGuid);
         }

@@ -41,8 +41,8 @@ namespace ASE_Calendar.Application.Repositories
                     {
                         if (Appointment.UserId.Value == User.userId.Value)
                         {
-                            appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " +
-                                                 Appointment.AppointmentData.TimeSlot + "\n";
+                            appointmentsString = appointmentsString + Appointment.AppointmentData.Date.ToLongDateString() + " " +
+                                                 Appointment.AppointmentData.TimeSlot + " " + Appointment.AppointmentData.Description + "\n";
                         }
                     }
                 }
