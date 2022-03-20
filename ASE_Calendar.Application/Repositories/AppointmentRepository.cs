@@ -39,7 +39,6 @@ namespace ASE_Calendar.Application.Repositories
                 foreach (var subString in jsonSplit)
                 {
                     var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                    //TODO: neues Deserialize implementieren
                     var Appointment = customJsonConverter.DeserializeObject(subString);
 
                     if (Appointment != null)
@@ -51,9 +50,7 @@ namespace ASE_Calendar.Application.Repositories
                         }
                     }
                 }
-
                 return appointmentsString;
-
             }
 
             return null;
@@ -73,7 +70,6 @@ namespace ASE_Calendar.Application.Repositories
 
                 foreach (var subString in jsonSplit)
                 {
-                    //TODO: neues Deserialize implementieren
                     var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
                     var appointment = customJsonConverter.DeserializeObject(subString);
 
@@ -87,19 +83,15 @@ namespace ASE_Calendar.Application.Repositories
                     }
                 }
             }
-
             return appointmentDict;
-
         }
 
         private void CreateAppointment()
         {
-            //TODO: neues Serialize
             var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
             var json = customJsonConverter.SerializeObject(_appointment);
 
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json", json + "\n");
-
         }
     }
 }

@@ -12,8 +12,8 @@ namespace ASE_Calendar.Application.Shared
 
         public TObject DeserializeObject(string subString)
         {
-            TObject x = JsonConvert.DeserializeObject<TObject>(subString);
-            return x;
+            TObject returnObject = JsonConvert.DeserializeObject<TObject>(subString);
+            return returnObject;
         }
     }
 }

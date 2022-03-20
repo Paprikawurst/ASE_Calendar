@@ -44,7 +44,6 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                //TODO: neues Deserialize implementieren
                 var customJsonConverter = new CustomJsonConverter<CredentialBuilderService>();
                 var credentialBuilder = customJsonConverter.DeserializeObject(subString);
 
@@ -56,9 +55,7 @@ namespace ASE_Calendar.Application.Repositories
                     }
                 }
             }
-
             return null;
-
         }
 
         public bool ReadFromJsonFileReturnTrueIfUsernameExists()
@@ -70,7 +67,6 @@ namespace ASE_Calendar.Application.Repositories
 
                 foreach (var subString in jsonSplit)
                 {
-                    //TODO: neues Deserialize implementieren
                     var customJsonConverter = new CustomJsonConverter<CredentialBuilderService>();
                     var credentialBuilder = customJsonConverter.DeserializeObject(subString);
 
@@ -83,19 +79,15 @@ namespace ASE_Calendar.Application.Repositories
                     }
                 }
             }
-
             return false;
-
         }
 
         private void CreateNewCredentials()
-        {
-            //TODO: neues Serialize
-           var customJsonConverter = new CustomJsonConverter<CredentialBuilderService>();
-           var json = customJsonConverter.SerializeObject(Credentials);
+        { 
+            var customJsonConverter = new CustomJsonConverter<CredentialBuilderService>(); 
+            var json = customJsonConverter.SerializeObject(Credentials);
 
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", json + "\n");
-
         }
     }
 }
