@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
 using Newtonsoft.Json;
 
@@ -35,14 +36,16 @@ namespace ASE_Calendar.Application.Repositories
 
                 foreach (var subString in jsonSplit)
                 {
-                    var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
+                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
+                    //TODO: neues Deserialize implementieren
+                    var appointment = customJsonConverter.DeserializeObject(subString);
 
-                    if (Appointment != null)
+                    if (appointment != null)
                     {
-                        if (Appointment.UserId.Value == User.userId.Value)
+                        if (appointment.UserId.Value == User.userId.Value)
                         {
-                            appointmentsString = appointmentsString + Appointment.AppointmentData.Date + " " +
-                                                 Appointment.AppointmentData.TimeSlot + "\n";
+                            appointmentsString = appointmentsString + appointment.AppointmentData.Date + " " +
+                                                 appointment.AppointmentData.TimeSlot + "\n";
                         }
                     }
                 }
@@ -68,13 +71,15 @@ namespace ASE_Calendar.Application.Repositories
 
                 foreach (var subString in jsonSplit)
                 {
-                    var Appointment = JsonConvert.DeserializeObject<AppointmentEntity>(subString);
+                    //TODO: neues Deserialize implementieren
+                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
+                    var appointment = customJsonConverter.DeserializeObject(subString);
 
-                    if (Appointment != null && Appointment.AppointmentData.Date.Month == selectedDate.Month && Appointment.AppointmentData.Date.Year == selectedDate.Year)
+                    if (appointment != null && appointment.AppointmentData.Date.Month == selectedDate.Month && appointment.AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        if (Appointment.UserId.Value == User.userId.Value)
+                        if (appointment.UserId.Value == User.userId.Value)
                         {
-                            appointmentDict.Add(Appointment.AppointmentData.Date.Day, Appointment);
+                            appointmentDict.Add(appointment.AppointmentData.Date.Day, appointment);
                             i++;
                         }
                     }
@@ -87,7 +92,9 @@ namespace ASE_Calendar.Application.Repositories
 
         private void CreateAppointment()
         {
-            var json = JsonConvert.SerializeObject(_appointment);
+            //TODO: neues Serialize
+            var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
+            var json = customJsonConverter.SerializeObject(_appointment);
 
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json", json + "\n");
 

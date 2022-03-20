@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
 using Newtonsoft.Json;
 
@@ -43,7 +44,9 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                var credentialBuilder = JsonConvert.DeserializeObject<CredentialBuilderService>(subString);
+                //TODO: neues Deserialize implementieren
+                var customJsonConverter = new CustomJsonConverter<CredentialBuilderService>();
+                var credentialBuilder = customJsonConverter.DeserializeObject(subString);
 
                 if (credentialBuilder != null)
                 {
@@ -67,7 +70,9 @@ namespace ASE_Calendar.Application.Repositories
 
                 foreach (var subString in jsonSplit)
                 {
-                    var credentialBuilder = JsonConvert.DeserializeObject<CredentialBuilderService>(subString);
+                    //TODO: neues Deserialize implementieren
+                    var customJsonConverter = new CustomJsonConverter<CredentialBuilderService>();
+                    var credentialBuilder = customJsonConverter.DeserializeObject(subString);
 
                     if (credentialBuilder != null)
                     {
@@ -85,7 +90,9 @@ namespace ASE_Calendar.Application.Repositories
 
         private void CreateNewCredentials()
         {
-            var json = JsonConvert.SerializeObject(Credentials);
+            //TODO: neues Serialize
+           var customJsonConverter = new CustomJsonConverter<CredentialBuilderService>();
+           var json = customJsonConverter.SerializeObject(Credentials);
 
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", json + "\n");
 
