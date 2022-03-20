@@ -38,14 +38,14 @@ namespace ASE_Calendar.Application.Repositories
                 {
                     var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
                     //TODO: neues Deserialize implementieren
-                    var appointment = customJsonConverter.DeserializeObject(subString);
+                    var Appointment = customJsonConverter.DeserializeObject(subString);
 
-                    if (appointment != null)
+                    if (Appointment != null)
                     {
-                        if (appointment.UserId.Value == User.userId.Value)
+                        if (Appointment.UserId.Value == User.userId.Value)
                         {
-                            appointmentsString = appointmentsString + appointment.AppointmentData.Date + " " +
-                                                 appointment.AppointmentData.TimeSlot + "\n";
+                            appointmentsString = appointmentsString + Appointment.AppointmentData.Date.ToLongDateString() + " " +
+                                                 Appointment.AppointmentData.TimeSlot + " " + Appointment.AppointmentData.Description + "\n";
                         }
                     }
                 }

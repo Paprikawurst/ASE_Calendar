@@ -20,8 +20,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             userInputDay,
             userInputTimeSlot,
+            userInputDescription,
             checkInputDay,
             checkInputTimeSlot,
+            checkInputDescription
         };
 
         private AppointmentState _appointmentState;
@@ -36,6 +38,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             string day = "";
             var timeSlot = "";
+            string description = "";
             ConsoleColorHelper colorHelper = new();
 
             _appointmentState = AppointmentState.userInputDay;
@@ -76,12 +79,29 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                         colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
                         goto case AppointmentState.userInputTimeSlot;
                     }
+
+                    goto case AppointmentState.userInputDescription;
+
+                case AppointmentState.userInputDescription:
+
+                    Console.WriteLine("Please enter a description of your appointment!. (Max 25 tokens)");
+                    description = Console.ReadLine();
+
+                    goto case AppointmentState.checkInputDescription;
+
+                case AppointmentState.checkInputDescription:
+
+                    if (description.Length > 25 || description == "")
+                    {
+                        colorHelper.WriteLineRed("Wrong input! Enter more than 0 and less than 25 signs!");
+                        goto case AppointmentState.userInputDescription;
+                    }
                     break;
             }
 
             Date = new DateTime(dateSelected.Year, dateSelected.Month, Int32.Parse(day));
            
-            AppointmentEntity Appointment = new(Date, Int32.Parse(timeSlot), currentUser.userId, Guid.NewGuid());
+            AppointmentEntity Appointment = new(Date, Int32.Parse(timeSlot), currentUser.userId, Guid.NewGuid(), description);
             AppointmentService.CreateAppointment(Appointment);
         }
 

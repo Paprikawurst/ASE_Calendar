@@ -27,6 +27,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         private RegistrationState _registrationState;
         private LoginState _loginState;
+        private ConsoleColorHelper _colorHelper = new();
 
         public Authentification()
         {
@@ -39,7 +40,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             string inputUsername = "";
             string inputPassword = "";
             string inputUserRole = "";
-            ConsoleColorHelper colorHelper = new();
 
             switch (_registrationState)
             {
@@ -70,7 +70,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (credentialsRepository.ReadFromJsonFileReturnTrueIfUsernameExists())
                     {
                         Console.Clear();
-                        colorHelper.WriteLineRed("Username already exists!" + "\n");
+                        _colorHelper.WriteLineRed("Username already exists!" + "\n");
                         goto case RegistrationState.userInputUsername;
                     }
                     goto case RegistrationState.userInputPassword;
@@ -80,7 +80,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (inputPassword.Length < 5 || inputPassword == "")
                     {
                         Console.Clear();
-                        colorHelper.WriteLineRed("Password must contain at least 5 symbols!" + "\n");
+                        _colorHelper.WriteLineRed("Password must contain at least 5 symbols!" + "\n");
                         goto case RegistrationState.userInputPassword;
                     }
 
@@ -93,7 +93,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (!isNumber || Int16.Parse(inputUserRole) < 0 || inputUserRole == "" || Int16.Parse(inputUserRole) > 2)
                     {
                         Console.Clear();
-                        colorHelper.WriteLineRed("Please select a role as shown!" + "\n");
+                        _colorHelper.WriteLineRed("Please select a role as shown!" + "\n");
                         goto case RegistrationState.userInputRole;
                     }
 
@@ -105,7 +105,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public UserEntity StartLogin()
         {
-            _loginState = LoginState.checkInput;
+            _loginState = LoginState.userInput;
             string inputUsername = "";
             string inputPassword = "";
 
@@ -127,7 +127,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (succsfullLogin == null)
                     {
                         Console.Clear();
-                        Console.WriteLine("Please use valid credentials!" + "\n");
+                        _colorHelper.WriteLineRed("Please use valid credentials!" + "\n");
                         goto case LoginState.userInput;
                     }
                     break;

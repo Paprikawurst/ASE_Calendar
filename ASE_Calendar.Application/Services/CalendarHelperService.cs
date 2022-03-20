@@ -153,7 +153,7 @@ namespace ASE_Calendar.Application.Services
                         && AppointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
                         && AppointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        appointmentsAndDayDict.Add(i, AppointmentDict[i].AppointmentData.TimeSlot.ToString());
+                        appointmentsAndDayDict.Add(i, AppointmentDict[i].AppointmentData.TimeSlot.ToString() + " " + AppointmentDict[i].AppointmentData.Description);
 
                     }
                     else

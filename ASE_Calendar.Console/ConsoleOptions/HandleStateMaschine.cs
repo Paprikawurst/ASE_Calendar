@@ -13,7 +13,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             RegisteredCheck,
             Register,
             Login,
-            Calendarviewer,
+            CalendarViewer,
             Logout,
             Exit
         }
@@ -39,11 +39,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     Console.WriteLine("Do you already have an account? Y/N");
                     var userInput = Console.ReadLine();
                    
-                    if (userInput == "y" || userInput == "Y")
+                    if (userInput is "y" or "Y")
                     {
                         goto case State.Login;
                     }
-                    else if (userInput == "n" || userInput == "N")
+                    else if (userInput is "n" or "N")
                     {
                         goto case State.Register;
                     }
@@ -58,9 +58,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 case State.Login:
                     currentUser = auth.StartLogin();
                     Console.Clear();
-                    goto case State.Calendarviewer;
+                    goto case State.CalendarViewer;
 
-                case State.Calendarviewer:
+                case State.CalendarViewer:
 
                     var calendar = new Calendar(currentTime, currentUser);
                     Console.Clear();
@@ -100,7 +100,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     }
                     
                     Console.Clear();
-                    goto case State.Calendarviewer;
+                    goto case State.CalendarViewer;
 
                 case State.Logout:
                     
