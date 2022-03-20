@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.Domain.Entities;
 using ASE_Calendar.ConsoleUI.ConsoleOptions;
@@ -29,8 +30,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             DateTime currentTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new Authentification();
-            ConsoleColorHelper colorHelper = new(); 
-            
+            ConsoleColorHelper colorHelper = new();
+
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
+            {
+                var fileStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", 40000);
+                fileStream.Close();
+            }
 
             switch (_state)
             {
