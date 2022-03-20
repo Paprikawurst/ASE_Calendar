@@ -27,7 +27,7 @@ namespace ASE_Calendar.Application.Repositories
 
         public string ReadFromJsonFileReturnString()
         {
-            if (Equals(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json")))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
                 string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
                 string[] jsonSplit = json.Split("\n");
