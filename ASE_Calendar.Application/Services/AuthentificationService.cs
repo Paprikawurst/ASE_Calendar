@@ -14,8 +14,7 @@ namespace ASE_Calendar.Application.Services
         public static void StartRegistration(string username, string password, string roleId)
         {
             UserEntity User = new(username, password, Int16.Parse(roleId), Guid.NewGuid());
-            CredentialBuilderService Credentials = new(User);
-            CredentialsRepository credentialsToJson = new(Credentials);      
+            CredentialsRepository credentialsToJson = new(User);      
         }
 
         public static UserEntity StartLogin(string username, string password)
