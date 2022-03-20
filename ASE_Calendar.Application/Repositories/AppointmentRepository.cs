@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ASE_Calendar.Application.Services;
 using ASE_Calendar.Domain.Entities;
 using Newtonsoft.Json;
 
@@ -13,6 +14,7 @@ namespace ASE_Calendar.Application.Repositories
     {
         private UserEntity User { get; set; }
         private AppointmentEntity _appointment;
+        private CalendarHelperService calendarHelper = new ();
 
         public AppointmentRepository(UserEntity User)
         {
@@ -42,7 +44,7 @@ namespace ASE_Calendar.Application.Repositories
                         if (Appointment.UserId.Value == User.userId.Value)
                         {
                             appointmentsString = appointmentsString + Appointment.AppointmentData.Date.ToLongDateString() + " " +
-                                                 Appointment.AppointmentData.TimeSlot + " " + Appointment.AppointmentData.Description + "\n";
+                                                 calendarHelper.TimeSlotToTimeStamp(Appointment.AppointmentData.TimeSlot) + " " + Appointment.AppointmentData.Description + "\n";
                         }
                     }
                 }
