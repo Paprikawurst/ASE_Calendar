@@ -134,7 +134,7 @@ namespace ASE_Calendar.Application.Services
             return false;
         }
 
-        public static string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser )
+        public string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser )
         {
             string calendar = null;
 
@@ -153,7 +153,7 @@ namespace ASE_Calendar.Application.Services
                         && AppointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
                         && AppointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        appointmentsAndDayDict.Add(i, AppointmentDict[i].AppointmentData.TimeSlot.ToString() + " " + AppointmentDict[i].AppointmentData.Description);
+                        appointmentsAndDayDict.Add(i," " + TimeSlotToTimeStamp(AppointmentDict[i].AppointmentData.TimeSlot) + " " + AppointmentDict[i].AppointmentData.Description);
 
                     }
                     else
@@ -172,6 +172,31 @@ namespace ASE_Calendar.Application.Services
                 calendar = calendar + i + ":" + appointmentsAndDayDict[i] + "\n";
             }
             return calendar;
+        }
+
+        public string TimeSlotToTimeStamp(int timeSlot)
+        {
+            switch (timeSlot)
+            {
+                case 1:
+                    return "08:00 - 09:00";
+                case 2:
+                    return "09:00 - 10:00";
+                case 3:
+                    return "10:00 - 11:00";
+                case 4:
+                    return "11:00 - 12:00";
+                case 5:
+                    return "13:00 - 14:00";
+                case 6:
+                    return "14:00 - 15:00";
+                case 7:
+                    return "15:00 - 16:00";
+                case 8:
+                    return "16:00 - 17:00";
+            }
+
+            return "";
         }
     }
 }
