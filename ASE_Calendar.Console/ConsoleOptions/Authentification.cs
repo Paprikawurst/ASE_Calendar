@@ -39,7 +39,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             _registrationState = RegistrationState.userInputUsername;
             string inputUsername = "";
             string inputPassword = "";
-            string inputUserRole = "":
+            string inputUserRole = "";
 
             switch (_registrationState)
             {
@@ -105,7 +105,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public UserEntity StartLogin()
         {
-            _loginState = LoginState.checkInput;
+            _loginState = LoginState.userInput;
             string inputUsername = "";
             string inputPassword = "";
 
