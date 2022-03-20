@@ -36,6 +36,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             string day = "";
             var timeSlot = "";
+            ConsoleColorHelper colorHelper = new();
 
             _appointmentState = AppointmentState.userInputDay;
 
@@ -60,7 +61,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     if (!isNumber || Int16.Parse(day) > maxDays || Int16.Parse(day) <= 0 || day == "")
                     {
-                        Console.WriteLine("\n" + "Please enter the correct day!" + "\n");
+                        colorHelper.WriteLineRed("\n" + "Please enter the correct day!" + "\n");
                         goto case AppointmentState.userInputDay;
                     }
 
@@ -72,7 +73,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     if (!isNumber || timeSlot == "")
                     {
-                        Console.WriteLine("\n" + "Please enter a correct time slot!" + "\n");
+                        colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
                         goto case AppointmentState.userInputTimeSlot;
                     }
                     break;

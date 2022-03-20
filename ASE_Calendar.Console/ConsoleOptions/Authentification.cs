@@ -39,6 +39,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             string inputUsername = "";
             string inputPassword = "";
             string inputUserRole = "";
+            ConsoleColorHelper colorHelper = new();
 
             switch (_registrationState)
             {
@@ -69,7 +70,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (credentialsRepository.ReadFromJsonFileReturnTrueIfUsernameExists())
                     {
                         Console.Clear();
-                        Console.WriteLine("Username already exists!" + "\n");
+                        colorHelper.WriteLineRed("Username already exists!" + "\n");
                         goto case RegistrationState.userInputUsername;
                     }
                     goto case RegistrationState.userInputPassword;
@@ -79,7 +80,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (inputPassword.Length < 5 || inputPassword == "")
                     {
                         Console.Clear();
-                        Console.WriteLine("Password must contain at least 5 symbols!" + "\n");
+                        colorHelper.WriteLineRed("Password must contain at least 5 symbols!" + "\n");
                         goto case RegistrationState.userInputPassword;
                     }
 
@@ -92,7 +93,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (!isNumber || Int16.Parse(inputUserRole) < 0 || inputUserRole == "" || Int16.Parse(inputUserRole) > 2)
                     {
                         Console.Clear();
-                        Console.WriteLine("Please select a role as shown!" + "\n");
+                        colorHelper.WriteLineRed("Please select a role as shown!" + "\n");
                         goto case RegistrationState.userInputRole;
                     }
 

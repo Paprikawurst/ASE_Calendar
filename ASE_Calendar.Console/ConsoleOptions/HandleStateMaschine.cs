@@ -29,12 +29,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             DateTime currentTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new Authentification();
+            ConsoleColorHelper colorHelper = new(); 
             
 
             switch (_state)
             {
                 case State.RegisteredCheck:
-
+                    
                     Console.WriteLine("Do you already have an account? Y/N");
                     var userInput = Console.ReadLine();
                    
@@ -55,13 +56,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case State.Login;
 
                 case State.Login:
-                    Authentification authentification = new();
-                    currentUser = authentification.StartLogin();
-                    if (currentUser == null)
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Please use valid credentials!");
-                    }
+                    currentUser = auth.StartLogin();
                     Console.Clear();
                     goto case State.Calendarviewer;
 
