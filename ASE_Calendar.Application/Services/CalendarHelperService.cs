@@ -9,58 +9,22 @@ namespace ASE_Calendar.Application.Services
     {
         public static string GetMonthdayString(int month)
         {
-            var returnMonthString = "";
-
-            switch (month)
+            var returnMonthString = month switch
             {
-                case 1:
-                    returnMonthString = "Jan";
-                    break;
-
-                case 2:
-                    returnMonthString = "Feb";
-                    break;
-
-                case 3:
-                    returnMonthString = "Mar";
-                    break;
-
-                case 4:
-                    returnMonthString = "Apr";
-                    break;
-
-                case 5:
-                    returnMonthString = "Mai";
-                    break;
-
-                case 6:
-                    returnMonthString = "Jun";
-                    break;
-
-                case 7:
-                    returnMonthString = "Jul";
-                    break;
-
-                case 8:
-                    returnMonthString = "Aug";
-                    break;
-
-                case 9:
-                    returnMonthString = "Sep";
-                    break;
-
-                case 10:
-                    returnMonthString = "Okt";
-                    break;
-
-                case 11:
-                    returnMonthString = "Nov";
-                    break;
-
-                case 12:
-                    returnMonthString = "Dez";
-                    break;
-            }
+                1 => "Jan",
+                2 => "Feb",
+                3 => "Mar",
+                4 => "Apr",
+                5 => "Mai",
+                6 => "Jun",
+                7 => "Jul",
+                8 => "Aug",
+                9 => "Sep",
+                10 => "Okt",
+                11 => "Nov",
+                12 => "Dez",
+                _ => ""
+            };
 
             return returnMonthString;
         }
@@ -144,11 +108,15 @@ namespace ASE_Calendar.Application.Services
                         && i == appointmentDict[i].AppointmentData.Date.Day
                         && appointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
                         && appointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
+                    {
                         appointmentsAndDayDict.Add(i,
                             " " + TimeSlotToTimeStamp(appointmentDict[i].AppointmentData.TimeSlot) + " " +
                             appointmentDict[i].AppointmentData.Description);
+                    }
                     else
+                    {
                         appointmentsAndDayDict.Add(i, "");
+                    }
                 }
                 else
                 {
@@ -156,34 +124,27 @@ namespace ASE_Calendar.Application.Services
                 }
 
             for (var i = 1; i <= appointmentsAndDayDict.Count; i++)
+            {
                 calendar = calendar + i + ":" + appointmentsAndDayDict[i] + "\n";
+            }
 
             return calendar;
         }
 
         public string TimeSlotToTimeStamp(int timeSlot)
         {
-            switch (timeSlot)
+            return timeSlot switch
             {
-                case 1:
-                    return "08:00 - 09:00";
-                case 2:
-                    return "09:00 - 10:00";
-                case 3:
-                    return "10:00 - 11:00";
-                case 4:
-                    return "11:00 - 12:00";
-                case 5:
-                    return "13:00 - 14:00";
-                case 6:
-                    return "14:00 - 15:00";
-                case 7:
-                    return "15:00 - 16:00";
-                case 8:
-                    return "16:00 - 17:00";
-            }
-
-            return "";
+                1 => "08:00 - 09:00",
+                2 => "09:00 - 10:00",
+                3 => "10:00 - 11:00",
+                4 => "11:00 - 12:00",
+                5 => "13:00 - 14:00",
+                6 => "14:00 - 15:00",
+                7 => "15:00 - 16:00",
+                8 => "16:00 - 17:00",
+                _ => ""
+            };
         }
     }
 }
