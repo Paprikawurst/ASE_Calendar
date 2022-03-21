@@ -8,11 +8,11 @@ namespace ASE_Calendar.Domain.Entities
     public class UserEntity
     {
         public UserData UserDataRegistered { get; init; }
-        public UserID userId { get; init; }
+        public UserId UserId { get; init; }
         
         public UserEntity(string username, string password, int roleId, Guid userIdGuid)
         {
-            this.userId = new UserID(userIdGuid);
+            UserId = new UserId(userIdGuid);
             UserDataRegistered = new UserData(username, password, roleId);
 
         }

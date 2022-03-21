@@ -15,50 +15,52 @@ namespace ASE_Calendar.Application.Repositories
     {
         private UserEntity User { get; set; }
         private AppointmentEntity _appointment;
-        private CalendarHelperService calendarHelper = new ();
+        private CalendarHelperService _calendarHelper = new();
 
-        public AppointmentRepository(UserEntity User)
+        public AppointmentRepository(UserEntity user)
         {
-            this.User = User;
+            User = user;
         }
 
-        public AppointmentRepository(AppointmentEntity Appointment)
+        public AppointmentRepository(AppointmentEntity appointment)
         {
-            this._appointment = Appointment;
+            _appointment = appointment;
             CreateAppointment();
         }
 
         public string ReadFromJsonFileReturnString()
         {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
-                string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-                string[] jsonSplit = json.Split("\n");
-                string appointmentsString = null;
-
-                foreach (var subString in jsonSplit)
-                {
-                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                    var Appointment = customJsonConverter.DeserializeObject(subString);
-
-                    if (Appointment != null)
-                    {
-                        if (Appointment.UserId.Value == User.userId.Value)
-                        {
-                            appointmentsString = appointmentsString + Appointment.AppointmentData.Date.ToLongDateString() + " " +
-                                                 calendarHelper.TimeSlotToTimeStamp(Appointment.AppointmentData.TimeSlot) + " " + Appointment.AppointmentData.Description + "\n";
-                        }
-                    }
-                }
-                return appointmentsString;
+                return null;
             }
 
-            return null;
+            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            string[] jsonSplit = json.Split("\n");
+            string appointmentsString = null;
+
+            foreach (var subString in jsonSplit)
+            {
+                var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
+                var appointment = customJsonConverter.DeserializeObject(subString);
+
+                if (appointment != null)
+                {
+                    if (appointment.UserId.Value == User.UserId.Value)
+                    {
+                        appointmentsString = appointmentsString + appointment.AppointmentData.Date.ToLongDateString() +
+                                             " " +
+                                             _calendarHelper.TimeSlotToTimeStamp(appointment.AppointmentData.TimeSlot) +
+                                             " " + appointment.AppointmentData.Description + "\n";
+                    }
+                }
+            }
+
+            return appointmentsString;
         }
 
         public Dictionary<int, AppointmentEntity> ReadFromJsonFileReturnAppointmentDict(DateTime selectedDate)
         {
-
             int i = 0;
             Dictionary<int, AppointmentEntity> appointmentDict = new();
             appointmentDict.Clear();
@@ -73,9 +75,10 @@ namespace ASE_Calendar.Application.Repositories
                     var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
                     var appointment = customJsonConverter.DeserializeObject(subString);
 
-                    if (appointment != null && appointment.AppointmentData.Date.Month == selectedDate.Month && appointment.AppointmentData.Date.Year == selectedDate.Year)
+                    if (appointment != null && appointment.AppointmentData.Date.Month == selectedDate.Month &&
+                        appointment.AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        if (appointment.UserId.Value == User.userId.Value)
+                        if (appointment.UserId.Value == User.UserId.Value)
                         {
                             appointmentDict.Add(appointment.AppointmentData.Date.Day, appointment);
                             i++;
@@ -83,6 +86,7 @@ namespace ASE_Calendar.Application.Repositories
                     }
                 }
             }
+
             return appointmentDict;
         }
 

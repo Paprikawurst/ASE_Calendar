@@ -14,9 +14,9 @@ namespace ASE_Calendar.Domain.ValueObjects
 
         public UserData(string username, string password, int roleId)
         {
-            this.Username = username;
-            this.Password = password;
-            this.RoleId = roleId;
+            Username = username;
+            Password = password;
+            RoleId = roleId;
         }
 
         public override bool Equals(object obj)

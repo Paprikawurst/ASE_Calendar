@@ -11,9 +11,9 @@ namespace ASE_Calendar.Application.Services
     public class AppointmentService
     {
         public AppointmentEntity Appointment { get; set; }
+
         public AppointmentService()
         {
-            
         }
 
         public static void CreateAppointment(AppointmentEntity appointment)
@@ -24,8 +24,8 @@ namespace ASE_Calendar.Application.Services
         public static string LoadAppointments(UserEntity user)
         {
             AppointmentRepository appointmentRepository = new(user);
-            
-            return appointmentRepository.ReadFromJsonFileReturnString(); 
+
+            return appointmentRepository.ReadFromJsonFileReturnString();
         }
     }
 }

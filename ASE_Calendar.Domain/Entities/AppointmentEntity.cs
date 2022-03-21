@@ -6,15 +6,15 @@ namespace ASE_Calendar.Domain.Entities
     public class AppointmentEntity
     {
         public AppointmentData AppointmentData { get; init; }
-        public UserID UserId { get; init; }
+        public UserId UserId { get; init; }
 
-        public AppointmentID AppointmentId { get; init; }
+        public AppointmentId AppointmentId { get; init; }
 
-        public AppointmentEntity(DateTime Date,int timeSlot, UserID UserId, Guid AppointmentIdGuid, string description)
+        public AppointmentEntity(DateTime date,int timeSlot, UserId userId, Guid appointmentIdGuid, string description)
         {
-            AppointmentData = new AppointmentData(Date, timeSlot, description);
-            this.UserId = UserId;
-            this.AppointmentId = new AppointmentID(AppointmentIdGuid);
+            AppointmentData = new AppointmentData(date, timeSlot, description);
+            UserId = userId;
+            AppointmentId = new AppointmentId(appointmentIdGuid);
         }
 
     }

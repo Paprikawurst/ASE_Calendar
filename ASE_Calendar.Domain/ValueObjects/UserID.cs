@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ASE_Calendar.Domain.ValueObjects
 {
-    public class UserID
+    public class UserId
     {
         public Guid Value { get; init; }
 
-        public UserID(Guid value)
+        public UserId(Guid value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public override bool Equals(object obj)
         {
-            return obj is UserID iD &&
+            return obj is UserId iD &&
                    Value.Equals(iD.Value);
         }
 

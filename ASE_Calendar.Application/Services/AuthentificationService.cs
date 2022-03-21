@@ -6,31 +6,32 @@ namespace ASE_Calendar.Application.Services
 {
     public class AuthentificationService
     {
-        
         public AuthentificationService()
         {
         }
 
         public static void StartRegistration(string username, string password, string roleId)
         {
-            UserEntity User = new(username, password, Int16.Parse(roleId), Guid.NewGuid());
-            CredentialsRepository credentialsToJson = new(User);      
+            UserEntity user = new(username, password, Int16.Parse(roleId), Guid.NewGuid());
+            CredentialsRepository credentialsToJson = new(user);
         }
 
         public static UserEntity StartLogin(string username, string password)
         {
             CredentialsRepository credentialsRepository = new(username, password);
-            UserEntity LoggedInUser = credentialsRepository.ReadFromJsonFileReturnUser();
+            UserEntity loggedInUser = credentialsRepository.ReadFromJsonFileReturnUser();
 
-            if (LoggedInUser == null)
+            if (loggedInUser == null)
             {
                 return null;
             }
 
-            if (LoggedInUser.UserDataRegistered.Username == username && LoggedInUser.UserDataRegistered.Password == password)
+            if (loggedInUser.UserDataRegistered.Username == username &&
+                loggedInUser.UserDataRegistered.Password == password)
             {
-                return LoggedInUser;
+                return loggedInUser;
             }
+
             return null;
         }
     }

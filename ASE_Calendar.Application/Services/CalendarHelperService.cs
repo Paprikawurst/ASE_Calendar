@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ASE_Calendar;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Domain.Entities;
 
@@ -10,11 +9,10 @@ namespace ASE_Calendar.Application.Services
     {
         public static string GetMonthdayString(int month)
         {
-            string returnMonthString = "";
+            var returnMonthString = "";
 
             switch (month)
             {
-
                 case 1:
                     returnMonthString = "Jan";
                     break;
@@ -62,34 +60,30 @@ namespace ASE_Calendar.Application.Services
                 case 12:
                     returnMonthString = "Dez";
                     break;
-
             }
+
             return returnMonthString;
         }
 
         public static int GetMaxMonthDayInt(int month, int year)
         {
-            int maxMonthDays = 0;
+            var maxMonthDays = 0;
             const int thirtyone = 31;
             const int thirty = 30;
 
-            bool isLeapYear = GetLeapYear(year);
+            var isLeapYear = GetLeapYear(year);
 
             switch (month)
             {
-
                 case 1:
                     maxMonthDays = thirtyone;
                     break;
                 case 2:
                     if (isLeapYear)
-                    {
                         maxMonthDays = 29;
-                    }
                     else
-                    {
                         maxMonthDays = 28;
-                    }
+
                     break;
                 case 3:
                     maxMonthDays = thirtyone;
@@ -122,55 +116,48 @@ namespace ASE_Calendar.Application.Services
                     maxMonthDays = thirtyone;
                     break;
             }
+
             return maxMonthDays;
         }
 
         private static bool GetLeapYear(int year)
         {
-            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
-            {
-                return true;
-            }
+            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) return true;
+
             return false;
         }
 
-        public string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser )
+        public string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser)
         {
             string calendar = null;
 
             AppointmentRepository appointmentRepository = new(currentUser);
-            Dictionary<int, AppointmentEntity> AppointmentDict = appointmentRepository.ReadFromJsonFileReturnAppointmentDict(selectedDate);
+            var appointmentDict =
+                appointmentRepository.ReadFromJsonFileReturnAppointmentDict(selectedDate);
 
-            IDictionary<int,string>appointmentsAndDayDict = new Dictionary<int, string>();
+            IDictionary<int, string> appointmentsAndDayDict = new Dictionary<int, string>();
 
-            for (int i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Year); i++)
-            {
-
-                if (AppointmentDict.ContainsKey(i))
+            for (var i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Year); i++)
+                if (appointmentDict.ContainsKey(i))
                 {
-                    if (AppointmentDict[i].UserId.Value == currentUser.userId.Value
-                        && i == AppointmentDict[i].AppointmentData.Date.Day
-                        && AppointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
-                        && AppointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
-                    {
-                        appointmentsAndDayDict.Add(i," " + TimeSlotToTimeStamp(AppointmentDict[i].AppointmentData.TimeSlot) + " " + AppointmentDict[i].AppointmentData.Description);
-
-                    }
+                    if (appointmentDict[i].UserId.Value == currentUser.UserId.Value
+                        && i == appointmentDict[i].AppointmentData.Date.Day
+                        && appointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
+                        && appointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
+                        appointmentsAndDayDict.Add(i,
+                            " " + TimeSlotToTimeStamp(appointmentDict[i].AppointmentData.TimeSlot) + " " +
+                            appointmentDict[i].AppointmentData.Description);
                     else
-                    {
                         appointmentsAndDayDict.Add(i, "");
-                    }
                 }
                 else
                 {
                     appointmentsAndDayDict.Add(i, "");
                 }
-            }
 
-            for (int i = 1; i <= appointmentsAndDayDict.Count; i++)
-            {
+            for (var i = 1; i <= appointmentsAndDayDict.Count; i++)
                 calendar = calendar + i + ":" + appointmentsAndDayDict[i] + "\n";
-            }
+
             return calendar;
         }
 

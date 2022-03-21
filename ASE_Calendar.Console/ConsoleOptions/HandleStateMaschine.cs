@@ -8,7 +8,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class HandleStateMaschine
     {
-        private static AppointmentManager appointmentManager;
+        private static AppointmentManager _appointmentManager;
         private enum State
         {
             RegisteredCheck,
@@ -88,13 +88,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     }
                     if (input.Key == ConsoleKey.F1)
                     {
-                        appointmentManager = new AppointmentManager(currentUser, currentTime);
-                        appointmentManager.CreateAppointment();
+                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager.CreateAppointment();
                     }
                     if (input.Key == ConsoleKey.F2)
                     {
-                        appointmentManager = new AppointmentManager(currentUser, currentTime);
-                        appointmentManager.LoadAppointments();
+                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager.LoadAppointments();
                     }
                     if (input.Key == ConsoleKey.F3)
                     {

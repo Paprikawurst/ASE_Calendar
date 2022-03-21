@@ -8,30 +8,30 @@ namespace ASE_Calendar.Application.Services
 {
     public class CheckDateService
     {
-        private int year;
-        private int month;
-        
+        private int _year;
+        private int _month;
+
         public CheckDateService(int year, int month)
         {
-            this.year = year;
-            this.month = month;
+            _year = year;
+            _month = month;
         }
 
         public DateTime Check()
         {
-            if (month > 12)
+            if (_month > 12)
             {
-                year += 1;
-                month = 1;
+                _year += 1;
+                _month = 1;
             }
 
-            if (month <= 0)
+            if (_month <= 0)
             {
-                year -= 1;
-                month = 12;
+                _year -= 1;
+                _month = 12;
             }
 
-            return new DateTime(year, month, 1);
+            return new DateTime(_year, _month, 1);
         }
     }
 }

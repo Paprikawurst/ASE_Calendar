@@ -9,20 +9,21 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
     public class Authentification
     {
         public AuthentificationService AuthService = new();
-        private enum RegistrationState 
-        { 
-            userInputUsername,
-            userInputPassword,
-            userInputRole,
-            checkUsername,
-            checkPassword,
-            checkRole,
+
+        private enum RegistrationState
+        {
+            UserInputUsername,
+            UserInputPassword,
+            UserInputRole,
+            CheckUsername,
+            CheckPassword,
+            CheckRole,
         };
 
         private enum LoginState
         {
-            userInput,
-            checkInput
+            UserInput,
+            CheckInput
         };
 
         private RegistrationState _registrationState;
@@ -31,70 +32,71 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public Authentification()
         {
-           
         }
 
         public void StartRegistration()
         {
-            _registrationState = RegistrationState.userInputUsername;
+            _registrationState = RegistrationState.UserInputUsername;
             string inputUsername = "";
             string inputPassword = "";
             string inputUserRole = "";
 
             switch (_registrationState)
             {
-                case RegistrationState.userInputUsername:
+                case RegistrationState.UserInputUsername:
 
                     Console.WriteLine("Register");
                     Console.WriteLine("__________________________");
                     Console.WriteLine("Enter username:");
                     inputUsername = Console.ReadLine();
 
-                    goto case RegistrationState.checkUsername;
+                    goto case RegistrationState.CheckUsername;
 
-                case RegistrationState.userInputPassword:
+                case RegistrationState.UserInputPassword:
                     Console.WriteLine("Enter password:");
                     inputPassword = Console.ReadLine();
 
-                    goto case RegistrationState.checkPassword;
+                    goto case RegistrationState.CheckPassword;
 
-                case RegistrationState.userInputRole:
+                case RegistrationState.UserInputRole:
 
                     Console.WriteLine("Choose role:");
                     Console.WriteLine("0: Admin | 1: CarDealer | 2: Customer");
                     inputUserRole = Console.ReadLine();
-                    goto case RegistrationState.checkRole;
+                    goto case RegistrationState.CheckRole;
 
-                case RegistrationState.checkUsername:
+                case RegistrationState.CheckUsername:
                     CredentialsRepository credentialsRepository = new CredentialsRepository(inputUsername);
                     if (credentialsRepository.ReadFromJsonFileReturnTrueIfUsernameExists())
                     {
                         Console.Clear();
                         _colorHelper.WriteLineRed("Username already exists!" + "\n");
-                        goto case RegistrationState.userInputUsername;
+                        goto case RegistrationState.UserInputUsername;
                     }
-                    goto case RegistrationState.userInputPassword;
 
-                case RegistrationState.checkPassword:
+                    goto case RegistrationState.UserInputPassword;
+
+                case RegistrationState.CheckPassword:
 
                     if (inputPassword.Length < 5 || inputPassword == "")
                     {
                         Console.Clear();
                         _colorHelper.WriteLineRed("Password must contain at least 5 symbols!" + "\n");
-                        goto case RegistrationState.userInputPassword;
+                        goto case RegistrationState.UserInputPassword;
                     }
 
-                    goto case RegistrationState.userInputRole;
-                    
-                case RegistrationState.checkRole:
+                    goto case RegistrationState.UserInputRole;
+
+                case RegistrationState.CheckRole:
 
                     var isNumber = Regex.IsMatch(inputUserRole, @"^[0-9]*$");
 
-                    if (!isNumber || Int16.Parse(inputUserRole) < 0 || inputUserRole == "" || Int16.Parse(inputUserRole) > 2)
+                    if (!isNumber || Int16.Parse(inputUserRole) < 0 || inputUserRole == "" ||
+                        Int16.Parse(inputUserRole) > 2)
                     {
                         Console.Clear();
                         _colorHelper.WriteLineRed("Please select a role as shown!" + "\n");
-                        goto case RegistrationState.userInputRole;
+                        goto case RegistrationState.UserInputRole;
                     }
 
                     break;
@@ -105,13 +107,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public UserEntity StartLogin()
         {
-            _loginState = LoginState.userInput;
+            _loginState = LoginState.UserInput;
             string inputUsername = "";
             string inputPassword = "";
 
             switch (_loginState)
             {
-                case LoginState.userInput:
+                case LoginState.UserInput:
 
                     Console.WriteLine("Login");
                     Console.WriteLine("__________________________");
@@ -119,19 +121,19 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     inputUsername = Console.ReadLine();
                     Console.WriteLine("Enter password:");
                     inputPassword = Console.ReadLine();
-                    goto case LoginState.checkInput;
+                    goto case LoginState.CheckInput;
 
-                case LoginState.checkInput:
+                case LoginState.CheckInput:
                     var succsfullLogin = AuthentificationService.StartLogin(inputUsername, inputPassword);
 
                     if (succsfullLogin == null)
                     {
                         Console.Clear();
                         _colorHelper.WriteLineRed("Please use valid credentials!" + "\n");
-                        goto case LoginState.userInput;
+                        goto case LoginState.UserInput;
                     }
-                    break;
 
+                    break;
             }
 
             return AuthentificationService.StartLogin(inputUsername, inputPassword);
