@@ -73,7 +73,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     calendar.CreateCalendarCurrentMonth();
 
                     
-                    Console.WriteLine("Previous month: left arrow | Next month: right arrow | Book an appointment: F1 | Show my appointments: F2 | Logout: F3 | Exit application: F4");
+                    Console.WriteLine("Previous month: left arrow | Next month: right arrow");
+                    Console.WriteLine("Book an appointment: F1 | Show my appointments: F2");
+                    Console.WriteLine("Delete an appointment: F3 | Show all appointments: F4");
+                    Console.WriteLine("Change Description of an appointment: F5 | Change date of an appointments: F6");
+                    Console.WriteLine("Logout: l/L | Exit application: e/E");
                     var input = Console.ReadKey();
 
                     if (input.Key == ConsoleKey.LeftArrow)
@@ -98,9 +102,29 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     }
                     if (input.Key == ConsoleKey.F3)
                     {
-                        goto case State.Logout;
+                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager.DeleteAnAppointment();
                     }
                     if (input.Key == ConsoleKey.F4)
+                    {
+                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager.LoadAllAppointments();
+                    }
+                    if (input.Key == ConsoleKey.F5)
+                    {
+                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager.ChangeDescriptionOfAnAppointment();
+                    }
+                    if (input.Key == ConsoleKey.F6)
+                    {
+                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager.ChangeDateOfAnAppointment();
+                    }
+                    if (input.Key == ConsoleKey.L)
+                    {
+                        goto case State.Logout;
+                    }
+                    if (input.Key == ConsoleKey.E)
                     {
                         goto case State.Exit;
                     }

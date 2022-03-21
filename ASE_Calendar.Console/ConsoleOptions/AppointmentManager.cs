@@ -125,5 +125,27 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 Console.ReadLine();
             }
         }
+
+        public void LoadAllAppointments()
+        {
+
+        }
+
+        public void DeleteAnAppointment()
+        {
+
+        }
+
+        public void ChangeDescriptionOfAnAppointment()
+        {
+
+        }
+
+        public void ChangeDateOfAnAppointment()
+        {
+
+        }
+
+
     }
 }
