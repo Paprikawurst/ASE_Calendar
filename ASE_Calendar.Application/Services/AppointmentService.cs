@@ -18,14 +18,43 @@ namespace ASE_Calendar.Application.Services
 
         public static void CreateAppointment(AppointmentEntity appointment)
         {
-            AppointmentRepository appointmentRepository = new(appointment);
+            AppointmentRepository appointmentRepository = new();
+            appointmentRepository.CreateAppointment(appointment);
         }
 
         public static string LoadAppointments(UserEntity user)
         {
-            AppointmentRepository appointmentRepository = new(user);
+            AppointmentRepository appointmentRepository = new();
 
-            return appointmentRepository.ReadFromJsonFileReturnString();
+            return appointmentRepository.ReturnUserAppointmentString(user);
+        }
+
+        public static string LoadAllAppointments()
+        {
+            AppointmentRepository appointmentRepository = new();
+
+            return appointmentRepository.ReturnAllAppointmentsString();
+        }
+
+        public static string DeleteAnAppointment(Guid appointmentGuid)
+        {
+            AppointmentRepository appointmentRepository = new();
+
+            return appointmentRepository.DeleteAppointment(appointmentGuid);
+        }
+
+        public static string ChanngeDescription(Guid appointmentGuid, string description)
+        {
+            AppointmentRepository appointmentRepository = new();
+
+            return appointmentRepository.ChangeDesciption(appointmentGuid, description);
+        }
+
+        public static string ChanngeDate(Guid appointmentGuid, DateTime newDate)
+        {
+            AppointmentRepository appointmentRepository = new();
+
+            return appointmentRepository.ChangeDate(appointmentGuid, newDate);
         }
     }
 }

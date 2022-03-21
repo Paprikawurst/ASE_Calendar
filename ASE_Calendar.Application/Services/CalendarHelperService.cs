@@ -95,9 +95,9 @@ namespace ASE_Calendar.Application.Services
         {
             string calendar = null;
 
-            AppointmentRepository appointmentRepository = new(currentUser);
+            AppointmentRepository appointmentRepository = new();
             var appointmentDict =
-                appointmentRepository.ReadFromJsonFileReturnAppointmentDict(selectedDate);
+                appointmentRepository.ReturnAppointmentDict(selectedDate, currentUser);
 
             IDictionary<int, string> appointmentsAndDayDict = new Dictionary<int, string>();
 

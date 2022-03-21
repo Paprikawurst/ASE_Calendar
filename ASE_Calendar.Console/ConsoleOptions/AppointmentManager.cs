@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using ASE_Calendar.Domain.Entities;
@@ -15,7 +16,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         public DateTime CurrentTime = DateTime.Now;
         public UserEntity CurrentUser;
         public DateTime DateSelected;
-
+        private ConsoleColorHelper colorHelper = new();
         private enum AppointmentState
         {
             UserInputDay,
@@ -39,7 +40,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             string day = "";
             var timeSlot = "";
             string description = "";
-            ConsoleColorHelper colorHelper = new();
 
             _appointmentState = AppointmentState.UserInputDay;
 
@@ -120,30 +120,102 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             }
             else
             {
-                Console.WriteLine("You don't have any appointments at the moment!");
-                Console.WriteLine("Any key to continue!");
+                colorHelper.WriteLineRed("You don't have any appointments at the moment!");
+                colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
         }
 
         public void LoadAllAppointments()
         {
+            Console.WriteLine("All Appointments:\n");
+            var appointmentData = AppointmentService.LoadAllAppointments();
 
+            if (appointmentData != null)
+            {
+                Console.WriteLine(appointmentData);
+                Console.ReadLine();
+            }
+            else
+            {
+                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                colorHelper.WriteLineRed("Any key to continue!");
+                Console.ReadLine();
+            }
         }
 
         public void DeleteAnAppointment()
         {
+            Console.WriteLine("Enter the appointment Id you want to delete:");
+            var appointmentIdString = Console.ReadLine();
+            var appointmentIdGuid = Guid.Parse(appointmentIdString);
+            var appointmentData = AppointmentService.DeleteAnAppointment(appointmentIdGuid);
 
+            if (appointmentData != null)
+            {
+                colorHelper.WriteLineGreen("The appointment has been deleted!");
+                colorHelper.WriteLineGreen("Any key to continue!");
+                Console.ReadLine();
+            }
+            else
+            {
+                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                colorHelper.WriteLineRed("Any key to continue!");
+                Console.ReadLine();
+            }
         }
 
         public void ChangeDescriptionOfAnAppointment()
         {
+            Console.WriteLine("Enter the appointment Id you want to change:");
+            var appointmentIdString = Console.ReadLine();
+            Console.WriteLine("Enter the new description:");
+            var appointmentDescription = Console.ReadLine();
+            var appointmentIdGuid = Guid.Parse(appointmentIdString);
+            var appointmentData = AppointmentService.ChanngeDescription(appointmentIdGuid, appointmentDescription);
 
+            if (appointmentData != null)
+            {
+                colorHelper.WriteLineGreen("The appointment has been edited!");
+                colorHelper.WriteLineGreen("Any key to continue!");
+                Console.ReadLine();
+            }
+            else
+            {
+                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                colorHelper.WriteLineRed("Any key to continue!");
+                Console.ReadLine();
+            }
         }
 
         public void ChangeDateOfAnAppointment()
         {
+            Console.WriteLine("Enter the appointment Id you want to change:");
+            var appointmentIdString = Console.ReadLine();
+            Console.WriteLine("Enter the new day:");
+            var appointmentDay = Console.ReadLine();
+            Console.WriteLine("Enter the new month:");
+            var appointmentMonth = Console.ReadLine();
+            Console.WriteLine("Enter the new year:");
+            var appointmentYear = Console.ReadLine();
 
+            DateTime newDate = new DateTime(short.Parse(appointmentYear), short.Parse(appointmentMonth),
+                short.Parse(appointmentDay));
+            var appointmentIdGuid = Guid.Parse(appointmentIdString);
+            var appointmentData = AppointmentService.ChanngeDate(appointmentIdGuid, newDate);
+
+            if (appointmentData != null)
+            {
+                colorHelper.WriteLineGreen("The appointment has been edited!");
+                colorHelper.WriteLineGreen("Any key to continue!");
+                Console.ReadLine();
+            }
+            else
+            {
+                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                colorHelper.WriteLineRed("Any key to continue!");
+                Console.ReadLine();
+            }
         }
 
 
