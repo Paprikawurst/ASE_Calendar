@@ -74,10 +74,24 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     
                     Console.WriteLine("Previous month: left arrow | Next month: right arrow");
-                    Console.WriteLine("Book an appointment: F1 | Show my appointments: F2");
-                    Console.WriteLine("Delete an appointment: F3 | Show all appointments: F4");
-                    Console.WriteLine("Change Description of an appointment: F5 | Change date of an appointments: F6");
+
+                    if (currentUser.UserDataRegistered.RoleId == 2)
+                    {
+                        Console.WriteLine("Book an appointment: F1 | Show my appointments: F2");
+                    }
+                    if (currentUser.UserDataRegistered.RoleId == 1)
+                    {
+                        Console.WriteLine("Change Description of an appointment: F5 | Change date of an appointments: F6");
+                    }
+                    if (currentUser.UserDataRegistered.RoleId == 0)
+                    {
+                        Console.WriteLine("Book an appointment: F1 | Show my appointments: F2");
+                        Console.WriteLine("Delete an appointment: F3 | Show all appointments: F4");
+                        Console.WriteLine("Change Description of an appointment: F5 | Change date of an appointments: F6");
+                    }
+                    
                     Console.WriteLine("Logout: l/L | Exit application: e/E");
+
                     var input = Console.ReadKey();
 
                     if (input.Key == ConsoleKey.LeftArrow)
