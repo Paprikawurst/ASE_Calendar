@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.Domain.Entities;
 
@@ -9,6 +11,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         private readonly UserEntity _currentUser;
         private CheckDateService _checkDate;
         private DateTime _selectedTime;
+        private ConsoleColorHelper colorHelper = new ConsoleColorHelper();
 
         public CalendarHelperService CalendarHelperService = new();
 
@@ -20,9 +23,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void CreateCalendarCurrentMonth()
         {
-            Console.WriteLine(_selectedTime + "\n");
+            Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
-            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime, _currentUser));
+            CreateCalendarHelper();
+
         }
 
         public DateTime CreateCalendarNextMonth(DateTime test)
@@ -30,10 +34,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             _checkDate = new CheckDateService(test.Year, test.Month + 1);
             _selectedTime = _checkDate.Check();
 
-            Console.WriteLine(_selectedTime + "\n");
+            Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
-            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime, _currentUser));
-
+            CreateCalendarHelper();
 
             return _selectedTime;
         }
@@ -43,12 +46,83 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             _checkDate = new CheckDateService(test.Year, test.Month - 1);
             _selectedTime = _checkDate.Check();
 
-            Console.WriteLine(_selectedTime + "\n");
+            Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
-            Console.WriteLine(CalendarHelperService.CalendarBuilderDays(_selectedTime, _currentUser));
-
+            CreateCalendarHelper();
 
             return _selectedTime;
         }
+
+
+        private void CreateCalendarHelper()
+        {
+            AppointmentRepository appointmentRepository = new();
+            var appointmentDict =
+                appointmentRepository.ReturnAllAppointmentDict(_selectedTime);
+
+
+            for (var i = 1; i <= CalendarHelperService.GetMaxMonthDayInt(_selectedTime.Month, _selectedTime.Year); i++)
+                if (appointmentDict.ContainsKey(i))
+                {
+                    for (int j = 1; j <= 8; j++)
+                    {
+                        if (appointmentDict[i].ContainsKey(j))
+                        {
+                            if(i == appointmentDict[i][j].AppointmentData.Date.Day
+                              && appointmentDict[i][j].AppointmentData.Date.Month == _selectedTime.Month
+                              && appointmentDict[i][j].AppointmentData.Date.Year == _selectedTime.Year)
+                            {
+
+                                if (appointmentDict[i].ContainsKey(j))
+                                {
+                                    if (j == 1)
+                                    {
+                                        Console.Write(i + ": ");
+
+                                        if (appointmentDict[i][j].UserId.Value == _currentUser.UserId.Value)
+                                        {
+                                            colorHelper.WriteGreen(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot) +
+                                                                   " " +
+                                                                   appointmentDict[i][j].AppointmentData.Description);
+                                        }
+                                        else
+                                        {
+                                            colorHelper.WriteRed(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot));
+                                        }
+                                        
+                                    }
+                                    else
+                                    {
+                                        Console.Write(" | ");
+                                        if (appointmentDict[i][j].UserId.Value == _currentUser.UserId.Value)
+                                        {
+                                            colorHelper.WriteGreen(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot) +
+                                                                   " " +
+                                                                   appointmentDict[i][j].AppointmentData.Description);
+                                        }
+                                        else
+                                        {
+                                            colorHelper.WriteRed(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot));
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        }
+                        if (j == 8)
+                        {
+                            Console.Write("\n");
+                        }
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine(i + ":");
+                }
+
+        }
+
+
     }
 }

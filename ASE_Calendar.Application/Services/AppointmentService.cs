@@ -56,5 +56,26 @@ namespace ASE_Calendar.Application.Services
 
             return appointmentRepository.ChangeDate(appointmentGuid, newDate);
         }
+
+        public static bool CheckIfTimeSlotIsFree(DateTime Date, int timeSlot)
+        {
+            AppointmentRepository appointmentRepository = new();
+            var appointmentDict =
+                appointmentRepository.ReturnAllAppointmentDict(Date);
+
+
+            for (var i = 1; i <= CalendarHelperService.GetMaxMonthDayInt(Date.Month, Date.Year); i++)
+            {
+                if (appointmentDict.ContainsKey(i))
+                {
+                    if (appointmentDict[i].ContainsKey(timeSlot))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -54,10 +54,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 case AppointmentState.UserInputTimeSlot:
 
                     Console.WriteLine(
-                        "Please select a timeslot: 8-9 = 1, 9-10 = 2, 10-11 = 3, 11-12 = 4\n13-14 = 5, 14-15 = 6, 15-16 = 7, 16-17 = 8");
+                        "Please select a timeslot wich is free on the selected day:\n08:00 - 09:00 = 1\n09:00 - 10:00 = 2\n10:00 - 11:00 = 3\n11:00 - 12:00 = 4\n13:00 - 14:00 = 5\n14:00 - 15:00 = 6\n15:00 - 16:00 = 7\n16:00 - 17:00 = 8\n");
                     timeSlot = Console.ReadLine();
                     goto case AppointmentState.CheckInputTimeSlot;
-
+                    
                 case AppointmentState.CheckInputDay:
 
                     var isNumber = Regex.IsMatch(day, @"^[0-9]*$");
@@ -74,8 +74,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 case AppointmentState.CheckInputTimeSlot:
 
                     isNumber = Regex.IsMatch(timeSlot, @"[1-8]");
+                    AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot));
 
-                    if (!isNumber || timeSlot == "")
+                    if (!isNumber || timeSlot == "" || !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot)))
                     {
                         colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
                         goto case AppointmentState.UserInputTimeSlot;

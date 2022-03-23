@@ -80,11 +80,14 @@ namespace ASE_Calendar.Application.Repositories
             return appointmentsString;
         }
 
-        public Dictionary<int, AppointmentEntity> ReturnAppointmentDict(DateTime selectedDate, UserEntity user)
+        
+        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentDict(DateTime selectedDate)
         {
             int i = 0;
-            Dictionary<int, AppointmentEntity> appointmentDict = new();
+            Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
             appointmentDict.Clear();
+
+            Dictionary<int, AppointmentEntity> test = new();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
@@ -99,13 +102,24 @@ namespace ASE_Calendar.Application.Repositories
                     if (appointment != null && appointment.AppointmentData.Date.Month == selectedDate.Month &&
                         appointment.AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        if (appointment.UserId.Value == user.UserId.Value)
+
+                        if (appointmentDict.ContainsKey(appointment.AppointmentData.Date.Day))
                         {
-                            appointmentDict.Add(appointment.AppointmentData.Date.Day, appointment);
-                            i++;
+                            appointmentDict[appointment.AppointmentData.Date.Day][
+                                appointment.AppointmentData.TimeSlot] = appointment;
                         }
+                        else
+                        {
+                            test[appointment.AppointmentData.TimeSlot] = appointment;
+                            appointmentDict.Add(appointment.AppointmentData.Date.Day, test);
+
+                        }
+
+                        i++;
+                        
                     }
                 }
+                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "test.json", appointmentDict + "\n");
             }
 
             return appointmentDict;

@@ -91,46 +91,6 @@ namespace ASE_Calendar.Application.Services
             return false;
         }
 
-        public string CalendarBuilderDays(DateTime selectedDate, UserEntity currentUser)
-        {
-            string calendar = null;
-
-            AppointmentRepository appointmentRepository = new();
-            var appointmentDict =
-                appointmentRepository.ReturnAppointmentDict(selectedDate, currentUser);
-
-            IDictionary<int, string> appointmentsAndDayDict = new Dictionary<int, string>();
-
-            for (var i = 1; i <= GetMaxMonthDayInt(selectedDate.Month, selectedDate.Year); i++)
-                if (appointmentDict.ContainsKey(i))
-                {
-                    if (appointmentDict[i].UserId.Value == currentUser.UserId.Value
-                        && i == appointmentDict[i].AppointmentData.Date.Day
-                        && appointmentDict[i].AppointmentData.Date.Month == selectedDate.Month
-                        && appointmentDict[i].AppointmentData.Date.Year == selectedDate.Year)
-                    {
-                        appointmentsAndDayDict.Add(i,
-                            " " + TimeSlotToTimeStamp(appointmentDict[i].AppointmentData.TimeSlot) + " " +
-                            appointmentDict[i].AppointmentData.Description);
-                    }
-                    else
-                    {
-                        appointmentsAndDayDict.Add(i, "");
-                    }
-                }
-                else
-                {
-                    appointmentsAndDayDict.Add(i, "");
-                }
-
-            for (var i = 1; i <= appointmentsAndDayDict.Count; i++)
-            {
-                calendar = calendar + i + ":" + appointmentsAndDayDict[i] + "\n";
-            }
-
-            return calendar;
-        }
-
         public string TimeSlotToTimeStamp(int timeSlot)
         {
             return timeSlot switch
