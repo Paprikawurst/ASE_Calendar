@@ -17,6 +17,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         public Calendar(DateTime currentTime, UserEntity currentUser)
         {
             _selectedTime = currentTime;
+            _selectedTime = new DateTime(currentTime.Year, currentTime.Month, 1);
             _currentUser = currentUser;
         }
 
