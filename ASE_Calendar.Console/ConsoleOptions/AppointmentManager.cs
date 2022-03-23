@@ -1,33 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using ASE_Calendar.Domain.Entities;
-using ASE_Calendar.Application.Services;
 using System.Text.RegularExpressions;
+using ASE_Calendar.Application.Services;
+using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class AppointmentManager
     {
-        public DateTime Date { get; set; }
+        private AppointmentState _appointmentState;
+        private readonly ConsoleColorHelper colorHelper = new();
         public DateTime CurrentTime = DateTime.Now;
         public UserEntity CurrentUser;
         public DateTime DateSelected;
-        private ConsoleColorHelper colorHelper = new();
-        private enum AppointmentState
-        {
-            UserInputDay,
-            UserInputTimeSlot,
-            UserInputDescription,
-            CheckInputDay,
-            CheckInputTimeSlot,
-            CheckInputDescription
-        };
-
-        private AppointmentState _appointmentState;
 
         public AppointmentManager(UserEntity currentUser, DateTime dateSelected)
         {
@@ -35,11 +19,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             DateSelected = dateSelected;
         }
 
+        public DateTime Date { get; set; }
+
         public void CreateAppointment()
         {
-            string day = "";
+            var day = "";
             var timeSlot = "";
-            string description = "";
+            var description = "";
 
             _appointmentState = AppointmentState.UserInputDay;
 
@@ -57,13 +43,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                         "Please select a timeslot wich is free on the selected day:\n08:00 - 09:00 = 1\n09:00 - 10:00 = 2\n10:00 - 11:00 = 3\n11:00 - 12:00 = 4\n13:00 - 14:00 = 5\n14:00 - 15:00 = 6\n15:00 - 16:00 = 7\n16:00 - 17:00 = 8\n");
                     timeSlot = Console.ReadLine();
                     goto case AppointmentState.CheckInputTimeSlot;
-                    
+
                 case AppointmentState.CheckInputDay:
 
                     var isNumber = Regex.IsMatch(day, @"^[0-9]*$");
                     var maxDays = CalendarHelperService.GetMaxMonthDayInt(DateSelected.Month, DateSelected.Year);
 
-                    if (!isNumber || Int16.Parse(day) > maxDays || Int16.Parse(day) <= 0 || day == "")
+                    if (!isNumber || short.Parse(day) > maxDays || short.Parse(day) <= 0 || day == "")
                     {
                         colorHelper.WriteLineRed("\n" + "Please enter the correct day!" + "\n");
                         goto case AppointmentState.UserInputDay;
@@ -76,7 +62,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     isNumber = Regex.IsMatch(timeSlot, @"[1-8]");
                     AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot));
 
-                    if (!isNumber || timeSlot == "" || !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot)))
+                    if (!isNumber || timeSlot == "" ||
+                        !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot)))
                     {
                         colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
                         goto case AppointmentState.UserInputTimeSlot;
@@ -102,10 +89,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     break;
             }
 
-            Date = new DateTime(DateSelected.Year, DateSelected.Month, Int32.Parse(day));
+            Date = new DateTime(DateSelected.Year, DateSelected.Month, int.Parse(day));
 
             AppointmentEntity appointment =
-                new(Date, Int32.Parse(timeSlot), CurrentUser.UserId, Guid.NewGuid(), description);
+                new(Date, int.Parse(timeSlot), CurrentUser.UserId, Guid.NewGuid(), description);
             AppointmentService.CreateAppointment(appointment);
         }
 
@@ -173,7 +160,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             Console.WriteLine("Enter the new description:");
             var appointmentDescription = Console.ReadLine();
             var appointmentIdGuid = Guid.Parse(appointmentIdString);
-            var appointmentData = AppointmentService.ChanngeDescription(appointmentIdGuid, appointmentDescription);
+            var appointmentData = AppointmentService.ChangeDescription(appointmentIdGuid, appointmentDescription);
 
             if (appointmentData != null)
             {
@@ -200,10 +187,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             Console.WriteLine("Enter the new year:");
             var appointmentYear = Console.ReadLine();
 
-            DateTime newDate = new DateTime(short.Parse(appointmentYear), short.Parse(appointmentMonth),
+            var newDate = new DateTime(short.Parse(appointmentYear), short.Parse(appointmentMonth),
                 short.Parse(appointmentDay));
             var appointmentIdGuid = Guid.Parse(appointmentIdString);
-            var appointmentData = AppointmentService.ChanngeDate(appointmentIdGuid, newDate);
+            var appointmentData = AppointmentService.ChangeDate(appointmentIdGuid, newDate);
 
             if (appointmentData != null)
             {
@@ -219,6 +206,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             }
         }
 
-
+        private enum AppointmentState
+        {
+            UserInputDay,
+            UserInputTimeSlot,
+            UserInputDescription,
+            CheckInputDay,
+            CheckInputTimeSlot,
+            CheckInputDescription
+        }
     }
 }

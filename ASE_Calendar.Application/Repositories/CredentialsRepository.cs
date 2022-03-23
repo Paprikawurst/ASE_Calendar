@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ASE_Calendar.Application.Services;
 using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
-using Newtonsoft.Json;
 
 namespace ASE_Calendar.Application.Repositories
 {
     public class CredentialsRepository
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-
-        private UserEntity _userEntity;
+        private readonly UserEntity _userEntity;
 
         public CredentialsRepository(string username, string password)
         {
@@ -31,14 +22,17 @@ namespace ASE_Calendar.Application.Repositories
 
         public CredentialsRepository(UserEntity userEntity)
         {
-            this._userEntity = userEntity;
+            _userEntity = userEntity;
             CreateNewCredentials();
         }
 
+        public string Username { get; set; }
+        public string Password { get; set; }
+
         public UserEntity ReadFromJsonFileReturnUser()
         {
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
-            string[] jsonSplit = json.Split("\n");
+            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
+            var jsonSplit = json.Split("\n");
 
             foreach (var subString in jsonSplit)
             {
@@ -62,8 +56,8 @@ namespace ASE_Calendar.Application.Repositories
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
             {
-                string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
-                string[] jsonSplit = json.Split("\n");
+                var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json");
+                var jsonSplit = json.Split("\n");
 
                 foreach (var subString in jsonSplit)
                 {

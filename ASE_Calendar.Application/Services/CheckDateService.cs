@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASE_Calendar.Application.Services
 {
     public class CheckDateService
     {
-        private int _year;
         private int _month;
+        private int _year;
 
         public CheckDateService(int year, int month)
         {

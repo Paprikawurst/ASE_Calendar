@@ -6,40 +6,20 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
-    public class Authentification
+    public class Authentication
     {
-        public AuthentificationService AuthService = new();
-
-        private enum RegistrationState
-        {
-            UserInputUsername,
-            UserInputPassword,
-            UserInputRole,
-            CheckUsername,
-            CheckPassword,
-            CheckRole,
-        };
-
-        private enum LoginState
-        {
-            UserInput,
-            CheckInput
-        };
+        private readonly ConsoleColorHelper _colorHelper = new();
+        private LoginState _loginState;
 
         private RegistrationState _registrationState;
-        private LoginState _loginState;
-        private ConsoleColorHelper _colorHelper = new();
-
-        public Authentification()
-        {
-        }
+        public AuthentificationService AuthService = new();
 
         public void StartRegistration()
         {
             _registrationState = RegistrationState.UserInputUsername;
-            string inputUsername = "";
-            string inputPassword = "";
-            string inputUserRole = "";
+            var inputUsername = "";
+            var inputPassword = "";
+            var inputUserRole = "";
 
             switch (_registrationState)
             {
@@ -66,7 +46,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case RegistrationState.CheckRole;
 
                 case RegistrationState.CheckUsername:
-                    CredentialsRepository credentialsRepository = new CredentialsRepository(inputUsername);
+                    var credentialsRepository = new CredentialsRepository(inputUsername);
                     if (credentialsRepository.ReadFromJsonFileReturnTrueIfUsernameExists())
                     {
                         Console.Clear();
@@ -91,8 +71,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     var isNumber = Regex.IsMatch(inputUserRole, @"^[0-9]*$");
 
-                    if (!isNumber || Int16.Parse(inputUserRole) < 0 || inputUserRole == "" ||
-                        Int16.Parse(inputUserRole) > 2)
+                    if (!isNumber || short.Parse(inputUserRole) < 0 || inputUserRole == "" ||
+                        short.Parse(inputUserRole) > 2)
                     {
                         Console.Clear();
                         _colorHelper.WriteLineRed("Please select a role as shown!" + "\n");
@@ -108,8 +88,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         public UserEntity StartLogin()
         {
             _loginState = LoginState.UserInput;
-            string inputUsername = "";
-            string inputPassword = "";
+            var inputUsername = "";
+            var inputPassword = "";
 
             switch (_loginState)
             {
@@ -137,6 +117,22 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             }
 
             return AuthentificationService.StartLogin(inputUsername, inputPassword);
+        }
+
+        private enum RegistrationState
+        {
+            UserInputUsername,
+            UserInputPassword,
+            UserInputRole,
+            CheckUsername,
+            CheckPassword,
+            CheckRole
+        }
+
+        private enum LoginState
+        {
+            UserInput,
+            CheckInput
         }
     }
 }

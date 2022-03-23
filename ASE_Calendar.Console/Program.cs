@@ -9,8 +9,8 @@ namespace ASE_Calendar.ConsoleUI
     {
         static void Main()
         {
-            HandleStateMaschine stateMaschine = new();
-            stateMaschine.StartStateMaschine();
+            HandleStateMachine stateMachine = new();
+            stateMachine.StartStateMachine();
         }
 
     }

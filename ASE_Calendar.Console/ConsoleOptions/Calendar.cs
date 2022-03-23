@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.Domain.Entities;
@@ -11,9 +10,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         private readonly UserEntity _currentUser;
         private CheckDateService _checkDate;
         private DateTime _selectedTime;
-        private ConsoleColorHelper colorHelper = new ConsoleColorHelper();
 
         public CalendarHelperService CalendarHelperService = new();
+        private readonly ConsoleColorHelper colorHelper = new();
 
         public Calendar(DateTime currentTime, UserEntity currentUser)
         {
@@ -26,7 +25,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
             CreateCalendarHelper();
-
         }
 
         public DateTime CreateCalendarNextMonth(DateTime test)
@@ -64,15 +62,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             for (var i = 1; i <= CalendarHelperService.GetMaxMonthDayInt(_selectedTime.Month, _selectedTime.Year); i++)
                 if (appointmentDict.ContainsKey(i))
                 {
-                    for (int j = 1; j <= 8; j++)
+                    for (var j = 1; j <= 8; j++)
                     {
                         if (appointmentDict[i].ContainsKey(j))
                         {
-                            if(i == appointmentDict[i][j].AppointmentData.Date.Day
-                              && appointmentDict[i][j].AppointmentData.Date.Month == _selectedTime.Month
-                              && appointmentDict[i][j].AppointmentData.Date.Year == _selectedTime.Year)
+                            if (i == appointmentDict[i][j].AppointmentData.Date.Day
+                                && appointmentDict[i][j].AppointmentData.Date.Month == _selectedTime.Month
+                                && appointmentDict[i][j].AppointmentData.Date.Year == _selectedTime.Year)
                             {
-
                                 if (appointmentDict[i].ContainsKey(j))
                                 {
                                     if (j == 1)
@@ -81,48 +78,51 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                                         if (appointmentDict[i][j].UserId.Value == _currentUser.UserId.Value)
                                         {
-                                            colorHelper.WriteGreen(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot) +
-                                                                   " " +
-                                                                   appointmentDict[i][j].AppointmentData.Description);
+                                            colorHelper.WriteGreen(
+                                                CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
+                                                    .AppointmentData.TimeSlot) +
+                                                " " +
+                                                appointmentDict[i][j].AppointmentData.Description);
                                         }
                                         else
                                         {
-                                            colorHelper.WriteRed(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot));
+                                            colorHelper.WriteRed(
+                                                CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
+                                                    .AppointmentData.TimeSlot));
                                         }
-                                        
                                     }
                                     else
                                     {
                                         Console.Write(" | ");
                                         if (appointmentDict[i][j].UserId.Value == _currentUser.UserId.Value)
                                         {
-                                            colorHelper.WriteGreen(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot) +
-                                                                   " " +
-                                                                   appointmentDict[i][j].AppointmentData.Description);
+                                            colorHelper.WriteGreen(
+                                                CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
+                                                    .AppointmentData.TimeSlot) +
+                                                " " +
+                                                appointmentDict[i][j].AppointmentData.Description);
                                         }
                                         else
                                         {
-                                            colorHelper.WriteRed(CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j].AppointmentData.TimeSlot));
+                                            colorHelper.WriteRed(
+                                                CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
+                                                    .AppointmentData.TimeSlot));
                                         }
                                     }
                                 }
                             }
-                            
                         }
+
                         if (j == 8)
                         {
                             Console.Write("\n");
                         }
                     }
-
                 }
                 else
                 {
                     Console.WriteLine(i + ":");
                 }
-
         }
-
-
     }
 }

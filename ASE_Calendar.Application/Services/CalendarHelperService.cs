@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ASE_Calendar.Application.Repositories;
-using ASE_Calendar.Domain.Entities;
-
-namespace ASE_Calendar.Application.Services
+﻿namespace ASE_Calendar.Application.Services
 {
     public class CalendarHelperService
     {

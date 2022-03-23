@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
-using Newtonsoft.Json;
 
 namespace ASE_Calendar.Application.Repositories
 {
     public class AppointmentRepository
     {
-        
-        private CalendarHelperService _calendarHelper = new();
+        private readonly CalendarHelperService _calendarHelper = new();
 
 
         public string ReturnUserAppointmentString(UserEntity user)
@@ -24,8 +19,8 @@ namespace ASE_Calendar.Application.Repositories
                 return null;
             }
 
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            string[] jsonSplit = json.Split("\n");
+            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            var jsonSplit = json.Split("\n");
             string appointmentsString = null;
 
             foreach (var subString in jsonSplit)
@@ -55,8 +50,8 @@ namespace ASE_Calendar.Application.Repositories
                 return null;
             }
 
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            string[] jsonSplit = json.Split("\n");
+            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            var jsonSplit = json.Split("\n");
             string appointmentsString = null;
 
             foreach (var subString in jsonSplit)
@@ -66,24 +61,22 @@ namespace ASE_Calendar.Application.Repositories
 
                 if (appointment != null)
                 {
-                    
-                    appointmentsString = appointmentsString + appointment.AppointmentId.Value + 
-                                         " " + 
+                    appointmentsString = appointmentsString + appointment.AppointmentId.Value +
+                                         " " +
                                          appointment.AppointmentData.Date.ToLongDateString() +
                                          " " +
                                          _calendarHelper.TimeSlotToTimeStamp(appointment.AppointmentData.TimeSlot) +
                                          " " + appointment.AppointmentData.Description + "\n";
-                    
                 }
             }
 
             return appointmentsString;
         }
 
-        
+
         public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentDict(DateTime selectedDate)
         {
-            int i = 0;
+            var i = 0;
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
             appointmentDict.Clear();
 
@@ -91,8 +84,8 @@ namespace ASE_Calendar.Application.Repositories
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
-                string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-                string[] jsonSplit = json.Split("\n");
+                var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+                var jsonSplit = json.Split("\n");
 
                 foreach (var subString in jsonSplit)
                 {
@@ -102,7 +95,6 @@ namespace ASE_Calendar.Application.Repositories
                     if (appointment != null && appointment.AppointmentData.Date.Month == selectedDate.Month &&
                         appointment.AppointmentData.Date.Year == selectedDate.Year)
                     {
-
                         if (appointmentDict.ContainsKey(appointment.AppointmentData.Date.Day))
                         {
                             appointmentDict[appointment.AppointmentData.Date.Day][
@@ -112,13 +104,12 @@ namespace ASE_Calendar.Application.Repositories
                         {
                             test[appointment.AppointmentData.TimeSlot] = appointment;
                             appointmentDict.Add(appointment.AppointmentData.Date.Day, test);
-
                         }
 
                         i++;
-                        
                     }
                 }
+
                 File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "test.json", appointmentDict + "\n");
             }
 
@@ -140,8 +131,8 @@ namespace ASE_Calendar.Application.Repositories
                 return null;
             }
 
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            string[] jsonSplit = json.Split("\n");
+            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            var jsonSplit = json.Split("\n");
             var i = 0;
 
             foreach (var subString in jsonSplit)
@@ -172,7 +163,7 @@ namespace ASE_Calendar.Application.Repositories
                 }
             }
 
-            return"";
+            return "";
         }
 
         public string ChangeDesciption(Guid appointmentGuid, string newDescription)
@@ -182,8 +173,8 @@ namespace ASE_Calendar.Application.Repositories
                 return null;
             }
 
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            string[] jsonSplit = json.Split("\n");
+            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            var jsonSplit = json.Split("\n");
             AppointmentEntity changedAppointment = null;
             var i = 0;
 
@@ -216,7 +207,6 @@ namespace ASE_Calendar.Application.Repositories
                     var appointment = customJsonConverter.DeserializeObject(subString);
                     CreateAppointment(appointment);
                 }
-
             }
 
             CreateAppointment(changedAppointment);
@@ -230,8 +220,8 @@ namespace ASE_Calendar.Application.Repositories
                 return null;
             }
 
-            string json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            string[] jsonSplit = json.Split("\n");
+            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            var jsonSplit = json.Split("\n");
             AppointmentEntity changedAppointment = null;
             var i = 0;
 
@@ -264,7 +254,6 @@ namespace ASE_Calendar.Application.Repositories
                     var appointment = customJsonConverter.DeserializeObject(subString);
                     CreateAppointment(appointment);
                 }
-
             }
 
             CreateAppointment(changedAppointment);
