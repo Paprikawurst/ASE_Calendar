@@ -1,7 +1,4 @@
-﻿using System;
-using ASE_Calendar.Application.Services;
-using ASE_Calendar.Domain.Entities;
-using ASE_Calendar.ConsoleUI.ConsoleOptions;
+﻿using ASE_Calendar.ConsoleUI.ConsoleOptions;
 
 namespace ASE_Calendar.ConsoleUI
 {
@@ -12,8 +9,5 @@ namespace ASE_Calendar.ConsoleUI
             HandleStateMachine stateMachine = new();
             stateMachine.StartStateMachine();
         }
-
     }
-
-    
 }

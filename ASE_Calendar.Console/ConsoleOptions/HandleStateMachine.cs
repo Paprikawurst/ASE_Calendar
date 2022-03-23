@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
@@ -146,7 +147,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case State.CalendarViewer;
 
                 case State.Logout:
-
                     Console.Clear();
                     goto case State.RegisteredCheck;
 
@@ -154,16 +154,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     Console.Clear();
                     break;
             }
-        }
-
-        private enum State
-        {
-            RegisteredCheck,
-            Register,
-            Login,
-            CalendarViewer,
-            Logout,
-            Exit
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
@@ -204,16 +205,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
-        }
-
-        private enum AppointmentState
-        {
-            UserInputDay,
-            UserInputTimeSlot,
-            UserInputDescription,
-            CheckInputDay,
-            CheckInputTimeSlot,
-            CheckInputDescription
         }
     }
 }

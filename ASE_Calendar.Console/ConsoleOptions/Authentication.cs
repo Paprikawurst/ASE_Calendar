@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
@@ -117,22 +118,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             }
 
             return AuthentificationService.StartLogin(inputUsername, inputPassword);
-        }
-
-        private enum RegistrationState
-        {
-            UserInputUsername,
-            UserInputPassword,
-            UserInputRole,
-            CheckUsername,
-            CheckPassword,
-            CheckRole
-        }
-
-        private enum LoginState
-        {
-            UserInput,
-            CheckInput
         }
     }
 }
