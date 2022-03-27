@@ -13,7 +13,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void StartStateMachine()
         {
-            var currentTime = DateTime.Now;
+            var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new Authentication();
             ConsoleColorHelper colorHelper = new();
@@ -55,13 +55,12 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                 case State.CalendarViewer:
 
-                    var calendar = new Calendar(currentTime, currentUser);
+                    var calendar = new Calendar(selectedTime, currentUser);
                     Console.Clear();
                     calendar.CreateCalendarCurrentMonth();
 
-
+                    Console.WriteLine("\ncurrent month: arrow up");
                     Console.WriteLine("\nPrevious month: left arrow | Next month: right arrow");
-
                     if (currentUser.UserDataRegistered.RoleId == 2)
                     {
                         Console.WriteLine("Book an appointment: 1 | Show my appointments: 2");
@@ -85,51 +84,57 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     var input = Console.ReadKey();
 
+                    if (input.Key == ConsoleKey.UpArrow)
+                    {
+                        Console.Clear();
+                        calendar.CreateCalendarCurrentMonth();
+                    }
+
                     if (input.Key == ConsoleKey.LeftArrow)
                     {
                         Console.Clear();
-                        currentTime = calendar.CreateCalendarPrevMonth(currentTime);
+                        selectedTime = calendar.CreateCalendarPrevMonth(selectedTime);
                     }
 
                     if (input.Key == ConsoleKey.RightArrow)
                     {
                         Console.Clear();
-                        currentTime = calendar.CreateCalendarNextMonth(currentTime);
+                        selectedTime = calendar.CreateCalendarNextMonth(selectedTime);
                     }
 
                     if (input.Key == ConsoleKey.D1 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.CreateAppointment();
                     }
 
                     if (input.Key == ConsoleKey.D2 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.LoadAppointments();
                     }
 
                     if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId == 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.DeleteAnAppointment();
                     }
 
                     if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId == 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.LoadAllAppointments();
                     }
 
                     if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.ChangeDescriptionOfAnAppointment();
                     }
 
                     if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, currentTime);
+                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.ChangeDateOfAnAppointment();
                     }
 

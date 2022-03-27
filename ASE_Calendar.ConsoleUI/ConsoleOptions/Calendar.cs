@@ -17,6 +17,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         public Calendar(DateTime currentTime, UserEntity currentUser)
         {
             _selectedTime = currentTime;
+            _selectedTime = new DateTime(currentTime.Year, currentTime.Month, 1);
             _currentUser = currentUser;
         }
 
@@ -58,6 +59,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var appointmentDict =
                 appointmentRepository.ReturnAllAppointmentDict(_selectedTime);
 
+            bool first = true;
 
             for (var i = 1; i <= CalendarHelperService.GetMaxMonthDayInt(_selectedTime.Month, _selectedTime.Year); i++)
                 if (appointmentDict.ContainsKey(i))
@@ -72,8 +74,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                             {
                                 if (appointmentDict[i].ContainsKey(j))
                                 {
-                                    if (j == 1)
+                                    if (first)
                                     {
+                                        first = false;
+
                                         Console.Write(i + ": ");
 
                                         if (appointmentDict[i][j].UserId.Value == _currentUser.UserId.Value)
