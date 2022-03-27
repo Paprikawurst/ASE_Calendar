@@ -21,11 +21,21 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             _currentUser = currentUser;
         }
 
-        public void CreateCalendarCurrentMonth()
+        public void CreateCalendar()
         {
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
             CreateCalendarHelper();
+        }
+
+        public DateTime CreateCalendarCurrentMonth()
+        {
+            _selectedTime = DateTime.Now;
+            Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
+            CreateCalendarHelper();
+
+            return _selectedTime;
         }
 
         public DateTime CreateCalendarNextMonth(DateTime test)

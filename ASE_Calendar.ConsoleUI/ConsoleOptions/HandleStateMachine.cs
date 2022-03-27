@@ -57,7 +57,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     var calendar = new Calendar(selectedTime, currentUser);
                     Console.Clear();
-                    calendar.CreateCalendarCurrentMonth();
+                    calendar.CreateCalendar();
 
                     Console.WriteLine("\nCurrent month: arrow up");
                     Console.WriteLine("Previous month: left arrow | Next month: right arrow");
@@ -87,7 +87,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (input.Key == ConsoleKey.UpArrow)
                     {
                         Console.Clear();
-                        calendar.CreateCalendarCurrentMonth();
+                        selectedTime = calendar.CreateCalendarCurrentMonth();
                     }
 
                     if (input.Key == ConsoleKey.LeftArrow)
