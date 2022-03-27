@@ -64,21 +64,21 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     if (currentUser.UserDataRegistered.RoleId == 2)
                     {
-                        Console.WriteLine("Book an appointment: F1 | Show my appointments: F2");
+                        Console.WriteLine("Book an appointment: 1 | Show my appointments: 2");
                     }
 
                     if (currentUser.UserDataRegistered.RoleId == 1)
                     {
                         Console.WriteLine(
-                            "Change Description of an appointment: F5 | Change date of an appointments: F6");
+                            "Change Description of an appointment: 5 | Change date of an appointments: 6");
                     }
 
                     if (currentUser.UserDataRegistered.RoleId == 0)
                     {
-                        Console.WriteLine("Book an appointment: F1 | Show my appointments: F2");
-                        Console.WriteLine("Delete an appointment: F3 | Show all appointments: F4");
+                        Console.WriteLine("Book an appointment: 1 | Show my appointments: 2");
+                        Console.WriteLine("Delete an appointment: 3 | Show all appointments: 4");
                         Console.WriteLine(
-                            "Change Description of an appointment: F5 | Change date of an appointments: F6");
+                            "Change Description of an appointment: 5 | Change date of an appointments: 6");
                     }
 
                     Console.WriteLine("Logout: l/L | Exit application: e/E");
@@ -97,37 +97,37 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                         currentTime = calendar.CreateCalendarNextMonth(currentTime);
                     }
 
-                    if (input.Key == ConsoleKey.F1 && currentUser.UserDataRegistered.RoleId is 2 or 0)
+                    if (input.Key == ConsoleKey.D1 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, currentTime);
                         _appointmentManager.CreateAppointment();
                     }
 
-                    if (input.Key == ConsoleKey.F2 && currentUser.UserDataRegistered.RoleId is 2 or 0)
+                    if (input.Key == ConsoleKey.D2 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, currentTime);
                         _appointmentManager.LoadAppointments();
                     }
 
-                    if (input.Key == ConsoleKey.F3 && currentUser.UserDataRegistered.RoleId == 0)
+                    if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId == 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, currentTime);
                         _appointmentManager.DeleteAnAppointment();
                     }
 
-                    if (input.Key == ConsoleKey.F4 && currentUser.UserDataRegistered.RoleId == 0)
+                    if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId == 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, currentTime);
                         _appointmentManager.LoadAllAppointments();
                     }
 
-                    if (input.Key == ConsoleKey.F5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
+                    if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, currentTime);
                         _appointmentManager.ChangeDescriptionOfAnAppointment();
                     }
 
-                    if (input.Key == ConsoleKey.F6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
+                    if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, currentTime);
                         _appointmentManager.ChangeDateOfAnAppointment();
