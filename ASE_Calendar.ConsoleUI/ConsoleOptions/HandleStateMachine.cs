@@ -158,8 +158,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                 case State.Info:
                     //TODO: Infotext schreiben
-                    Console.WriteLine("\n Hallo test --- Press any key to continue \n");
-                    Console.ReadKey();
+                    var infoHelper = new InfoHelper();
+                    infoHelper.ShowInfo(currentUser);
                     goto case State.CalendarViewer;
 
                 case State.Logout:

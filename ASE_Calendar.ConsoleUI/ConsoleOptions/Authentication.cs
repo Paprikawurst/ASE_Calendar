@@ -105,9 +105,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case LoginState.CheckInput;
 
                 case LoginState.CheckInput:
-                    var succsfullLogin = AuthentificationService.StartLogin(inputUsername, inputPassword);
+                    var successfulLogin = AuthentificationService.StartLogin(inputUsername, inputPassword);
 
-                    if (succsfullLogin == null)
+                    if (successfulLogin == null)
                     {
                         Console.Clear();
                         _colorHelper.WriteLineRed("Please use valid credentials!" + "\n");
