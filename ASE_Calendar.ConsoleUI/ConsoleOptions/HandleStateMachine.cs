@@ -80,7 +80,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                             "Change Description of an appointment: 5 | Change date of an appointments: 6");
                     }
 
-                    Console.WriteLine("Logout: l/L | Exit application: e/E");
+                    Console.WriteLine("Logout: l/L | Exit application: e/E | Information: i/I");
 
                     var input = Console.ReadKey();
 
@@ -138,6 +138,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                         _appointmentManager.ChangeDateOfAnAppointment();
                     }
 
+                    if (input.Key == ConsoleKey.I)
+                    {
+                        goto case State.Info;
+                    }
+
                     if (input.Key == ConsoleKey.L)
                     {
                         goto case State.Logout;
@@ -149,6 +154,12 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     }
 
                     Console.Clear();
+                    goto case State.CalendarViewer;
+
+                case State.Info:
+                    //TODO: Infotext schreiben
+                    Console.WriteLine("\n Hallo test --- Press any key to continue \n");
+                    Console.ReadKey();
                     goto case State.CalendarViewer;
 
                 case State.Logout:

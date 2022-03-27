@@ -7,6 +7,7 @@
         Login,
         CalendarViewer,
         Logout,
-        Exit
+        Exit,
+        Info
     }
 }
