@@ -59,8 +59,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     Console.Clear();
                     calendar.CreateCalendarCurrentMonth();
 
-                    Console.WriteLine("\ncurrent month: arrow up");
-                    Console.WriteLine("\nPrevious month: left arrow | Next month: right arrow");
+                    Console.WriteLine("\nCurrent month: arrow up");
+                    Console.WriteLine("Previous month: left arrow | Next month: right arrow");
                     if (currentUser.UserDataRegistered.RoleId == 2)
                     {
                         Console.WriteLine("Book an appointment: 1 | Show my appointments: 2");
