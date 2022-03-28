@@ -9,8 +9,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
     public class AppointmentManager
     {
         private AppointmentState _appointmentState;
-        private readonly ConsoleColorHelper colorHelper = new();
-        public DateTime CurrentTime = DateTime.Now;
+        private readonly ConsoleColorHelper _colorHelper = new();
         public UserEntity CurrentUser;
         public DateTime DateSelected;
 
@@ -41,7 +40,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 case AppointmentState.UserInputTimeSlot:
 
                     Console.WriteLine(
-                        "Please select a timeslot wich is free on the selected day:\n08:00 - 09:00 = 1\n09:00 - 10:00 = 2\n10:00 - 11:00 = 3\n11:00 - 12:00 = 4\n13:00 - 14:00 = 5\n14:00 - 15:00 = 6\n15:00 - 16:00 = 7\n16:00 - 17:00 = 8\n");
+                        "Please select a timeslot which is free on the selected day:\n08:00 - 09:00 = 1\n09:00 - 10:00 = 2\n10:00 - 11:00 = 3\n11:00 - 12:00 = 4\n13:00 - 14:00 = 5\n14:00 - 15:00 = 6\n15:00 - 16:00 = 7\n16:00 - 17:00 = 8\n");
                     timeSlot = Console.ReadLine();
                     goto case AppointmentState.CheckInputTimeSlot;
 
@@ -52,7 +51,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     
                     if (!isNumber || day == "" || short.Parse(day) <= 0 || short.Parse(day) > maxDays)
                     {
-                        colorHelper.WriteLineRed("\n" + "Please enter the correct day!" + "\n");
+                        _colorHelper.WriteLineRed("\n" + "Please enter the correct day!" + "\n");
                         goto case AppointmentState.UserInputDay;
                     }
 
@@ -66,7 +65,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (!isNumber || timeSlot == "" ||
                         !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot), short.Parse(day)))
                     {
-                        colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
+                        _colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
                         goto case AppointmentState.UserInputTimeSlot;
                     }
 
@@ -83,7 +82,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     if (description.Length > 25 || description == "")
                     {
-                        colorHelper.WriteLineRed("Wrong input! Enter more than 0 and less than 25 signs!");
+                        _colorHelper.WriteLineRed("Wrong input! Enter more than 0 and less than 25 signs!");
                         goto case AppointmentState.UserInputDescription;
                     }
 
@@ -109,8 +108,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             }
             else
             {
-                colorHelper.WriteLineRed("You don't have any appointments at the moment!");
-                colorHelper.WriteLineRed("Any key to continue!");
+                _colorHelper.WriteLineRed("You don't have any appointments at the moment!");
+                _colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
         }
@@ -127,8 +126,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             }
             else
             {
-                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                colorHelper.WriteLineRed("Any key to continue!");
+                _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                _colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
         }
@@ -142,14 +141,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             if (appointmentData != null)
             {
-                colorHelper.WriteLineGreen("The appointment has been deleted!");
-                colorHelper.WriteLineGreen("Any key to continue!");
+                _colorHelper.WriteLineGreen("The appointment has been deleted!");
+                _colorHelper.WriteLineGreen("Any key to continue!");
                 Console.ReadLine();
             }
             else
             {
-                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                colorHelper.WriteLineRed("Any key to continue!");
+                _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                _colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
         }
@@ -165,14 +164,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             if (appointmentData != null)
             {
-                colorHelper.WriteLineGreen("The appointment has been edited!");
-                colorHelper.WriteLineGreen("Any key to continue!");
+                _colorHelper.WriteLineGreen("The appointment has been edited!");
+                _colorHelper.WriteLineGreen("Any key to continue!");
                 Console.ReadLine();
             }
             else
             {
-                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                colorHelper.WriteLineRed("Any key to continue!");
+                _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                _colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
         }
@@ -195,14 +194,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             if (appointmentData != null)
             {
-                colorHelper.WriteLineGreen("The appointment has been edited!");
-                colorHelper.WriteLineGreen("Any key to continue!");
+                _colorHelper.WriteLineGreen("The appointment has been edited!");
+                _colorHelper.WriteLineGreen("Any key to continue!");
                 Console.ReadLine();
             }
             else
             {
-                colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                colorHelper.WriteLineRed("Any key to continue!");
+                _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                _colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
         }
