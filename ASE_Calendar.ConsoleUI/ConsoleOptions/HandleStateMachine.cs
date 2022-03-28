@@ -129,13 +129,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.ChangeDescriptionOfAnAppointment();
+                        _appointmentManager.ChangeDescriptionOfAnAppointment(selectedTime);
                     }
 
                     if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.ChangeDateOfAnAppointment();
+                        _appointmentManager.ChangeDateOfAnAppointment(selectedTime);
                     }
 
                     if (input.Key == ConsoleKey.I)
