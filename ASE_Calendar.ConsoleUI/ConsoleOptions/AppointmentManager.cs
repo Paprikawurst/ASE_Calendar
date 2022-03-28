@@ -225,9 +225,30 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void ChangeDateOfAnAppointment(DateTime selectedTime)
         {
+            var appointmentRepository = new AppointmentRepository();
+            var allAppointments = appointmentRepository.ReturnAllAppointmentDict(selectedTime);
+            List<AppointmentEntity> appointmentList = new();
+            //get list of all appointments
+            foreach (var appointment in allAppointments)
+            {
+                appointmentList.Add(appointment.Value.FirstOrDefault().Value);
+            }
+            //list all appointments to user
+            int counter = 1;
+            foreach (var appointment in appointmentList)
+            {
 
-            Console.WriteLine("Enter the appointment Id you want to change:");
-            var appointmentIdString = Console.ReadLine();
+                Console.WriteLine("\n" + counter + ": " + appointment.AppointmentData.Date + " " + appointment.AppointmentData.Description);
+                counter++;
+            }
+
+            counter = 1;
+            //user chooses one appointment by choosing number from 1 to x
+            Console.WriteLine("Enter the appointment number you want to change the date of:");
+            var appointmentId = int.Parse(Console.ReadLine());
+            //get chosen appointment object guid
+            var appointmentIdGuid = appointmentList[appointmentId - 1].AppointmentId.Value;
+
             Console.WriteLine("Enter the new day:");
             var appointmentDay = Console.ReadLine();
             Console.WriteLine("Enter the new month:");
@@ -237,7 +258,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             var newDate = new DateTime(short.Parse(appointmentYear), short.Parse(appointmentMonth),
                 short.Parse(appointmentDay));
-            var appointmentIdGuid = Guid.Parse(appointmentIdString);
             var appointmentData = AppointmentService.ChangeDate(appointmentIdGuid, newDate);
 
             if (appointmentData != null)
