@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
@@ -132,11 +135,33 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             }
         }
 
-        public void DeleteAnAppointment()
+        public void DeleteAnAppointment(DateTime selectedTime)
         {
-            Console.WriteLine("Enter the appointment Id you want to delete:");
-            var appointmentIdString = Console.ReadLine();
-            var appointmentIdGuid = Guid.Parse(appointmentIdString);
+            var appointmentRepository = new AppointmentRepository();
+            var allAppointments = appointmentRepository.ReturnAllAppointmentDict(selectedTime);
+            List <AppointmentEntity> appointmentList = new();
+            //get list of all appointments
+            foreach (var appointment in allAppointments)
+            {
+                appointmentList.Add(appointment.Value.FirstOrDefault().Value);
+            }
+            //list all appointments to user
+            int counter = 1;
+            foreach (var appointment in appointmentList)
+            {
+
+                Console.WriteLine("\n" + counter + ": " + appointment.AppointmentData.Date + " " + appointment.AppointmentData.Description);
+                counter++;
+            }
+
+            counter = 1;
+            //user chooses one appointment by choosing number from 1 to x
+            Console.WriteLine("Enter the appointment number you want to delete:");
+            var appointmentId = int.Parse(Console.ReadLine());
+            //get chosen appointment object guid
+            var appointmentIdGuid = appointmentList[appointmentId].AppointmentId.Value;
+
+            //delete appointment via method
             var appointmentData = AppointmentService.DeleteAnAppointment(appointmentIdGuid);
 
             if (appointmentData != null)

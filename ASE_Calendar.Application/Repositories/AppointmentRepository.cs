@@ -166,7 +166,7 @@ namespace ASE_Calendar.Application.Repositories
             return "";
         }
 
-        public string ChangeDesciption(Guid appointmentGuid, string newDescription)
+        public string ChangeDescription(Guid appointmentGuid, string newDescription)
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {

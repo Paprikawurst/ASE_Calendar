@@ -117,7 +117,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId == 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.DeleteAnAppointment();
+                        _appointmentManager.DeleteAnAppointment(selectedTime);
                     }
 
                     if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId == 0)
