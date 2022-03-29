@@ -76,6 +76,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 {
                     for (var j = 1; j <= 8; j++)
                     {
+                        
                         if (appointmentDict[i].ContainsKey(j))
                         {
                             if (i == appointmentDict[i][j].AppointmentData.Date.Day
@@ -123,13 +124,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                                                     .AppointmentData.TimeSlot));
                                         }
                                     }
+                                    
                                 }
                             }
                         }
-
                         if (j == 8)
                         {
                             Console.Write("\n");
+                            first = true;
                         }
                     }
                 }
