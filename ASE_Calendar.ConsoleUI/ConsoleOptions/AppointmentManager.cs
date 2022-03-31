@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
