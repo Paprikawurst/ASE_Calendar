@@ -2,6 +2,10 @@
 
 namespace ASE_Calendar.Application.Shared
 {
+    /// <summary>
+    /// A service that serializes and deserializes given objects.
+    /// </summary>
+    /// <typeparam name="TObject"></typeparam>
     public class CustomJsonConverter<TObject>
     {
         public string SerializeObject(TObject data)
