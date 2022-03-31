@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
 
@@ -7,7 +8,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class HandleStateMachine
     {
-        private static AppointmentManager _appointmentManager;
         private readonly State _state = State.RegisteredCheck;
 
         public void StartStateMachine()
@@ -104,43 +104,39 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Create appointment
                     if (input.Key == ConsoleKey.D1 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.CreateAppointment();
+                        new CreateAppointment(currentUser, selectedTime);
                     }
 
                     //Read appointments from specific user
                     if (input.Key == ConsoleKey.D2 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.LoadAppointments();
+                        GetAppointments getAppointments = new GetAppointments(currentUser);
+                        getAppointments.LoadAppointments();
                     }
 
                     //Delete appointment
                     if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.DeleteAnAppointment(selectedTime);
+                        new DeleteAnAppointment();
                     }
 
                     //Read appointments from all users
                     if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.LoadAllAppointments();
+                        GetAppointments getAppointments = new GetAppointments(currentUser);
+                        getAppointments.LoadAllAppointments();
                     }
 
                     //Change description of one of all appointments
                     if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.ChangeDescriptionOfAnAppointment(selectedTime);
+                        new ChangeDescriptionOfAnAppointment();
                     }
 
                     //Change date of one of all appointments
                     if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        _appointmentManager = new AppointmentManager(currentUser, selectedTime);
-                        _appointmentManager.ChangeDateOfAnAppointment(selectedTime);
+                        new ChangeDateOfAnAppointment(selectedTime);
                     }
 
                     //Show information
