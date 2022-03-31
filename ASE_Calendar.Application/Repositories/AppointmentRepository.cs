@@ -80,7 +80,7 @@ namespace ASE_Calendar.Application.Repositories
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
             appointmentDict.Clear();
 
-            Dictionary<int, AppointmentEntity> test = new();
+            Dictionary<int, AppointmentEntity> appointmentEntities = new();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
@@ -102,8 +102,8 @@ namespace ASE_Calendar.Application.Repositories
                         }
                         else
                         {
-                            test[appointment.AppointmentData.TimeSlot] = appointment;
-                            appointmentDict.Add(appointment.AppointmentData.Date.Day, test);
+                            appointmentEntities[appointment.AppointmentData.TimeSlot] = appointment;
+                            appointmentDict.Add(appointment.AppointmentData.Date.Day, appointmentEntities);
                         }
 
                         i++;
