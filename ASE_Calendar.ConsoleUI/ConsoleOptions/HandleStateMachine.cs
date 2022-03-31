@@ -14,7 +14,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
-            var auth = new Authentication();
+            var auth = new Authentification();
             var infoHelper = new InfoHelper();
 
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))

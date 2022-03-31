@@ -7,7 +7,7 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
-    public class Authentication
+    public class Authentification
     {
         private readonly ConsoleColorHelper _colorHelper = new();
         private LoginState _loginState;
