@@ -106,7 +106,6 @@ namespace ASE_Calendar.Application.Repositories
         {
             var i = 0;
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
-
             Dictionary<int, AppointmentEntity> appointmentEntities = new();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -116,38 +115,40 @@ namespace ASE_Calendar.Application.Repositories
 
                 foreach (var subString in jsonSplit)
                 {
-                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                    var appointment = customJsonConverter.DeserializeObject(subString);
+                    var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
 
-                    if (appointment != null && appointment.AppointmentData.Date.Month == selectedDate.Month &&
-                        appointment.AppointmentData.Date.Year == selectedDate.Year)
+                    if (appointmentEntity != null && appointmentEntity.AppointmentData.Date.Month == selectedDate.Month &&
+                        appointmentEntity.AppointmentData.Date.Year == selectedDate.Year)
                     {
-                        if (appointmentDict.ContainsKey(appointment.AppointmentData.Date.Day))
+                        if (appointmentDict.ContainsKey(appointmentEntity.AppointmentData.Date.Day))
                         {
-                            appointmentDict[appointment.AppointmentData.Date.Day][
-                                appointment.AppointmentData.TimeSlot] = appointment;
+                            appointmentDict[appointmentEntity.AppointmentData.Date.Day][
+                                appointmentEntity.AppointmentData.TimeSlot] = appointmentEntity;
                         }
                         else
                         {
-                            appointmentEntities[appointment.AppointmentData.TimeSlot] = appointment;
-                            appointmentDict.Add(appointment.AppointmentData.Date.Day, appointmentEntities);
+                            appointmentEntities[appointmentEntity.AppointmentData.TimeSlot] = appointmentEntity;
+                            appointmentDict.Add(appointmentEntity.AppointmentData.Date.Day, appointmentEntities);
                         }
-
                         i++;
                     }
                 }
             }
-
             return appointmentDict;
         }
 
-       
-
-        public string DeleteAppointment(Guid appointmentGuid)
+        /// <summary>
+        /// Removes an existing appointment via a given Guid.
+        /// </summary>
+        /// <param name="appointmentGuid"></param>
+        /// <returns>
+        /// A bool which indicates whether the appointment was deleted or not.
+        /// </returns>
+        public bool DeleteAppointment(Guid appointmentGuid)
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
-                return null;
+                return false;
             }
 
             var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
@@ -156,40 +157,34 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                var appointment = customJsonConverter.DeserializeObject(subString);
+                var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
 
-                if (appointment != null)
+                if (appointmentEntity != null)
                 {
-                    if (appointment.AppointmentId.Value == appointmentGuid)
+                    if (appointmentEntity.AppointmentId.Value == appointmentGuid)
                     {
                         jsonSplit[i] = "";
                     }
                 }
-
                 i++;
             }
-
-            File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-
-            foreach (var subString in jsonSplit)
-            {
-                if (subString != "")
-                {
-                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                    var appointment = customJsonConverter.DeserializeObject(subString);
-                    CreateAppointment(appointment);
-                }
-            }
-
-            return "";
+            RecreateFile(jsonSplit);
+            return true;
         }
 
-        public string ChangeDescription(Guid appointmentGuid, string newDescription)
+        /// <summary>
+        /// Change description of appointment via Guid and given new description.
+        /// </summary>
+        /// <param name="appointmentGuid"></param>
+        /// <param name="newDescription"></param>
+        /// <returns>
+        /// A bool which indicates whether the appointment description was successfully changed or not.
+        /// </returns>
+        public bool ChangeDescription(Guid appointmentGuid, string newDescription)
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
-                return null;
+                return false;
             }
 
             var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
@@ -199,44 +194,37 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                var appointment = customJsonConverter.DeserializeObject(subString);
+                var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
 
-                if (appointment != null)
+                if (appointmentEntity != null)
                 {
-                    if (appointment.AppointmentId.Value == appointmentGuid)
+                    if (appointmentEntity.AppointmentId.Value == appointmentGuid)
                     {
                         jsonSplit[i] = "";
-                        changedAppointment = new AppointmentEntity(appointment.AppointmentData.Date,
-                            appointment.AppointmentData.TimeSlot, appointment.UserId, appointment.AppointmentId.Value,
+                        changedAppointment = new AppointmentEntity(appointmentEntity.AppointmentData.Date,
+                            appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId, appointmentEntity.AppointmentId.Value,
                             newDescription);
                     }
                 }
-
                 i++;
             }
-
-            File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-
-            foreach (var subString in jsonSplit)
-            {
-                if (subString != "")
-                {
-                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                    var appointment = customJsonConverter.DeserializeObject(subString);
-                    CreateAppointment(appointment);
-                }
-            }
-
-            CreateAppointment(changedAppointment);
-            return "";
+            RecreateFile(jsonSplit);
+            return true;
         }
 
-        public string ChangeDate(Guid appointmentGuid, DateTime newDate)
+        /// <summary>
+        /// Change date of appointment via Guid and given new date.
+        /// </summary>
+        /// <param name="appointmentGuid"></param>
+        /// <param name="newDate"></param>
+        /// <returns>
+        /// A bool which indicates whether the appointment date was successfully changed or not.
+        /// </returns>
+        public bool ChangeDate(Guid appointmentGuid, DateTime newDate)
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
-                return null;
+                return false;
             }
 
             var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
@@ -246,37 +234,42 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                var appointment = customJsonConverter.DeserializeObject(subString);
+                var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
 
-                if (appointment != null)
+                if (appointmentEntity != null)
                 {
-                    if (appointment.AppointmentId.Value == appointmentGuid)
+                    if (appointmentEntity.AppointmentId.Value == appointmentGuid)
                     {
                         jsonSplit[i] = "";
                         changedAppointment = new AppointmentEntity(newDate,
-                            appointment.AppointmentData.TimeSlot, appointment.UserId, appointment.AppointmentId.Value,
-                            appointment.AppointmentData.Description);
+                            appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId, appointmentEntity.AppointmentId.Value,
+                            appointmentEntity.AppointmentData.Description);
                     }
                 }
-
                 i++;
             }
 
+            RecreateFile(jsonSplit);
+            CreateAppointment(changedAppointment);
+            return true;
+        }
+
+        /// <summary>
+        /// Deletes ASECalendarAppointments.json and recreates it with given json-Objects
+        /// </summary>
+        /// <param name="jsonSplit"></param>
+        private void RecreateFile(string[] jsonSplit)
+        {
             File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
 
             foreach (var subString in jsonSplit)
             {
                 if (subString != "")
                 {
-                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                    var appointment = customJsonConverter.DeserializeObject(subString);
-                    CreateAppointment(appointment);
+                    var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
+                    CreateAppointment(appointmentEntity);
                 }
             }
-
-            CreateAppointment(changedAppointment);
-            return "";
         }
     }
 }

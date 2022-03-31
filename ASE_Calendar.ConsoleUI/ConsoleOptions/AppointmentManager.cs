@@ -163,8 +163,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case DeleteAppointmentSate.UserInputId;
 
                 case DeleteAppointmentSate.DeleteAppointment:
-                    var appointmentData = AppointmentService.DeleteAnAppointment(appointmentGuid);
-                    if (appointmentData != null)
+                    var successfulDeletion = AppointmentService.DeleteAnAppointment(appointmentGuid);
+                    if (successfulDeletion)
                     {
                         _colorHelper.WriteLineGreen("The appointment has been deleted!");
                         _colorHelper.WriteLineGreen("Any key to continue!");
@@ -232,9 +232,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                 case ChangeDescriptionAppointmentSate.changeDescription:
 
-                    var appointmentData = AppointmentService.ChangeDescription(appointmentGuid, appointmentDescription);
+                    var successfulChangeDescription = AppointmentService.ChangeDescription(appointmentGuid, appointmentDescription);
 
-                    if (appointmentData != null)
+                    if (successfulChangeDescription)
                     {
                         _colorHelper.WriteLineGreen("The appointment has been edited!");
                         _colorHelper.WriteLineGreen("Any key to continue!");

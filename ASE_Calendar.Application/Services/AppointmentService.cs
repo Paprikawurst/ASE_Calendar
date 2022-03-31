@@ -26,14 +26,14 @@ namespace ASE_Calendar.Application.Services
             return appointmentRepository.ReturnAllAppointmentsString();
         }
 
-        public static string DeleteAnAppointment(Guid appointmentGuid)
+        public static bool DeleteAnAppointment(Guid appointmentGuid)
         {
             AppointmentRepository appointmentRepository = new();
 
             return appointmentRepository.DeleteAppointment(appointmentGuid);
         }
 
-        public static string ChangeDescription(Guid appointmentGuid, string description)
+        public static bool ChangeDescription(Guid appointmentGuid, string description)
         {
             AppointmentRepository appointmentRepository = new();
 
