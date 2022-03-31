@@ -1,8 +1,18 @@
 ﻿namespace ASE_Calendar.Application.Services
 {
+    /// <summary>
+    /// A service that contains helper functions for creating the calendar
+    /// </summary>
     public class CalendarHelperService
     {
-        public static string GetMonthdayString(int month)
+        /// <summary>
+        /// Converts a month number to a month name string.
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns>
+        /// A string based on the input.
+        /// </returns>
+        public static string GetMonthDayString(int month)
         {
             var returnMonthString = month switch
             {
@@ -20,10 +30,17 @@
                 12 => "Dez",
                 _ => ""
             };
-
             return returnMonthString;
         }
 
+        /// <summary>
+        /// Checks the number of days a given month in a given year has.
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns>
+        /// A integer.
+        /// </returns>
         public static int GetMaxMonthDayInt(int month, int year)
         {
             var maxMonthDays = 0;
@@ -42,7 +59,6 @@
                         maxMonthDays = 29;
                     else
                         maxMonthDays = 28;
-
                     break;
                 case 3:
                     maxMonthDays = thirtyone;
@@ -75,10 +91,16 @@
                     maxMonthDays = thirtyone;
                     break;
             }
-
             return maxMonthDays;
         }
 
+        /// <summary>
+        ///  Checks whether a given year is a leap year or not.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns>
+        /// A boolean.
+        /// </returns>
         private static bool GetLeapYear(int year)
         {
             if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) return true;
@@ -86,6 +108,13 @@
             return false;
         }
 
+        /// <summary>
+        /// Converts a given time slot to a string containing the time
+        /// </summary>
+        /// <param name="timeSlot"></param>
+        /// <returns>
+        /// A string.
+        /// </returns>
         public string TimeSlotToTimeStamp(int timeSlot)
         {
             return timeSlot switch

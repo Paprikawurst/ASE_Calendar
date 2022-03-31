@@ -24,7 +24,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         public void CreateCalendar()
         {
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
-            Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthDayString(_selectedTime.Month) + "\n");
             CreateCalendarHelper();
         }
 
@@ -32,7 +32,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             _selectedTime = DateTime.Now;
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
-            Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthDayString(_selectedTime.Month) + "\n");
             CreateCalendarHelper();
 
             return _selectedTime;
@@ -44,7 +44,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             _selectedTime = _checkDate.Check();
 
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
-            Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthDayString(_selectedTime.Month) + "\n");
             CreateCalendarHelper();
 
             return _selectedTime;
@@ -56,7 +56,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             _selectedTime = _checkDate.Check();
 
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
-            Console.WriteLine(CalendarHelperService.GetMonthdayString(_selectedTime.Month) + "\n");
+            Console.WriteLine(CalendarHelperService.GetMonthDayString(_selectedTime.Month) + "\n");
             CreateCalendarHelper();
 
             return _selectedTime;
