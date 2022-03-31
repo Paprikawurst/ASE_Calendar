@@ -119,7 +119,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Delete appointment
                     if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new DeleteAnAppointment();
+                        new DeleteAppointment();
                     }
 
                     //Read appointments from all users

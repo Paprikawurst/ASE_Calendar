@@ -14,10 +14,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
  /// <summary>
  /// A class which starts the progress on the ui to delete an appointment.
  /// </summary>
-    public class DeleteAnAppointment
+    public class DeleteAppointment
     {
         private readonly ConsoleColorHelper _colorHelper = new();
-        public DeleteAnAppointment()
+        public DeleteAppointment()
         {
             const DeleteAppointmentState deleteAppointmentSate = DeleteAppointmentState.CheckForAppointments;
             Guid appointmentGuid = Guid.Empty;
