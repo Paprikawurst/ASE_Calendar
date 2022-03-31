@@ -67,7 +67,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             AppointmentRepository appointmentRepository = new();
             var appointmentDict =
-                appointmentRepository.ReturnAllAppointmentDict(_selectedTime);
+                appointmentRepository.ReturnAllAppointmentsDict(_selectedTime);
 
             bool first = true;
 

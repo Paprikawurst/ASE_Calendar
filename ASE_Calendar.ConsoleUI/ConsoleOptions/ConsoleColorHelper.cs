@@ -2,6 +2,9 @@
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
+    /// <summary>
+    /// Contains methods to output colored text to the console.
+    /// </summary>
     public class ConsoleColorHelper
     {
         public void WriteLineGreen(string input)
