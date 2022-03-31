@@ -132,13 +132,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Change description of one of all appointments
                     if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new ChangeDescriptionOfAnAppointment();
+                        new ChangeAppointmentDescription();
                     }
 
                     //Change date of one of all appointments
                     if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new ChangeDateOfAnAppointment(selectedTime);
+                        new ChangeAppointmentDate(selectedTime);
                     }
 
                     //Show information
