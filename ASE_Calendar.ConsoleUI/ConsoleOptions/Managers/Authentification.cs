@@ -7,6 +7,9 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
+    /// <summary>
+    /// A class that starts the progress of the authentification.
+    /// </summary>
     public class Authentification
     {
         private readonly ConsoleColorHelper _colorHelper = new();
@@ -15,6 +18,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         private RegistrationState _registrationState;
         public AuthentificationService AuthService = new();
 
+        /// <summary>
+        /// Starts the progress of the registration on the ui.
+        /// </summary>
         public void StartRegistration()
         {
             _registrationState = RegistrationState.UserInputUsername;
@@ -86,6 +92,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             AuthentificationService.StartRegistration(inputUsername, inputPassword, inputUserRole);
         }
 
+        /// <summary>
+        /// Starts the progress of the login on the ui.
+        /// </summary>
         public UserEntity StartLogin()
         {
             _loginState = LoginState.UserInput;

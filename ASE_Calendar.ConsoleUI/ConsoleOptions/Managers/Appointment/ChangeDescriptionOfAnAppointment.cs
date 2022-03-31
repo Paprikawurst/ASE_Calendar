@@ -9,6 +9,9 @@ using ASE_Calendar.ConsoleUI.Enums;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
+    /// <summary>
+    /// A class which starts the progress on the ui to change the description of an appointment.
+    /// </summary>
     public class ChangeDescriptionOfAnAppointment
     {
         private readonly ConsoleColorHelper _colorHelper = new();

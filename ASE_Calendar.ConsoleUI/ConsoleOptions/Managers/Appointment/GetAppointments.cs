@@ -8,6 +8,9 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
+    /// <summary>
+    /// A class that laods the current appointmens
+    /// </summary>
     public class GetAppointments
     {
         private readonly ConsoleColorHelper _colorHelper = new();
@@ -17,6 +20,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             CurrentUser = currentUser;
         }
 
+        /// <summary>
+        /// A function that loads the appointments of the user and shows them on the ui.
+        /// </summary>
         public void LoadAppointments()
         {
             Console.WriteLine("Your Appointments:\n");
@@ -35,6 +41,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             }
         }
 
+        /// <summary>
+        /// A function that loads all appointments and shows them on the ui.
+        /// </summary>
         public void LoadAllAppointments()
         {
             Console.WriteLine("All Appointments:\n");

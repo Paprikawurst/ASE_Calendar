@@ -10,9 +10,13 @@ using ASE_Calendar.ConsoleUI.Enums;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
+    /// <summary>
+    /// A class which starts the progress on the ui to change the date of an appointment.
+    /// </summary>
     public class ChangeDateOfAnAppointment
     {
         private readonly ConsoleColorHelper _colorHelper = new();
+
         public ChangeDateOfAnAppointment(DateTime selectedTime)
         {
             ChangeDateAppointmentSate changeDateAppointmentSate = ChangeDateAppointmentSate.UserInputId;
