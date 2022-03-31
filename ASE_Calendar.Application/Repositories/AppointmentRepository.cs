@@ -106,7 +106,6 @@ namespace ASE_Calendar.Application.Repositories
         {
             var i = 0;
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
-            appointmentDict.Clear();
 
             Dictionary<int, AppointmentEntity> appointmentEntities = new();
 
