@@ -5,6 +5,7 @@
         UserInputId,
         UserInputDescription,
         CheckInputId,
-        CheckInputDescription
+        CheckInputDescription,
+        changeDescription
     }
 }

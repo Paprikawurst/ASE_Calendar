@@ -144,7 +144,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             {
                 case DeleteAppointmentSate.UserInputId:
                     ShowAppointmentsOnConsole();
-                    Console.WriteLine("Enter the appointment number you want to delete:");
+                    Console.WriteLine("Enter the appointment ID you want to delete:");
                     inputGuidString = Console.ReadLine();
                     goto case DeleteAppointmentSate.CheckInputId;
 
@@ -182,25 +182,70 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void ChangeDescriptionOfAnAppointment(DateTime selectedTime)
         {
-            ShowAppointmentsOnConsole();
-            Console.WriteLine("Enter the appointment number you want to change the description of:");
-            var appointmentIdGuid = Guid.Parse(Console.ReadLine());
+            ChangeDescriptionAppointmentSate changeDescriptionAppointmentSate = ChangeDescriptionAppointmentSate.UserInputId;
+            Guid appointmentGuid = Guid.Empty;
+            var inputGuidString = "";
+            var appointmentDescription = "";
 
-            Console.WriteLine("Enter the new description:");
-            var appointmentDescription = Console.ReadLine();
-            var appointmentData = AppointmentService.ChangeDescription(appointmentIdGuid, appointmentDescription);
+            switch (changeDescriptionAppointmentSate)
+            {
+                case ChangeDescriptionAppointmentSate.UserInputId:
 
-            if (appointmentData != null)
-            {
-                _colorHelper.WriteLineGreen("The appointment has been edited!");
-                _colorHelper.WriteLineGreen("Any key to continue!");
-                Console.ReadLine();
-            }
-            else
-            {
-                _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                _colorHelper.WriteLineRed("Any key to continue!");
-                Console.ReadLine();
+                    ShowAppointmentsOnConsole();
+                    Console.WriteLine("Enter the appointment ID you want to change the description:");
+                    inputGuidString = Console.ReadLine();
+
+                    goto case ChangeDescriptionAppointmentSate.CheckInputId;
+
+                case ChangeDescriptionAppointmentSate.UserInputDescription:
+
+                    Console.WriteLine("Enter the new description (max 25 token):");
+                    appointmentDescription = Console.ReadLine();
+
+                    goto case ChangeDescriptionAppointmentSate.CheckInputDescription;
+
+                case ChangeDescriptionAppointmentSate.CheckInputId:
+
+                    bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
+
+                    if (isValid)
+                    {
+                        goto case ChangeDescriptionAppointmentSate.UserInputDescription;
+                    }
+
+                    _colorHelper.WriteLineRed("Please enter a valid guid!");
+
+                    goto case ChangeDescriptionAppointmentSate.UserInputId;
+
+                case ChangeDescriptionAppointmentSate.CheckInputDescription:
+
+                    if (string.IsNullOrEmpty(appointmentDescription) || appointmentDescription.Length > 25)
+                    {
+                        _colorHelper.WriteLineRed("Please enter a valid description!");
+                        goto case ChangeDescriptionAppointmentSate.UserInputDescription;
+                    }
+                    else
+                    {
+                        goto case ChangeDescriptionAppointmentSate.changeDescription;
+                    }
+
+                case ChangeDescriptionAppointmentSate.changeDescription:
+
+                    var appointmentData = AppointmentService.ChangeDescription(appointmentGuid, appointmentDescription);
+
+                    if (appointmentData != null)
+                    {
+                        _colorHelper.WriteLineGreen("The appointment has been edited!");
+                        _colorHelper.WriteLineGreen("Any key to continue!");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                        _colorHelper.WriteLineRed("Any key to continue!");
+                        Console.ReadLine();
+                    }
+                    break;
             }
         }
 
