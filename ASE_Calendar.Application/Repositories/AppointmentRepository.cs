@@ -7,11 +7,31 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.Application.Repositories
 {
+    /// <summary>
+    /// This repository manages the CRUD operations for the appointment entity.
+    /// </summary>
     public class AppointmentRepository
     {
         private readonly CalendarHelperService _calendarHelper = new();
+        private readonly CustomJsonConverter<AppointmentEntity> _customJsonConverter = new();
 
+        /// <summary>
+        /// Serializes an appointment entity to a json format and appends it to the ASECalendarAppointments.json
+        /// </summary>
+        /// <param name="appointmentEntity"></param>
+        public void CreateAppointment(AppointmentEntity appointmentEntity)
+        {
+            var json = _customJsonConverter.SerializeObject(appointmentEntity);
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json", json + "\n");
+        }
 
+        /// <summary>
+        /// Reads existing entries from ASECalendarAppointments.json for a specific user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>
+        /// A formatted string with appointment entries.
+        /// </returns>
         public string ReturnUserAppointmentString(UserEntity user)
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -25,24 +45,28 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                var appointment = customJsonConverter.DeserializeObject(subString);
+                var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
 
-                if (appointment != null)
+                if (appointmentEntity != null)
                 {
-                    if (appointment.UserId.Value == user.UserId.Value)
+                    if (appointmentEntity.UserId.Value == user.UserId.Value)
                     {
-                        appointmentsString = appointmentsString + appointment.AppointmentData.Date.ToLongDateString() +
+                        appointmentsString = appointmentsString + appointmentEntity.AppointmentData.Date.ToLongDateString() +
                                              " " +
-                                             _calendarHelper.TimeSlotToTimeStamp(appointment.AppointmentData.TimeSlot) +
-                                             " " + appointment.AppointmentData.Description + "\n";
+                                             _calendarHelper.TimeSlotToTimeStamp(appointmentEntity.AppointmentData.TimeSlot) +
+                                             " " + appointmentEntity.AppointmentData.Description + "\n";
                     }
                 }
             }
-
             return appointmentsString;
         }
 
+        /// <summary>
+        /// Reads all existing entries from ASECalendarAppointments.json 
+        /// </summary>
+        /// <returns>
+        /// A formatted string with appointment entries.
+        /// </returns>
         public string ReturnAllAppointmentsString()
         {
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -56,8 +80,7 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-                var appointment = customJsonConverter.DeserializeObject(subString);
+                var appointment = _customJsonConverter.DeserializeObject(subString);
 
                 if (appointment != null)
                 {
@@ -69,12 +92,17 @@ namespace ASE_Calendar.Application.Repositories
                                          " " + appointment.AppointmentData.Description + "\n";
                 }
             }
-
             return appointmentsString;
         }
 
-
-        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDict(DateTime selectedDate)
+        /// <summary>
+        /// Reads all existing entries from ASECalendarAppointments.json for a selected month.
+        /// </summary>
+        /// <param name="selectedDate"></param>
+        /// <returns>
+        /// A dictionary where the keys are the days and the value is another dictionary with key 1-8 for time slots and appointments as value.
+        /// </returns>
+        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDictSelectedMonth(DateTime selectedDate)
         {
             var i = 0;
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
@@ -114,13 +142,7 @@ namespace ASE_Calendar.Application.Repositories
             return appointmentDict;
         }
 
-        public void CreateAppointment(AppointmentEntity appointmentInput)
-        {
-            var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
-            var json = customJsonConverter.SerializeObject(appointmentInput);
-
-            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json", json + "\n");
-        }
+       
 
         public string DeleteAppointment(Guid appointmentGuid)
         {

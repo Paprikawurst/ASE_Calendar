@@ -51,7 +51,7 @@ namespace ASE_Calendar.Application.Services
         {
             AppointmentRepository appointmentRepository = new();
             var appointmentDict =
-                appointmentRepository.ReturnAllAppointmentsDict(Date);
+                appointmentRepository.ReturnAllAppointmentsDictSelectedMonth(Date);
 
 
             for (var i = 1; i <= CalendarHelperService.GetMaxMonthDayInt(Date.Month, Date.Year); i++)
