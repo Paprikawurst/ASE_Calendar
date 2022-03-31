@@ -109,8 +109,6 @@ namespace ASE_Calendar.Application.Repositories
                         i++;
                     }
                 }
-
-                File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "test.json", appointmentDict + "\n");
             }
 
             return appointmentDict;
