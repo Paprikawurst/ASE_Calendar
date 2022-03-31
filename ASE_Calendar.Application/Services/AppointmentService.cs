@@ -40,7 +40,7 @@ namespace ASE_Calendar.Application.Services
             return appointmentRepository.ChangeDescription(appointmentGuid, description);
         }
 
-        public static string ChangeDate(Guid appointmentGuid, DateTime newDate)
+        public static bool ChangeDate(Guid appointmentGuid, DateTime newDate)
         {
             AppointmentRepository appointmentRepository = new();
 

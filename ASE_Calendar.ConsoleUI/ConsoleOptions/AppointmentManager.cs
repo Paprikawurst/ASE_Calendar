@@ -384,9 +384,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     
                 case ChangeDateAppointmentSate.ChangeDate:
 
-                    var appointmentData = AppointmentService.ChangeDate(appointmentGuid, newDateTime);
+                    var successfulChangeDate = AppointmentService.ChangeDate(appointmentGuid, newDateTime);
 
-                    if (appointmentData != null)
+                    if (successfulChangeDate)
                     {
                         _colorHelper.WriteLineGreen("The appointment has been edited!");
                         _colorHelper.WriteLineGreen("Any key to continue!");
