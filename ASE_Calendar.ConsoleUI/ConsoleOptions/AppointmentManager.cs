@@ -398,10 +398,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                         _colorHelper.WriteLineRed("Any key to continue!");
                         Console.ReadLine();
                     }
-
                     break;
             }
-
         }
 
         public void ShowAppointmentsOnConsole()

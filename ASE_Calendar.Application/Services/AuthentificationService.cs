@@ -9,13 +9,13 @@ namespace ASE_Calendar.Application.Services
         public static void StartRegistration(string username, string password, string roleId)
         {
             UserEntity user = new(username, password, short.Parse(roleId), Guid.NewGuid());
-            CredentialsRepository credentialsToJson = new(user);
+            UserRepository credentialsToJson = new(user);
         }
 
         public static UserEntity StartLogin(string username, string password)
         {
-            CredentialsRepository credentialsRepository = new(username, password);
-            var loggedInUser = credentialsRepository.ReadFromJsonFileReturnUser();
+            UserRepository credentialsRepository = new(username, password);
+            var loggedInUser = credentialsRepository.ReturnUserEntity();
 
             if (loggedInUser == null)
             {

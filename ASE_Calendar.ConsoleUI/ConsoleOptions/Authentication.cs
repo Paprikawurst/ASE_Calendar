@@ -47,7 +47,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case RegistrationState.CheckRole;
 
                 case RegistrationState.CheckUsername:
-                    var credentialsRepository = new CredentialsRepository(inputUsername);
+                    var credentialsRepository = new UserRepository(inputUsername);
                     if (credentialsRepository.ReadFromJsonFileReturnTrueIfUsernameExists())
                     {
                         Console.Clear();
