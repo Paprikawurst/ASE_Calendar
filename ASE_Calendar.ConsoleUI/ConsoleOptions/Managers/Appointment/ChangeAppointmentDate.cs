@@ -13,13 +13,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// <summary>
     /// A class which starts the progress on the ui to change the date of an appointment.
     /// </summary>
-    public class ChangeDateOfAnAppointment
+    public class ChangeAppointmentDate
     {
         private readonly ConsoleColorHelper _colorHelper = new();
 
-        public ChangeDateOfAnAppointment(DateTime selectedTime)
+        public ChangeAppointmentDate(DateTime selectedTime)
         {
-            ChangeDateAppointmentSate changeDateAppointmentSate = ChangeDateAppointmentSate.CheckForAppointments;
+            ChangeDateAppointmentState changeDateAppointmentSate = ChangeDateAppointmentState.CheckForAppointments;
             Guid appointmentGuid = Guid.Empty;
             DateTime newDateTime = new DateTime();
             var inputGuidString = "";
@@ -33,7 +33,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
             switch (changeDateAppointmentSate)
             {
-                case ChangeDateAppointmentSate.CheckForAppointments:
+                case ChangeDateAppointmentState.CheckForAppointments:
 
                     AppointmentRepository appointmentRepository = new AppointmentRepository();
 
@@ -44,125 +44,125 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         Console.ReadLine();
                         break;
                     }
-                    goto case ChangeDateAppointmentSate.UserInputId;
+                    goto case ChangeDateAppointmentState.UserInputId;
 
-                case ChangeDateAppointmentSate.UserInputId:
+                case ChangeDateAppointmentState.UserInputId:
 
                     ShowAppointmentsOnConsole();
                     Console.WriteLine("\nEnter the appointment ID you want to change the date:");
                     inputGuidString = Console.ReadLine();
-                    goto case ChangeDateAppointmentSate.CheckInputId;
+                    goto case ChangeDateAppointmentState.CheckInputId;
 
-                case ChangeDateAppointmentSate.UserInputDay:
+                case ChangeDateAppointmentState.UserInputDay:
 
                     Console.WriteLine("Enter the new day:");
                     appointmentDayString = Console.ReadLine();
 
-                    goto case ChangeDateAppointmentSate.CheckInputDay;
+                    goto case ChangeDateAppointmentState.CheckInputDay;
 
-                case ChangeDateAppointmentSate.UserInputMonth:
+                case ChangeDateAppointmentState.UserInputMonth:
 
                     Console.WriteLine("Enter the new month:");
                     appointmentMonthString = Console.ReadLine();
 
-                    goto case ChangeDateAppointmentSate.CheckInputMonth;
+                    goto case ChangeDateAppointmentState.CheckInputMonth;
 
-                case ChangeDateAppointmentSate.UserInputYear:
+                case ChangeDateAppointmentState.UserInputYear:
 
                     Console.WriteLine("Enter the new year:");
                     appointmentYearString = Console.ReadLine();
 
-                    goto case ChangeDateAppointmentSate.CheckInputYear;
+                    goto case ChangeDateAppointmentState.CheckInputYear;
 
-                case ChangeDateAppointmentSate.UserInputTimeSlot:
+                case ChangeDateAppointmentState.UserInputTimeSlot:
 
                     Console.WriteLine(
                         "Please select a timeslot which is free on the selected day:\n08:00 - 09:00 = 1\n09:00 - 10:00 = 2\n10:00 - 11:00 = 3\n11:00 - 12:00 = 4\n13:00 - 14:00 = 5\n14:00 - 15:00 = 6\n15:00 - 16:00 = 7\n16:00 - 17:00 = 8\n");
                     appointmentTimeSlotString = Console.ReadLine();
 
-                    goto case ChangeDateAppointmentSate.CheckInputTimeSlot;
+                    goto case ChangeDateAppointmentState.CheckInputTimeSlot;
 
-                case ChangeDateAppointmentSate.CheckInputId:
+                case ChangeDateAppointmentState.CheckInputId:
 
                     bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
 
                     if (isValid)
                     {
-                        goto case ChangeDateAppointmentSate.UserInputDay;
+                        goto case ChangeDateAppointmentState.UserInputDay;
                     }
 
                     _colorHelper.WriteLineRed("Please enter a valid guid!");
 
-                    goto case ChangeDateAppointmentSate.UserInputId;
+                    goto case ChangeDateAppointmentState.UserInputId;
 
-                case ChangeDateAppointmentSate.CheckInputDay:
+                case ChangeDateAppointmentState.CheckInputDay:
 
                     bool isValidDay = short.TryParse(appointmentDayString, out appointmentDayInt);
 
                     if (!isValidDay || appointmentDayInt > 31 || appointmentDayInt <= 0)
                     {
                         _colorHelper.WriteLineRed("Please enter a valid day!");
-                        goto case ChangeDateAppointmentSate.UserInputDay;
+                        goto case ChangeDateAppointmentState.UserInputDay;
                     }
 
-                    goto case ChangeDateAppointmentSate.UserInputMonth;
+                    goto case ChangeDateAppointmentState.UserInputMonth;
 
-                case ChangeDateAppointmentSate.CheckInputMonth:
+                case ChangeDateAppointmentState.CheckInputMonth:
 
                     bool isValidMonth = short.TryParse(appointmentMonthString, out appointmentMonthInt);
 
                     if (!isValidMonth || appointmentMonthInt > 12 || appointmentMonthInt <= 0)
                     {
                         _colorHelper.WriteLineRed("Please enter a valid month!");
-                        goto case ChangeDateAppointmentSate.UserInputMonth;
+                        goto case ChangeDateAppointmentState.UserInputMonth;
                     }
 
-                    goto case ChangeDateAppointmentSate.UserInputYear;
+                    goto case ChangeDateAppointmentState.UserInputYear;
 
-                case ChangeDateAppointmentSate.CheckInputYear:
+                case ChangeDateAppointmentState.CheckInputYear:
 
                     bool isValidYear = short.TryParse(appointmentYearString, out appointmentYearInt);
 
                     if (!isValidYear || appointmentYearInt < selectedTime.Year)
                     {
                         _colorHelper.WriteLineRed("Please enter a valid year!");
-                        goto case ChangeDateAppointmentSate.UserInputYear;
+                        goto case ChangeDateAppointmentState.UserInputYear;
                     }
 
-                    goto case ChangeDateAppointmentSate.CheckInputDate;
+                    goto case ChangeDateAppointmentState.CheckInputDate;
 
-                case ChangeDateAppointmentSate.CheckInputTimeSlot:
+                case ChangeDateAppointmentState.CheckInputTimeSlot:
 
                     bool isNumber = Regex.IsMatch(appointmentTimeSlotString, @"[1-8]");
 
                     if (!isNumber || appointmentTimeSlotString == "")
                     {
                         _colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
-                        goto case ChangeDateAppointmentSate.UserInputTimeSlot;
+                        goto case ChangeDateAppointmentState.UserInputTimeSlot;
                     }
 
                     if (!AppointmentService.CheckIfTimeSlotIsFree(newDateTime, short.Parse(appointmentTimeSlotString), appointmentDayInt))
                     {
                         _colorHelper.WriteLineRed("\n" + "Time slot is occupied!" + "\n");
-                        goto case ChangeDateAppointmentSate.UserInputTimeSlot;
+                        goto case ChangeDateAppointmentState.UserInputTimeSlot;
                     }
 
-                    goto case ChangeDateAppointmentSate.ChangeDate;
+                    goto case ChangeDateAppointmentState.ChangeDate;
 
 
-                case ChangeDateAppointmentSate.CheckInputDate:
+                case ChangeDateAppointmentState.CheckInputDate:
 
                     if (CalendarHelperService.GetMaxMonthDayInt(appointmentMonthInt, appointmentYearInt) < appointmentDayInt)
                     {
                         _colorHelper.WriteLineRed("Please enter a valid date!");
-                        goto case ChangeDateAppointmentSate.UserInputDay;
+                        goto case ChangeDateAppointmentState.UserInputDay;
                     }
 
                     newDateTime = new DateTime(appointmentYearInt, appointmentMonthInt, appointmentDayInt);
 
-                    goto case ChangeDateAppointmentSate.UserInputTimeSlot;
+                    goto case ChangeDateAppointmentState.UserInputTimeSlot;
 
-                case ChangeDateAppointmentSate.ChangeDate:
+                case ChangeDateAppointmentState.ChangeDate:
 
                     var successfulChangeDate = AppointmentService.ChangeDate(appointmentGuid, newDateTime);
 

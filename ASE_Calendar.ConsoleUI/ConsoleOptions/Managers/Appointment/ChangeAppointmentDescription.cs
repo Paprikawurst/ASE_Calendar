@@ -12,20 +12,20 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// <summary>
     /// A class which starts the progress on the ui to change the description of an appointment.
     /// </summary>
-    public class ChangeDescriptionOfAnAppointment
+    public class ChangeAppointmentDescription
     {
         private readonly ConsoleColorHelper _colorHelper = new();
 
-        public ChangeDescriptionOfAnAppointment()
+        public ChangeAppointmentDescription()
         {
-            ChangeDescriptionAppointmentSate changeDescriptionAppointmentSate = ChangeDescriptionAppointmentSate.CheckForAppointments;
+            ChangeDescriptionAppointmentState changeDescriptionAppointmentSate = ChangeDescriptionAppointmentState.CheckForAppointments;
             Guid appointmentGuid = Guid.Empty;
             var inputGuidString = "";
             var appointmentDescription = "";
 
             switch (changeDescriptionAppointmentSate)
             {
-                case ChangeDescriptionAppointmentSate.CheckForAppointments:
+                case ChangeDescriptionAppointmentState.CheckForAppointments:
                     AppointmentRepository appointmentRepository = new AppointmentRepository();
 
                     if (appointmentRepository.ReturnAllAppointmentsString() == null)
@@ -35,49 +35,49 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         Console.ReadLine();
                         break;
                     }
-                    goto case ChangeDescriptionAppointmentSate.UserInputId;
+                    goto case ChangeDescriptionAppointmentState.UserInputId;
 
-                case ChangeDescriptionAppointmentSate.UserInputId:
+                case ChangeDescriptionAppointmentState.UserInputId:
 
                     ShowAppointmentsOnConsole();
                     Console.WriteLine("\nEnter the appointment ID you want to change the description:");
                     inputGuidString = Console.ReadLine();
 
-                    goto case ChangeDescriptionAppointmentSate.CheckInputId;
+                    goto case ChangeDescriptionAppointmentState.CheckInputId;
 
-                case ChangeDescriptionAppointmentSate.UserInputDescription:
+                case ChangeDescriptionAppointmentState.UserInputDescription:
 
                     Console.WriteLine("Enter the new description (max 25 token):");
                     appointmentDescription = Console.ReadLine();
 
-                    goto case ChangeDescriptionAppointmentSate.CheckInputDescription;
+                    goto case ChangeDescriptionAppointmentState.CheckInputDescription;
 
-                case ChangeDescriptionAppointmentSate.CheckInputId:
+                case ChangeDescriptionAppointmentState.CheckInputId:
 
                     bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
 
                     if (isValid)
                     {
-                        goto case ChangeDescriptionAppointmentSate.UserInputDescription;
+                        goto case ChangeDescriptionAppointmentState.UserInputDescription;
                     }
 
                     _colorHelper.WriteLineRed("Please enter a valid guid!");
 
-                    goto case ChangeDescriptionAppointmentSate.UserInputId;
+                    goto case ChangeDescriptionAppointmentState.UserInputId;
 
-                case ChangeDescriptionAppointmentSate.CheckInputDescription:
+                case ChangeDescriptionAppointmentState.CheckInputDescription:
 
                     if (string.IsNullOrEmpty(appointmentDescription) || appointmentDescription.Length > 25)
                     {
                         _colorHelper.WriteLineRed("Please enter a valid description!");
-                        goto case ChangeDescriptionAppointmentSate.UserInputDescription;
+                        goto case ChangeDescriptionAppointmentState.UserInputDescription;
                     }
                     else
                     {
-                        goto case ChangeDescriptionAppointmentSate.changeDescription;
+                        goto case ChangeDescriptionAppointmentState.changeDescription;
                     }
 
-                case ChangeDescriptionAppointmentSate.changeDescription:
+                case ChangeDescriptionAppointmentState.changeDescription:
 
                     var successfulChangeDescription = AppointmentService.ChangeDescription(appointmentGuid, appointmentDescription);
 

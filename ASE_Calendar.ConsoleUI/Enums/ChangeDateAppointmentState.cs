@@ -1,6 +1,6 @@
 ﻿namespace ASE_Calendar.ConsoleUI.Enums
 {
-    enum ChangeDateAppointmentSate
+    enum ChangeDateAppointmentState
     {
         CheckForAppointments,
         UserInputId,

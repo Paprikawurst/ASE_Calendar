@@ -18,13 +18,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         private readonly ConsoleColorHelper _colorHelper = new();
         public DeleteAnAppointment()
         {
-            const DeleteAppointmentSate deleteAppointmentSate = DeleteAppointmentSate.CheckForAppointments;
+            const DeleteAppointmentState deleteAppointmentSate = DeleteAppointmentState.CheckForAppointments;
             Guid appointmentGuid = Guid.Empty;
             var inputGuidString = "";
 
             switch (deleteAppointmentSate)
             {
-                case DeleteAppointmentSate.CheckForAppointments:
+                case DeleteAppointmentState.CheckForAppointments:
                     AppointmentRepository appointmentRepository = new AppointmentRepository();
 
                     if (appointmentRepository.ReturnAllAppointmentsString() == null)
@@ -35,27 +35,27 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         break;
                     }
 
-                    goto case DeleteAppointmentSate.UserInputId;
-                case DeleteAppointmentSate.UserInputId:
+                    goto case DeleteAppointmentState.UserInputId;
+                case DeleteAppointmentState.UserInputId:
                     ShowAppointmentsOnConsole();
                     Console.WriteLine("\nEnter the appointment ID you want to delete:");
                     inputGuidString = Console.ReadLine();
-                    goto case DeleteAppointmentSate.CheckInputId;
+                    goto case DeleteAppointmentState.CheckInputId;
 
-                case DeleteAppointmentSate.CheckInputId:
+                case DeleteAppointmentState.CheckInputId:
 
                     bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
 
                     if (isValid)
                     {
-                        goto case DeleteAppointmentSate.DeleteAppointment;
+                        goto case DeleteAppointmentState.DeleteAppointment;
                     }
 
                     _colorHelper.WriteLineRed("Please enter a valid guid!");
 
-                    goto case DeleteAppointmentSate.UserInputId;
+                    goto case DeleteAppointmentState.UserInputId;
 
-                case DeleteAppointmentSate.DeleteAppointment:
+                case DeleteAppointmentState.DeleteAppointment:
                     var successfulDeletion = AppointmentService.DeleteAnAppointment(appointmentGuid);
                     if (successfulDeletion)
                     {
