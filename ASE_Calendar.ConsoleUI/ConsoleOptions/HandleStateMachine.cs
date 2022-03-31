@@ -8,7 +8,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
     public class HandleStateMachine
     {
         private static AppointmentManager _appointmentManager;
-
         private readonly State _state = State.RegisteredCheck;
 
         public void StartStateMachine()
@@ -16,7 +15,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new Authentication();
-            ConsoleColorHelper colorHelper = new();
+            var infoHelper = new InfoHelper();
 
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
             {
@@ -166,7 +165,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case State.CalendarViewer;
 
                 case State.Info:
-                    var infoHelper = new InfoHelper();
                     infoHelper.ShowInfo(currentUser);
                     goto case State.CalendarViewer;
 
