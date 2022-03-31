@@ -11,7 +11,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class AppointmentManager
     {
-        private CreateAppointmentState _appointmentState;
         private readonly ConsoleColorHelper _colorHelper = new();
         public UserEntity CurrentUser;
         public DateTime DateSelected;
@@ -30,9 +29,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var timeSlot = "";
             var description = "";
 
-            _appointmentState = CreateAppointmentState.UserInputDay;
+            CreateAppointmentState appointmentState = CreateAppointmentState.UserInputDay;
 
-            switch (_appointmentState)
+            switch (appointmentState)
             {
                 case CreateAppointmentState.UserInputDay:
 
@@ -137,22 +136,47 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void DeleteAnAppointment(DateTime selectedTime)
         {
-            ShowAppointmentsOnConsole();
-            Console.WriteLine("Enter the appointment number you want to delete:");
-            var appointmentGuid = Guid.Parse(Console.ReadLine());
-            var appointmentData = AppointmentService.DeleteAnAppointment(appointmentGuid);
+            const DeleteAppointmentSate deleteAppointmentSate = DeleteAppointmentSate.UserInputId;
+            Guid appointmentGuid = Guid.Empty;
+            var inputGuidString = "";
 
-            if (appointmentData != null)
+            switch (deleteAppointmentSate)
             {
-                _colorHelper.WriteLineGreen("The appointment has been deleted!");
-                _colorHelper.WriteLineGreen("Any key to continue!");
-                Console.ReadLine();
-            }
-            else
-            {
-                _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                _colorHelper.WriteLineRed("Any key to continue!");
-                Console.ReadLine();
+                case DeleteAppointmentSate.UserInputId:
+                    ShowAppointmentsOnConsole();
+                    Console.WriteLine("Enter the appointment number you want to delete:");
+                    inputGuidString = Console.ReadLine();
+                    goto case DeleteAppointmentSate.CheckInputId;
+
+                case DeleteAppointmentSate.CheckInputId:
+
+                    bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
+
+                    if (isValid)
+                    {
+                        goto case DeleteAppointmentSate.DeleteAppointment;
+                    }
+                    
+                    _colorHelper.WriteLineRed("Please enter a valid guid!");
+                    
+                    goto case DeleteAppointmentSate.UserInputId;
+
+                case DeleteAppointmentSate.DeleteAppointment:
+                    var appointmentData = AppointmentService.DeleteAnAppointment(appointmentGuid);
+                    if (appointmentData != null)
+                    {
+                        _colorHelper.WriteLineGreen("The appointment has been deleted!");
+                        _colorHelper.WriteLineGreen("Any key to continue!");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
+                        _colorHelper.WriteLineRed("Any key to continue!");
+                        Console.ReadLine();
+                    }
+
+                    break;
             }
         }
 
