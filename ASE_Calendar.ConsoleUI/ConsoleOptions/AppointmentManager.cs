@@ -11,7 +11,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
     public class AppointmentManager
     {
-        private AppointmentState _appointmentState;
+        private CreateAppointmentState _appointmentState;
         private readonly ConsoleColorHelper _colorHelper = new();
         public UserEntity CurrentUser;
         public DateTime DateSelected;
@@ -30,24 +30,24 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var timeSlot = "";
             var description = "";
 
-            _appointmentState = AppointmentState.UserInputDay;
+            _appointmentState = CreateAppointmentState.UserInputDay;
 
             switch (_appointmentState)
             {
-                case AppointmentState.UserInputDay:
+                case CreateAppointmentState.UserInputDay:
 
                     Console.WriteLine("Please enter a Day of the current month");
                     day = Console.ReadLine();
-                    goto case AppointmentState.CheckInputDay;
+                    goto case CreateAppointmentState.CheckInputDay;
 
-                case AppointmentState.UserInputTimeSlot:
+                case CreateAppointmentState.UserInputTimeSlot:
 
                     Console.WriteLine(
                         "Please select a timeslot which is free on the selected day:\n08:00 - 09:00 = 1\n09:00 - 10:00 = 2\n10:00 - 11:00 = 3\n11:00 - 12:00 = 4\n13:00 - 14:00 = 5\n14:00 - 15:00 = 6\n15:00 - 16:00 = 7\n16:00 - 17:00 = 8\n");
                     timeSlot = Console.ReadLine();
-                    goto case AppointmentState.CheckInputTimeSlot;
+                    goto case CreateAppointmentState.CheckInputTimeSlot;
 
-                case AppointmentState.CheckInputDay:
+                case CreateAppointmentState.CheckInputDay:
 
                     var isNumber = Regex.IsMatch(day, @"^[0-9]*$");
                     var maxDays = CalendarHelperService.GetMaxMonthDayInt(DateSelected.Month, DateSelected.Year);
@@ -55,12 +55,12 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     if (!isNumber || day == "" || short.Parse(day) <= 0 || short.Parse(day) > maxDays)
                     {
                         _colorHelper.WriteLineRed("\n" + "Please enter the correct day!" + "\n");
-                        goto case AppointmentState.UserInputDay;
+                        goto case CreateAppointmentState.UserInputDay;
                     }
 
-                    goto case AppointmentState.UserInputTimeSlot;
+                    goto case CreateAppointmentState.UserInputTimeSlot;
 
-                case AppointmentState.CheckInputTimeSlot:
+                case CreateAppointmentState.CheckInputTimeSlot:
 
                     isNumber = Regex.IsMatch(timeSlot, @"[1-8]");
                     
@@ -69,24 +69,24 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                         !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot), short.Parse(day)))
                     {
                         _colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
-                        goto case AppointmentState.UserInputTimeSlot;
+                        goto case CreateAppointmentState.UserInputTimeSlot;
                     }
 
-                    goto case AppointmentState.UserInputDescription;
+                    goto case CreateAppointmentState.UserInputDescription;
 
-                case AppointmentState.UserInputDescription:
+                case CreateAppointmentState.UserInputDescription:
 
                     Console.WriteLine("Please enter a description of your appointment!. (Max 25 tokens)");
                     description = Console.ReadLine();
 
-                    goto case AppointmentState.CheckInputDescription;
+                    goto case CreateAppointmentState.CheckInputDescription;
 
-                case AppointmentState.CheckInputDescription:
+                case CreateAppointmentState.CheckInputDescription:
 
                     if (description.Length > 25 || description == "")
                     {
                         _colorHelper.WriteLineRed("Wrong input! Enter more than 0 and less than 25 signs!");
-                        goto case AppointmentState.UserInputDescription;
+                        goto case CreateAppointmentState.UserInputDescription;
                     }
 
                     break;
