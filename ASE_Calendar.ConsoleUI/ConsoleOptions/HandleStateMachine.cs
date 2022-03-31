@@ -8,7 +8,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
     public class HandleStateMachine
     {
         private static AppointmentManager _appointmentManager;
-
         private readonly State _state = State.RegisteredCheck;
 
         public void StartStateMachine()
@@ -16,7 +15,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new Authentication();
-            ConsoleColorHelper colorHelper = new();
+            var infoHelper = new InfoHelper();
 
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
             {
@@ -60,7 +59,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     calendar.CreateCalendar();
 
                     Console.WriteLine("\nCurrent month: arrow up");
-                    Console.WriteLine("Previous month: left arrow | Next month: right arrow");
+                    Console.WriteLine("Previous month: left arrow | Next month: right arrow\n");
+
                     if (currentUser.UserDataRegistered.RoleId == 2)
                     {
                         Console.WriteLine("Book an appointment: 1 | Show my appointments: 2");
@@ -68,19 +68,18 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                     if (currentUser.UserDataRegistered.RoleId == 1)
                     {
-                        Console.WriteLine(
-                            "Change Description of an appointment: 5 | Change date of an appointments: 6");
+                        Console.WriteLine("Delete an appointment: 3 | Show all appointments: 4");
+                        Console.WriteLine("Change Description of an appointment: 5 | Change date of an appointment: 6");
                     }
 
                     if (currentUser.UserDataRegistered.RoleId == 0)
                     {
                         Console.WriteLine("Book an appointment: 1 | Show my appointments: 2");
                         Console.WriteLine("Delete an appointment: 3 | Show all appointments: 4");
-                        Console.WriteLine(
-                            "Change Description of an appointment: 5 | Change date of an appointments: 6");
+                        Console.WriteLine("Change Description of an appointment: 5 | Change date of an appointment: 6");
                     }
 
-                    Console.WriteLine("Logout: l/L | Exit application: e/E | Information: i/I");
+                    Console.WriteLine("\nLogout: l/L | Exit application: e/E | Information: i/I");
 
                     var input = Console.ReadKey();
 
@@ -102,52 +101,61 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                         selectedTime = calendar.CreateCalendarNextMonth(selectedTime);
                     }
 
+                    //Create appointment
                     if (input.Key == ConsoleKey.D1 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.CreateAppointment();
                     }
 
+                    //Read appointments from specific user
                     if (input.Key == ConsoleKey.D2 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.LoadAppointments();
                     }
 
-                    if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId == 0)
+                    //Delete appointment
+                    if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.DeleteAnAppointment(selectedTime);
                     }
 
-                    if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId == 0)
+                    //Read appointments from all users
+                    if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.LoadAllAppointments();
                     }
 
+                    //Change description of one of all appointments
                     if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.ChangeDescriptionOfAnAppointment(selectedTime);
                     }
 
+                    //Change date of one of all appointments
                     if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
                         _appointmentManager = new AppointmentManager(currentUser, selectedTime);
                         _appointmentManager.ChangeDateOfAnAppointment(selectedTime);
                     }
 
+                    //Show information
                     if (input.Key == ConsoleKey.I)
                     {
                         goto case State.Info;
                     }
 
+                    //Logout current user
                     if (input.Key == ConsoleKey.L)
                     {
                         goto case State.Logout;
                     }
 
+                    //Exit application
                     if (input.Key == ConsoleKey.E)
                     {
                         goto case State.Exit;
@@ -157,13 +165,12 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case State.CalendarViewer;
 
                 case State.Info:
-                    //TODO: Infotext schreiben
-                    var infoHelper = new InfoHelper();
                     infoHelper.ShowInfo(currentUser);
                     goto case State.CalendarViewer;
 
                 case State.Logout:
                     Console.Clear();
+                    currentUser = null;
                     goto case State.RegisteredCheck;
 
                 case State.Exit:

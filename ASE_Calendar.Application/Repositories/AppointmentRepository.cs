@@ -74,7 +74,7 @@ namespace ASE_Calendar.Application.Repositories
         }
 
 
-        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentDict(DateTime selectedDate)
+        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDict(DateTime selectedDate)
         {
             var i = 0;
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
