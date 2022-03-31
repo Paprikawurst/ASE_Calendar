@@ -25,7 +25,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         /// </summary>
         public void LoadAppointments()
         {
-            Console.WriteLine("Your Appointments:\n");
+            Console.WriteLine("\nYour Appointments:\n");
             var appointmentData = AppointmentService.LoadAppointments(CurrentUser);
 
             if (appointmentData != null)
@@ -46,7 +46,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         /// </summary>
         public void LoadAllAppointments()
         {
-            Console.WriteLine("All Appointments:\n");
+            Console.WriteLine("\nAll Appointments:\n");
             var appointmentData = AppointmentService.LoadAllAppointments();
 
             if (appointmentData != null)

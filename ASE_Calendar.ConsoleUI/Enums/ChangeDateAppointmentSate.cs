@@ -2,6 +2,7 @@
 {
     enum ChangeDateAppointmentSate
     {
+        CheckForAppointments,
         UserInputId,
         UserInputDay,
         UserInputMonth,

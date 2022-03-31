@@ -2,6 +2,7 @@
 {
     enum ChangeDescriptionAppointmentSate
     {
+        CheckForAppointments,
         UserInputId,
         UserInputDescription,
         CheckInputId,

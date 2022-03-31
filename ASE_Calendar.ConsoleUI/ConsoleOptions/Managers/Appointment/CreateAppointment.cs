@@ -34,7 +34,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             {
                 case CreateAppointmentState.UserInputDay:
 
-                    Console.WriteLine("Please enter a Day of the current month");
+                    Console.WriteLine("\nPlease enter a Day of the current month");
                     day = Console.ReadLine();
                     goto case CreateAppointmentState.CheckInputDay;
 

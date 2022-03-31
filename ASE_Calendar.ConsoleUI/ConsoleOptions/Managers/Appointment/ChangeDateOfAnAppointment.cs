@@ -19,7 +19,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
         public ChangeDateOfAnAppointment(DateTime selectedTime)
         {
-            ChangeDateAppointmentSate changeDateAppointmentSate = ChangeDateAppointmentSate.UserInputId;
+            ChangeDateAppointmentSate changeDateAppointmentSate = ChangeDateAppointmentSate.CheckForAppointments;
             Guid appointmentGuid = Guid.Empty;
             DateTime newDateTime = new DateTime();
             var inputGuidString = "";
@@ -33,10 +33,23 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
             switch (changeDateAppointmentSate)
             {
+                case ChangeDateAppointmentSate.CheckForAppointments:
+
+                    AppointmentRepository appointmentRepository = new AppointmentRepository();
+
+                    if (appointmentRepository.ReturnAllAppointmentsString() == null)
+                    {
+                        _colorHelper.WriteLineRed("\nThere are no appointments at the moment!");
+                        _colorHelper.WriteLineRed("Any key to continue.");
+                        Console.ReadLine();
+                        break;
+                    }
+                    goto case ChangeDateAppointmentSate.UserInputId;
+
                 case ChangeDateAppointmentSate.UserInputId:
 
                     ShowAppointmentsOnConsole();
-                    Console.WriteLine("Enter the appointment ID you want to change the date:");
+                    Console.WriteLine("\nEnter the appointment ID you want to change the date:");
                     inputGuidString = Console.ReadLine();
                     goto case ChangeDateAppointmentSate.CheckInputId;
 

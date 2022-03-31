@@ -18,17 +18,29 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
         public ChangeDescriptionOfAnAppointment()
         {
-            ChangeDescriptionAppointmentSate changeDescriptionAppointmentSate = ChangeDescriptionAppointmentSate.UserInputId;
+            ChangeDescriptionAppointmentSate changeDescriptionAppointmentSate = ChangeDescriptionAppointmentSate.CheckForAppointments;
             Guid appointmentGuid = Guid.Empty;
             var inputGuidString = "";
             var appointmentDescription = "";
 
             switch (changeDescriptionAppointmentSate)
             {
+                case ChangeDescriptionAppointmentSate.CheckForAppointments:
+                    AppointmentRepository appointmentRepository = new AppointmentRepository();
+
+                    if (appointmentRepository.ReturnAllAppointmentsString() == null)
+                    {
+                        _colorHelper.WriteLineRed("\nThere are no appointments at the moment!");
+                        _colorHelper.WriteLineRed("Any key to continue.");
+                        Console.ReadLine();
+                        break;
+                    }
+                    goto case ChangeDescriptionAppointmentSate.UserInputId;
+
                 case ChangeDescriptionAppointmentSate.UserInputId:
 
                     ShowAppointmentsOnConsole();
-                    Console.WriteLine("Enter the appointment ID you want to change the description:");
+                    Console.WriteLine("\nEnter the appointment ID you want to change the description:");
                     inputGuidString = Console.ReadLine();
 
                     goto case ChangeDescriptionAppointmentSate.CheckInputId;
