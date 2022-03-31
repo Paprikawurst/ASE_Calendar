@@ -137,32 +137,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void DeleteAnAppointment(DateTime selectedTime)
         {
-            var appointmentRepository = new AppointmentRepository();
-            var allAppointments = appointmentRepository.ReturnAllAppointmentDict(selectedTime);
-            List <AppointmentEntity> appointmentList = new();
-            //get list of all appointments
-            foreach (var appointment in allAppointments)
-            {
-                appointmentList.Add(appointment.Value.FirstOrDefault().Value);
-            }
-            //list all appointments to user
-            int counter = 1;
-            foreach (var appointment in appointmentList)
-            {
-
-                Console.WriteLine("\n" + counter + ": " + appointment.AppointmentData.Date + " " + appointment.AppointmentData.Description);
-                counter++;
-            }
-
-            counter = 1;
-            //user chooses one appointment by choosing number from 1 to x
+            ShowAppointmentsOnConsole();
             Console.WriteLine("Enter the appointment number you want to delete:");
-            var appointmentId = int.Parse(Console.ReadLine());
-            //get chosen appointment object guid
-            var appointmentIdGuid = appointmentList[appointmentId -1].AppointmentId.Value;
-
-            //delete appointment via method
-            var appointmentData = AppointmentService.DeleteAnAppointment(appointmentIdGuid);
+            var appointmentGuid = Guid.Parse(Console.ReadLine());
+            var appointmentData = AppointmentService.DeleteAnAppointment(appointmentGuid);
 
             if (appointmentData != null)
             {
@@ -180,30 +158,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void ChangeDescriptionOfAnAppointment(DateTime selectedTime)
         {
-            var appointmentRepository = new AppointmentRepository();
-            var allAppointments = appointmentRepository.ReturnAllAppointmentDict(selectedTime);
-            List<AppointmentEntity> appointmentList = new();
-            //get list of all appointments
-            foreach (var appointment in allAppointments)
-            {
-                appointmentList.Add(appointment.Value.FirstOrDefault().Value);
-            }
-            //list all appointments to user
-            int counter = 1;
-            foreach (var appointment in appointmentList)
-            {
-
-                Console.WriteLine("\n" + counter + ": " + appointment.AppointmentData.Date + " " + appointment.AppointmentData.Description);
-                counter++;
-            }
-
-            counter = 1;
-            //user chooses one appointment by choosing number from 1 to x
+            ShowAppointmentsOnConsole();
             Console.WriteLine("Enter the appointment number you want to change the description of:");
-            var appointmentId = int.Parse(Console.ReadLine());
-            //get chosen appointment object guid
-            var appointmentIdGuid = appointmentList[appointmentId -1].AppointmentId.Value;
-
+            var appointmentIdGuid = Guid.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter the new description:");
             var appointmentDescription = Console.ReadLine();
@@ -225,29 +182,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
         public void ChangeDateOfAnAppointment(DateTime selectedTime)
         {
-            var appointmentRepository = new AppointmentRepository();
-            var allAppointments = appointmentRepository.ReturnAllAppointmentDict(selectedTime);
-            List<AppointmentEntity> appointmentList = new();
-            //get list of all appointments
-            foreach (var appointment in allAppointments)
-            {
-                appointmentList.Add(appointment.Value.FirstOrDefault().Value);
-            }
-            //list all appointments to user
-            int counter = 1;
-            foreach (var appointment in appointmentList)
-            {
-
-                Console.WriteLine("\n" + counter + ": " + appointment.AppointmentData.Date + " " + appointment.AppointmentData.Description);
-                counter++;
-            }
-
-            counter = 1;
-            //user chooses one appointment by choosing number from 1 to x
+            ShowAppointmentsOnConsole();
             Console.WriteLine("Enter the appointment number you want to change the date of:");
-            var appointmentId = int.Parse(Console.ReadLine());
-            //get chosen appointment object guid
-            var appointmentIdGuid = appointmentList[appointmentId - 1].AppointmentId.Value;
+            var appointmentGuid = Guid.Parse(Console.ReadLine());
+
 
             Console.WriteLine("Enter the new day:");
             var appointmentDay = Console.ReadLine();
@@ -258,7 +196,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
             var newDate = new DateTime(short.Parse(appointmentYear), short.Parse(appointmentMonth),
                 short.Parse(appointmentDay));
-            var appointmentData = AppointmentService.ChangeDate(appointmentIdGuid, newDate);
+            var appointmentData = AppointmentService.ChangeDate(appointmentGuid, newDate);
 
             if (appointmentData != null)
             {
@@ -272,6 +210,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 _colorHelper.WriteLineRed("Any key to continue!");
                 Console.ReadLine();
             }
+        }
+
+        public void ShowAppointmentsOnConsole()
+        {
+            var appointmentRepository = new AppointmentRepository();
+            var allAppointments = appointmentRepository.ReturnAllAppointmentsString();
+
+            Console.WriteLine("\n\n" + allAppointments + "\n");
         }
     }
 }
