@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Managers;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
@@ -130,13 +132,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Change description of one of all appointments
                     if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new ChangeAppointmentDescription();
+                        new ChangeDescriptionOfAnAppointment();
                     }
 
                     //Change date of one of all appointments
                     if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new ChangeAppointmentDate(selectedTime);
+                        new ChangeDateOfAnAppointment(selectedTime);
                     }
 
                     //Show information

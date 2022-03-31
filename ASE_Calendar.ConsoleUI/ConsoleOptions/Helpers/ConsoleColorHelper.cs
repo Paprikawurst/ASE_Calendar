@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ASE_Calendar.ConsoleUI.ConsoleOptions
+namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
 {
     /// <summary>
     /// Contains methods to output colored text to the console.

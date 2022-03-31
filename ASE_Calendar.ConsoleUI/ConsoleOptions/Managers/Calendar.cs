@@ -1,9 +1,10 @@
 ﻿using System;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.Domain.Entities;
 
-namespace ASE_Calendar.ConsoleUI.ConsoleOptions
+namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 {
     public class Calendar
     {

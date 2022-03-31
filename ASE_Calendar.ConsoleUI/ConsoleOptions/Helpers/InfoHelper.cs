@@ -1,7 +1,7 @@
 ﻿using System;
 using ASE_Calendar.Domain.Entities;
 
-namespace ASE_Calendar.ConsoleUI.ConsoleOptions
+namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
 {
     class InfoHelper
     {

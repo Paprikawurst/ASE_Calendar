@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.ConsoleUI.Enums;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment

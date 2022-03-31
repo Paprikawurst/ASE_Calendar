@@ -2,10 +2,11 @@
 using System.Text.RegularExpressions;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
 
-namespace ASE_Calendar.ConsoleUI.ConsoleOptions
+namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 {
     /// <summary>
     /// A class that starts the progress of the authentification.
