@@ -104,9 +104,8 @@ namespace ASE_Calendar.Application.Repositories
         /// </returns>
         public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDictSelectedMonth(DateTime selectedDate)
         {
-            var i = 0;
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
-            Dictionary<int, AppointmentEntity> appointmentEntities = new();
+
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
@@ -120,6 +119,7 @@ namespace ASE_Calendar.Application.Repositories
                     if (appointmentEntity != null && appointmentEntity.AppointmentData.Date.Month == selectedDate.Month &&
                         appointmentEntity.AppointmentData.Date.Year == selectedDate.Year)
                     {
+
                         if (appointmentDict.ContainsKey(appointmentEntity.AppointmentData.Date.Day))
                         {
                             appointmentDict[appointmentEntity.AppointmentData.Date.Day][
@@ -127,10 +127,12 @@ namespace ASE_Calendar.Application.Repositories
                         }
                         else
                         {
+                            Dictionary<int, AppointmentEntity> appointmentEntities = new();
                             appointmentEntities[appointmentEntity.AppointmentData.TimeSlot] = appointmentEntity;
                             appointmentDict.Add(appointmentEntity.AppointmentData.Date.Day, appointmentEntities);
+                           
                         }
-                        i++;
+                        
                     }
                 }
             }
