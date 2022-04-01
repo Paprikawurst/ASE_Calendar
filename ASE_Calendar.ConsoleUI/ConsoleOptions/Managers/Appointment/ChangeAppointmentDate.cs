@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
@@ -12,7 +8,7 @@ using ASE_Calendar.ConsoleUI.Enums;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class which starts the progress on the ui to change the date of an appointment.
+    /// A class which starts the process on the ui to change the date of an appointment.
     /// </summary>
     public class ChangeAppointmentDate
     {
@@ -182,7 +178,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                     break;
             }
         }
-
+        /// <summary>
+        /// gets a list of appointment entities from the repository and outputs it to the console
+        /// </summary>
         public void ShowAppointmentsOnConsole()
         {
             var appointmentRepository = new AppointmentRepository();

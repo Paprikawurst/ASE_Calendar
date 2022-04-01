@@ -10,7 +10,7 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class that laods the current appointmens
+    /// A class that loads the current appointments
     /// </summary>
     public class LoadAppointment
     {

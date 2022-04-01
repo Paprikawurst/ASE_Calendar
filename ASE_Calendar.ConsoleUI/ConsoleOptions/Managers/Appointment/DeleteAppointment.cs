@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
@@ -12,7 +7,7 @@ using ASE_Calendar.ConsoleUI.Enums;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
  /// <summary>
- /// A class which starts the progress on the ui to delete an appointment.
+ /// A class which starts the process on the ui to delete an appointment.
  /// </summary>
     public class DeleteAppointment
     {
