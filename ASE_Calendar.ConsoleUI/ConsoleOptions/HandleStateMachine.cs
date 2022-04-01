@@ -109,7 +109,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Create appointment
                     if (input.Key == ConsoleKey.D1 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
-                        new CreateAppointment(currentUser, selectedTime);
+                        _ = new CreateAppointment(currentUser, selectedTime);
                     }
 
                     //Read appointments from specific user
@@ -122,7 +122,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Delete appointment
                     if (input.Key == ConsoleKey.D3 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new DeleteAppointment();
+                        _ = new DeleteAppointment();
                     }
 
                     //Read appointments from all users
@@ -135,13 +135,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Change description of one of all appointments
                     if (input.Key == ConsoleKey.D5 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new ChangeAppointmentDescription();
+                        _ = new ChangeAppointmentDescription();
                     }
 
                     //Change date of one of all appointments
                     if (input.Key == ConsoleKey.D6 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        new ChangeAppointmentDate(selectedTime);
+                        _ = new ChangeAppointmentDate(selectedTime);
                     }
 
                     //Show information
@@ -171,7 +171,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                 case State.Logout:
                     Console.Clear();
-                    currentUser = null;
                     goto case State.RegisteredCheck;
 
                 case State.Exit:
