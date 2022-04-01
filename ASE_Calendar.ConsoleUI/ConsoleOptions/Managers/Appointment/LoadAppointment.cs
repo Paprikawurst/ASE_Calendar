@@ -12,11 +12,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// <summary>
     /// A class that laods the current appointmens
     /// </summary>
-    public class GetAppointments
+    public class LoadAppointment
     {
         private readonly ConsoleColorHelper _colorHelper = new();
         public UserEntity CurrentUser;
-        public GetAppointments(UserEntity currentUser)
+        public LoadAppointment(UserEntity currentUser)
         {
             CurrentUser = currentUser;
         }
