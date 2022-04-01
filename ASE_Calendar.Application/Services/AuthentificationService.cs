@@ -5,12 +5,12 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.Application.Services
 {
     /// <summary>
-    /// A service that manages registration and login.
+    ///     A service that manages registration and login.
     /// </summary>
     public class AuthentificationService
     {
         /// <summary>
-        /// Starts registration process based on given username, password and role.
+        ///     Starts registration process based on given username, password and role.
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
@@ -22,12 +22,12 @@ namespace ASE_Calendar.Application.Services
         }
 
         /// <summary>
-        /// Start login process based on given username and password.
+        ///     Start login process based on given username and password.
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns>
-        /// A user entity or null.
+        ///     A user entity or null.
         /// </returns>
         public static UserEntity StartLogin(string username, string password)
         {
@@ -44,6 +44,7 @@ namespace ASE_Calendar.Application.Services
             {
                 return userEntity;
             }
+
             return null;
         }
     }

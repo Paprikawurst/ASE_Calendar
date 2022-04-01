@@ -3,10 +3,10 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
 {
-    class InfoHelper
+    internal class InfoHelper
     {
         /// <summary>
-        /// Shows the user on the console what he is allowed to do inside the application depending on his role
+        ///     Shows the user on the console what he is allowed to do inside the application depending on his role
         /// </summary>
         /// <param name="user"></param>
         public void ShowInfo(UserEntity user)

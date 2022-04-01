@@ -1,6 +1,6 @@
 ﻿namespace ASE_Calendar.ConsoleUI.Enums
 {
-    enum CreateAppointmentState
+    internal enum CreateAppointmentState
     {
         UserInputDay,
         UserInputTimeSlot,

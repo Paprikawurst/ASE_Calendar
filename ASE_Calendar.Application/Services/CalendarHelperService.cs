@@ -1,16 +1,16 @@
 ﻿namespace ASE_Calendar.Application.Services
 {
     /// <summary>
-    /// A service that contains helper functions for creating the calendar
+    ///     A service that contains helper functions for creating the calendar
     /// </summary>
     public class CalendarHelperService
     {
         /// <summary>
-        /// Converts a month number to a month name string.
+        ///     Converts a month number to a month name string.
         /// </summary>
         /// <param name="month"></param>
         /// <returns>
-        /// A string based on the input.
+        ///     A string based on the input.
         /// </returns>
         public static string GetMonthDayString(int month)
         {
@@ -34,12 +34,12 @@
         }
 
         /// <summary>
-        /// Checks the number of days a given month in a given year has.
+        ///     Checks the number of days a given month in a given year has.
         /// </summary>
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns>
-        /// A integer.
+        ///     A integer.
         /// </returns>
         public static int GetMaxMonthDayInt(int month, int year)
         {
@@ -91,15 +91,16 @@
                     maxMonthDays = thirtyone;
                     break;
             }
+
             return maxMonthDays;
         }
 
         /// <summary>
-        ///  Checks whether a given year is a leap year or not.
+        ///     Checks whether a given year is a leap year or not.
         /// </summary>
         /// <param name="year"></param>
         /// <returns>
-        /// A boolean.
+        ///     A boolean.
         /// </returns>
         private static bool GetLeapYear(int year)
         {
@@ -109,11 +110,11 @@
         }
 
         /// <summary>
-        /// Converts a given time slot to a string containing the time
+        ///     Converts a given time slot to a string containing the time
         /// </summary>
         /// <param name="timeSlot"></param>
         /// <returns>
-        /// A string.
+        ///     A string.
         /// </returns>
         public string TimeSlotToTimeStamp(int timeSlot)
         {

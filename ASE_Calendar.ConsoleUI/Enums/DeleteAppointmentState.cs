@@ -1,7 +1,6 @@
-﻿
-namespace ASE_Calendar.ConsoleUI.Enums
+﻿namespace ASE_Calendar.ConsoleUI.Enums
 {
-    enum DeleteAppointmentState
+    internal enum DeleteAppointmentState
     {
         CheckForAppointments,
         UserInputId,

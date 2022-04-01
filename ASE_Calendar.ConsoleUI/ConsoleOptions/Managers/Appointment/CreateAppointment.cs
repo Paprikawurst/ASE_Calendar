@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.ConsoleUI.Enums;
@@ -12,7 +8,7 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class which starts the progress on the ui to create an appointment.
+    ///     A class which starts the progress on the ui to create an appointment.
     /// </summary>
     public class CreateAppointment
     {
@@ -29,7 +25,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             var timeSlot = "";
             var description = "";
 
-            CreateAppointmentState appointmentState = CreateAppointmentState.UserInputDay;
+            var appointmentState = CreateAppointmentState.UserInputDay;
 
             switch (appointmentState)
             {
@@ -65,7 +61,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
 
                     if (!isNumber || timeSlot == "" ||
-                        !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot), short.Parse(day)))
+                        !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot),
+                            short.Parse(day)))
                     {
                         _colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
                         goto case CreateAppointmentState.UserInputTimeSlot;
@@ -96,13 +93,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             AppointmentEntity appointment =
                 new(date, int.Parse(timeSlot), CurrentUser.UserId, Guid.NewGuid(), description);
             AppointmentService.CreateAppointment(appointment);
-
         }
-
-
-
-
-
-
     }
 }

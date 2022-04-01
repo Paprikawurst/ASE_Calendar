@@ -1,6 +1,6 @@
 ﻿namespace ASE_Calendar.ConsoleUI.Enums
 {
-    enum LoginState
+    internal enum LoginState
     {
         UserInput,
         CheckInput

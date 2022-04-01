@@ -4,7 +4,7 @@ using ASE_Calendar.Domain.ValueObjects;
 namespace ASE_Calendar.Domain.Entities
 {
     /// <summary>
-    /// An entity that contains appointment information.
+    ///     An entity that contains appointment information.
     /// </summary>
     public class AppointmentEntity
     {

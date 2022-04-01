@@ -3,7 +3,7 @@
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
 {
     /// <summary>
-    /// Contains methods to output colored text to the console.
+    ///     Contains methods to output colored text to the console.
     /// </summary>
     public class ConsoleColorHelper
     {

@@ -1,6 +1,6 @@
 ﻿namespace ASE_Calendar.ConsoleUI.Enums
 {
-    enum State
+    internal enum State
     {
         RegisteredCheck,
         Register,

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.Domain.Entities;
@@ -10,19 +6,20 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class that laods the current appointmens
+    ///     A class that laods the current appointmens
     /// </summary>
     public class GetAppointments
     {
         private readonly ConsoleColorHelper _colorHelper = new();
         public UserEntity CurrentUser;
+
         public GetAppointments(UserEntity currentUser)
         {
             CurrentUser = currentUser;
         }
 
         /// <summary>
-        /// A function that loads the appointments of the user and shows them on the ui.
+        ///     A function that loads the appointments of the user and shows them on the ui.
         /// </summary>
         public void LoadAppointments()
         {
@@ -43,7 +40,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         }
 
         /// <summary>
-        /// A function that loads all appointments and shows them on the ui.
+        ///     A function that loads all appointments and shows them on the ui.
         /// </summary>
         public void LoadAllAppointments()
         {
@@ -62,7 +59,5 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                 Console.ReadLine();
             }
         }
-
-
     }
 }

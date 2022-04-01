@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
@@ -11,25 +6,26 @@ using ASE_Calendar.ConsoleUI.Enums;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
- /// <summary>
- /// A class which starts the progress on the ui to delete an appointment.
- /// </summary>
+    /// <summary>
+    ///     A class which starts the progress on the ui to delete an appointment.
+    /// </summary>
     public class DeleteAppointment
     {
         private readonly ConsoleColorHelper _colorHelper = new();
+
         public DeleteAppointment()
         {
             const DeleteAppointmentState deleteAppointmentSate = DeleteAppointmentState.CheckForAppointments;
-            Guid appointmentGuid = Guid.Empty;
+            var appointmentGuid = Guid.Empty;
             var inputGuidString = "";
 
             switch (deleteAppointmentSate)
             {
                 case DeleteAppointmentState.CheckForAppointments:
-                    AppointmentRepository appointmentRepository = new AppointmentRepository();
+                    var appointmentRepository = new AppointmentRepository();
 
                     if (appointmentRepository.ReturnAllAppointmentsString() == null)
-                    { 
+                    {
                         _colorHelper.WriteLineRed("\nThere are no appointments at the moment!");
                         _colorHelper.WriteLineRed("Any key to continue.");
                         Console.ReadLine();
@@ -45,7 +41,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case DeleteAppointmentState.CheckInputId:
 
-                    bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
+                    var isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
 
                     if (isValid)
                     {

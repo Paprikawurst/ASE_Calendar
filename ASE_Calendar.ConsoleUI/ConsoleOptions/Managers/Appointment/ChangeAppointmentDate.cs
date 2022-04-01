@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
@@ -12,7 +8,7 @@ using ASE_Calendar.ConsoleUI.Enums;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class which starts the progress on the ui to change the date of an appointment.
+    ///     A class which starts the progress on the ui to change the date of an appointment.
     /// </summary>
     public class ChangeAppointmentDate
     {
@@ -20,9 +16,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
         public ChangeAppointmentDate(DateTime selectedTime)
         {
-            ChangeDateAppointmentState changeDateAppointmentSate = ChangeDateAppointmentState.CheckForAppointments;
-            Guid appointmentGuid = Guid.Empty;
-            DateTime newDateTime = new DateTime();
+            var changeDateAppointmentSate = ChangeDateAppointmentState.CheckForAppointments;
+            var appointmentGuid = Guid.Empty;
+            var newDateTime = new DateTime();
             var inputGuidString = "";
             var appointmentDayString = "";
             var appointmentMonthString = "";
@@ -36,7 +32,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             {
                 case ChangeDateAppointmentState.CheckForAppointments:
 
-                    AppointmentRepository appointmentRepository = new AppointmentRepository();
+                    var appointmentRepository = new AppointmentRepository();
 
                     if (appointmentRepository.ReturnAllAppointmentsString() == null)
                     {
@@ -45,6 +41,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         Console.ReadLine();
                         break;
                     }
+
                     goto case ChangeDateAppointmentState.UserInputId;
 
                 case ChangeDateAppointmentState.UserInputId:
@@ -85,7 +82,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDateAppointmentState.CheckInputId:
 
-                    bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
+                    var isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
 
                     if (isValid)
                     {
@@ -98,7 +95,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDateAppointmentState.CheckInputDay:
 
-                    bool isValidDay = short.TryParse(appointmentDayString, out appointmentDayInt);
+                    var isValidDay = short.TryParse(appointmentDayString, out appointmentDayInt);
 
                     if (!isValidDay || appointmentDayInt > 31 || appointmentDayInt <= 0)
                     {
@@ -110,7 +107,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDateAppointmentState.CheckInputMonth:
 
-                    bool isValidMonth = short.TryParse(appointmentMonthString, out appointmentMonthInt);
+                    var isValidMonth = short.TryParse(appointmentMonthString, out appointmentMonthInt);
 
                     if (!isValidMonth || appointmentMonthInt > 12 || appointmentMonthInt <= 0)
                     {
@@ -122,7 +119,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDateAppointmentState.CheckInputYear:
 
-                    bool isValidYear = short.TryParse(appointmentYearString, out appointmentYearInt);
+                    var isValidYear = short.TryParse(appointmentYearString, out appointmentYearInt);
 
                     if (!isValidYear || appointmentYearInt < selectedTime.Year)
                     {
@@ -134,7 +131,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDateAppointmentState.CheckInputTimeSlot:
 
-                    bool isNumber = Regex.IsMatch(appointmentTimeSlotString, @"[1-8]");
+                    var isNumber = Regex.IsMatch(appointmentTimeSlotString, @"[1-8]");
 
                     if (!isNumber || appointmentTimeSlotString == "")
                     {
@@ -142,7 +139,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         goto case ChangeDateAppointmentState.UserInputTimeSlot;
                     }
 
-                    if (!AppointmentService.CheckIfTimeSlotIsFree(newDateTime, short.Parse(appointmentTimeSlotString), appointmentDayInt))
+                    if (!AppointmentService.CheckIfTimeSlotIsFree(newDateTime, short.Parse(appointmentTimeSlotString),
+                            appointmentDayInt))
                     {
                         _colorHelper.WriteLineRed("\n" + "Time slot is occupied!" + "\n");
                         goto case ChangeDateAppointmentState.UserInputTimeSlot;
@@ -153,7 +151,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDateAppointmentState.CheckInputDate:
 
-                    if (CalendarHelperService.GetMaxMonthDayInt(appointmentMonthInt, appointmentYearInt) < appointmentDayInt)
+                    if (CalendarHelperService.GetMaxMonthDayInt(appointmentMonthInt, appointmentYearInt) <
+                        appointmentDayInt)
                     {
                         _colorHelper.WriteLineRed("Please enter a valid date!");
                         goto case ChangeDateAppointmentState.UserInputDay;
@@ -179,6 +178,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         _colorHelper.WriteLineRed("Any key to continue!");
                         Console.ReadLine();
                     }
+
                     break;
             }
         }

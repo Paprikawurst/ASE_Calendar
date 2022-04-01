@@ -112,7 +112,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Read appointments from specific user
                     if (input.Key == ConsoleKey.D2 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
-                        GetAppointments getAppointments = new GetAppointments(currentUser);
+                        var getAppointments = new GetAppointments(currentUser);
                         getAppointments.LoadAppointments();
                     }
 
@@ -125,7 +125,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Read appointments from all users
                     if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        GetAppointments getAppointments = new GetAppointments(currentUser);
+                        var getAppointments = new GetAppointments(currentUser);
                         getAppointments.LoadAllAppointments();
                     }
 

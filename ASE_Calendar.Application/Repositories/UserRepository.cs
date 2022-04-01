@@ -6,14 +6,12 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.Application.Repositories
 {
     /// <summary>
-    /// This repository manages the CRUD operations for the user entity.
+    ///     This repository manages the CRUD operations for the user entity.
     /// </summary>
     public class UserRepository
     {
-        private readonly UserEntity _userEntity;
         private readonly CustomJsonConverter<UserEntity> _customJsonConverter = new();
-        public string Username { get; set; }
-        public string Password { get; set; }
+        private readonly UserEntity _userEntity;
 
         public UserRepository(string username, string password)
         {
@@ -32,8 +30,11 @@ namespace ASE_Calendar.Application.Repositories
             CreateUser();
         }
 
+        public string Username { get; set; }
+        public string Password { get; set; }
+
         /// <summary>
-        /// Serializes a user entity to a json format and appends it to the ASECalendarUsers.json
+        ///     Serializes a user entity to a json format and appends it to the ASECalendarUsers.json
         /// </summary>
         private void CreateUser()
         {
@@ -42,10 +43,10 @@ namespace ASE_Calendar.Application.Repositories
         }
 
         /// <summary>
-        /// Reads current user from ASECalendarUsers.json
+        ///     Reads current user from ASECalendarUsers.json
         /// </summary>
         /// <returns>
-        /// A user entity based on previously determined name and password or null.
+        ///     A user entity based on previously determined name and password or null.
         /// </returns>
         public UserEntity ReturnUserEntity()
         {
@@ -65,14 +66,15 @@ namespace ASE_Calendar.Application.Repositories
                     }
                 }
             }
+
             return null;
         }
 
         /// <summary>
-        /// Reads users from ASECalendarUsers.json and returns whether current username exists or not.
+        ///     Reads users from ASECalendarUsers.json and returns whether current username exists or not.
         /// </summary>
         /// <returns>
-        /// A boolean.
+        ///     A boolean.
         /// </returns>
         public bool ReadFromJsonFileReturnTrueIfUsernameExists()
         {
@@ -94,6 +96,7 @@ namespace ASE_Calendar.Application.Repositories
                     }
                 }
             }
+
             return false;
         }
     }

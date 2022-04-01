@@ -2,9 +2,9 @@
 
 namespace ASE_Calendar.ConsoleUI
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
             HandleStateMachine stateMachine = new();
             stateMachine.StartStateMachine();

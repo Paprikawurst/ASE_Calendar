@@ -8,7 +8,7 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.Application.Repositories
 {
     /// <summary>
-    /// This repository manages the CRUD operations for the appointment entity.
+    ///     This repository manages the CRUD operations for the appointment entity.
     /// </summary>
     public class AppointmentRepository
     {
@@ -16,7 +16,7 @@ namespace ASE_Calendar.Application.Repositories
         private readonly CustomJsonConverter<AppointmentEntity> _customJsonConverter = new();
 
         /// <summary>
-        /// Serializes an appointment entity to a json format and appends it to the ASECalendarAppointments.json
+        ///     Serializes an appointment entity to a json format and appends it to the ASECalendarAppointments.json
         /// </summary>
         /// <param name="appointmentEntity"></param>
         public void CreateAppointment(AppointmentEntity appointmentEntity)
@@ -26,11 +26,11 @@ namespace ASE_Calendar.Application.Repositories
         }
 
         /// <summary>
-        /// Reads existing entries from ASECalendarAppointments.json for a specific user
+        ///     Reads existing entries from ASECalendarAppointments.json for a specific user
         /// </summary>
         /// <param name="user"></param>
         /// <returns>
-        /// A formatted string with appointment entries.
+        ///     A formatted string with appointment entries.
         /// </returns>
         public string ReturnUserAppointmentString(UserEntity user)
         {
@@ -51,21 +51,24 @@ namespace ASE_Calendar.Application.Repositories
                 {
                     if (appointmentEntity.UserId.Value == user.UserId.Value)
                     {
-                        appointmentsString = appointmentsString + appointmentEntity.AppointmentData.Date.ToLongDateString() +
+                        appointmentsString = appointmentsString +
+                                             appointmentEntity.AppointmentData.Date.ToLongDateString() +
                                              " " +
-                                             _calendarHelper.TimeSlotToTimeStamp(appointmentEntity.AppointmentData.TimeSlot) +
+                                             _calendarHelper.TimeSlotToTimeStamp(appointmentEntity.AppointmentData
+                                                 .TimeSlot) +
                                              " " + appointmentEntity.AppointmentData.Description + "\n";
                     }
                 }
             }
+
             return appointmentsString;
         }
 
         /// <summary>
-        /// Reads all existing entries from ASECalendarAppointments.json 
+        ///     Reads all existing entries from ASECalendarAppointments.json
         /// </summary>
         /// <returns>
-        /// A formatted string with appointment entries.
+        ///     A formatted string with appointment entries.
         /// </returns>
         public string ReturnAllAppointmentsString()
         {
@@ -92,20 +95,22 @@ namespace ASE_Calendar.Application.Repositories
                                          " " + appointment.AppointmentData.Description + "\n";
                 }
             }
+
             return appointmentsString;
         }
 
         /// <summary>
-        /// Reads all existing entries from ASECalendarAppointments.json for a selected month.
+        ///     Reads all existing entries from ASECalendarAppointments.json for a selected month.
         /// </summary>
         /// <param name="selectedDate"></param>
         /// <returns>
-        /// A dictionary where the keys are the days and the value is another dictionary with key 1-8 for time slots and appointments as value.
+        ///     A dictionary where the keys are the days and the value is another dictionary with key 1-8 for time slots and
+        ///     appointments as value.
         /// </returns>
-        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDictSelectedMonth(DateTime selectedDate)
+        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDictSelectedMonth(
+            DateTime selectedDate)
         {
             Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
-
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
@@ -116,10 +121,10 @@ namespace ASE_Calendar.Application.Repositories
                 {
                     var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
 
-                    if (appointmentEntity != null && appointmentEntity.AppointmentData.Date.Month == selectedDate.Month &&
+                    if (appointmentEntity != null &&
+                        appointmentEntity.AppointmentData.Date.Month == selectedDate.Month &&
                         appointmentEntity.AppointmentData.Date.Year == selectedDate.Year)
                     {
-
                         if (appointmentDict.ContainsKey(appointmentEntity.AppointmentData.Date.Day))
                         {
                             appointmentDict[appointmentEntity.AppointmentData.Date.Day][
@@ -130,21 +135,20 @@ namespace ASE_Calendar.Application.Repositories
                             Dictionary<int, AppointmentEntity> appointmentEntities = new();
                             appointmentEntities[appointmentEntity.AppointmentData.TimeSlot] = appointmentEntity;
                             appointmentDict.Add(appointmentEntity.AppointmentData.Date.Day, appointmentEntities);
-                           
                         }
-                        
                     }
                 }
             }
+
             return appointmentDict;
         }
 
         /// <summary>
-        /// Removes an existing appointment via a given Guid.
+        ///     Removes an existing appointment via a given Guid.
         /// </summary>
         /// <param name="appointmentGuid"></param>
         /// <returns>
-        /// A bool which indicates whether the appointment was deleted or not.
+        ///     A bool which indicates whether the appointment was deleted or not.
         /// </returns>
         public bool DeleteAppointment(Guid appointmentGuid)
         {
@@ -168,19 +172,21 @@ namespace ASE_Calendar.Application.Repositories
                         jsonSplit[i] = "";
                     }
                 }
+
                 i++;
             }
+
             RecreateFile(jsonSplit);
             return true;
         }
 
         /// <summary>
-        /// Change description of appointment via Guid and given new description.
+        ///     Change description of appointment via Guid and given new description.
         /// </summary>
         /// <param name="appointmentGuid"></param>
         /// <param name="newDescription"></param>
         /// <returns>
-        /// A bool which indicates whether the appointment description was successfully changed or not.
+        ///     A bool which indicates whether the appointment description was successfully changed or not.
         /// </returns>
         public bool ChangeDescription(Guid appointmentGuid, string newDescription)
         {
@@ -204,23 +210,26 @@ namespace ASE_Calendar.Application.Repositories
                     {
                         jsonSplit[i] = "";
                         changedAppointment = new AppointmentEntity(appointmentEntity.AppointmentData.Date,
-                            appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId, appointmentEntity.AppointmentId.Value,
+                            appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId,
+                            appointmentEntity.AppointmentId.Value,
                             newDescription);
                     }
                 }
+
                 i++;
             }
+
             RecreateFile(jsonSplit);
             return true;
         }
 
         /// <summary>
-        /// Change date of appointment via Guid and given new date.
+        ///     Change date of appointment via Guid and given new date.
         /// </summary>
         /// <param name="appointmentGuid"></param>
         /// <param name="newDate"></param>
         /// <returns>
-        /// A bool which indicates whether the appointment date was successfully changed or not.
+        ///     A bool which indicates whether the appointment date was successfully changed or not.
         /// </returns>
         public bool ChangeDate(Guid appointmentGuid, DateTime newDate)
         {
@@ -244,10 +253,12 @@ namespace ASE_Calendar.Application.Repositories
                     {
                         jsonSplit[i] = "";
                         changedAppointment = new AppointmentEntity(newDate,
-                            appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId, appointmentEntity.AppointmentId.Value,
+                            appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId,
+                            appointmentEntity.AppointmentId.Value,
                             appointmentEntity.AppointmentData.Description);
                     }
                 }
+
                 i++;
             }
 
@@ -257,7 +268,7 @@ namespace ASE_Calendar.Application.Repositories
         }
 
         /// <summary>
-        /// Deletes ASECalendarAppointments.json and recreates it with given json-Objects
+        ///     Deletes ASECalendarAppointments.json and recreates it with given json-Objects
         /// </summary>
         /// <param name="jsonSplit"></param>
         private void RecreateFile(string[] jsonSplit)

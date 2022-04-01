@@ -9,11 +9,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
     public class Calendar
     {
         private readonly UserEntity _currentUser;
+        private readonly ConsoleColorHelper colorHelper = new();
         private CheckDateService _checkDate;
         private DateTime _selectedTime;
 
         public CalendarHelperService CalendarHelperService = new();
-        private readonly ConsoleColorHelper colorHelper = new();
 
         public Calendar(DateTime currentTime, UserEntity currentUser)
         {
@@ -70,14 +70,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
             var appointmentDict =
                 appointmentRepository.ReturnAllAppointmentsDictSelectedMonth(_selectedTime);
 
-            bool first = true;
+            var first = true;
 
             for (var i = 1; i <= CalendarHelperService.GetMaxMonthDayInt(_selectedTime.Month, _selectedTime.Year); i++)
                 if (appointmentDict.ContainsKey(i))
                 {
                     for (var j = 1; j <= 8; j++)
                     {
-                        
                         if (appointmentDict[i].ContainsKey(j))
                         {
                             if (i == appointmentDict[i][j].AppointmentData.Date.Day
@@ -125,10 +124,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                                                     .AppointmentData.TimeSlot));
                                         }
                                     }
-                                    
                                 }
                             }
                         }
+
                         if (j == 8)
                         {
                             Console.Write("\n");

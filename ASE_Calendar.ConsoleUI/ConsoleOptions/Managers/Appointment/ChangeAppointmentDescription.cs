@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
@@ -11,7 +7,7 @@ using ASE_Calendar.ConsoleUI.Enums;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class which starts the progress on the ui to change the description of an appointment.
+    ///     A class which starts the progress on the ui to change the description of an appointment.
     /// </summary>
     public class ChangeAppointmentDescription
     {
@@ -19,15 +15,15 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
         public ChangeAppointmentDescription()
         {
-            ChangeDescriptionAppointmentState changeDescriptionAppointmentSate = ChangeDescriptionAppointmentState.CheckForAppointments;
-            Guid appointmentGuid = Guid.Empty;
+            var changeDescriptionAppointmentSate = ChangeDescriptionAppointmentState.CheckForAppointments;
+            var appointmentGuid = Guid.Empty;
             var inputGuidString = "";
             var appointmentDescription = "";
 
             switch (changeDescriptionAppointmentSate)
             {
                 case ChangeDescriptionAppointmentState.CheckForAppointments:
-                    AppointmentRepository appointmentRepository = new AppointmentRepository();
+                    var appointmentRepository = new AppointmentRepository();
 
                     if (appointmentRepository.ReturnAllAppointmentsString() == null)
                     {
@@ -36,6 +32,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         Console.ReadLine();
                         break;
                     }
+
                     goto case ChangeDescriptionAppointmentState.UserInputId;
 
                 case ChangeDescriptionAppointmentState.UserInputId:
@@ -55,7 +52,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDescriptionAppointmentState.CheckInputId:
 
-                    bool isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
+                    var isValid = Guid.TryParse(inputGuidString, out appointmentGuid);
 
                     if (isValid)
                     {
@@ -80,7 +77,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeDescriptionAppointmentState.changeDescription:
 
-                    var successfulChangeDescription = AppointmentService.ChangeDescription(appointmentGuid, appointmentDescription);
+                    var successfulChangeDescription =
+                        AppointmentService.ChangeDescription(appointmentGuid, appointmentDescription);
 
                     if (successfulChangeDescription)
                     {
@@ -94,9 +92,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         _colorHelper.WriteLineRed("Any key to continue!");
                         Console.ReadLine();
                     }
+
                     break;
             }
         }
+
         public void ShowAppointmentsOnConsole()
         {
             var appointmentRepository = new AppointmentRepository();

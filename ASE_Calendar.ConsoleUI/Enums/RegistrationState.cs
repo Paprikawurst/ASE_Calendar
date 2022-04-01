@@ -1,7 +1,6 @@
-﻿
-namespace ASE_Calendar.ConsoleUI.Enums
+﻿namespace ASE_Calendar.ConsoleUI.Enums
 {
-    enum RegistrationState
+    internal enum RegistrationState
     {
         UserInputUsername,
         UserInputPassword,
