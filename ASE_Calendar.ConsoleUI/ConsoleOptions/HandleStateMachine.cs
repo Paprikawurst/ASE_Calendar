@@ -16,7 +16,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
         {
             var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
-            var auth = new Authentification();
+            var auth = new AuthentificationManager();
             var infoHelper = new InfoHelper();
 
             if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
@@ -56,7 +56,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                 case State.CalendarViewer:
 
-                    var calendar = new Calendar(selectedTime, currentUser);
+                    var calendar = new CalendarManager(selectedTime, currentUser);
                     Console.Clear();
                     calendar.CreateCalendar();
 
@@ -112,7 +112,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Read appointments from specific user
                     if (input.Key == ConsoleKey.D2 && currentUser.UserDataRegistered.RoleId is 2 or 0)
                     {
-                        var getAppointments = new GetAppointments(currentUser);
+                        LoadAppointment getAppointments = new LoadAppointment(currentUser);
                         getAppointments.LoadAppointments();
                     }
 
@@ -125,7 +125,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     //Read appointments from all users
                     if (input.Key == ConsoleKey.D4 && currentUser.UserDataRegistered.RoleId is 1 or 0)
                     {
-                        var getAppointments = new GetAppointments(currentUser);
+                        LoadAppointment getAppointments = new LoadAppointment(currentUser);
                         getAppointments.LoadAllAppointments();
                     }
 

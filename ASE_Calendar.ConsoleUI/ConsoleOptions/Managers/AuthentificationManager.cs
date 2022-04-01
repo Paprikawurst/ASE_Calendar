@@ -11,7 +11,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
     /// <summary>
     ///     A class that starts the progress of the authentification.
     /// </summary>
-    public class Authentification
+    public class AuthentificationManager
     {
         private readonly ConsoleColorHelper _colorHelper = new();
         private LoginState _loginState;

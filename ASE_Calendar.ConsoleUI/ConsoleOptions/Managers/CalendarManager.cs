@@ -6,7 +6,7 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 {
-    public class Calendar
+    public class CalendarManager
     {
         private readonly UserEntity _currentUser;
         private readonly ConsoleColorHelper colorHelper = new();
@@ -15,7 +15,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 
         public CalendarHelperService CalendarHelperService = new();
 
-        public Calendar(DateTime currentTime, UserEntity currentUser)
+        public CalendarManager(DateTime currentTime, UserEntity currentUser)
         {
             _selectedTime = currentTime;
             _selectedTime = new DateTime(currentTime.Year, currentTime.Month, 1);

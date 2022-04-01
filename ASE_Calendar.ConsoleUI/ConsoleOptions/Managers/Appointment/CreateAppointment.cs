@@ -8,7 +8,7 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    ///     A class which starts the progress on the ui to create an appointment.
+    /// A class which starts the process on the ui to create an appointment.
     /// </summary>
     public class CreateAppointment
     {
