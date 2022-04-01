@@ -96,7 +96,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                     break;
             }
         }
-
+        /// <summary>
+        /// gets a list of appointment entities from the repository and outputs it to the console
+        /// </summary>
         public void ShowAppointmentsOnConsole()
         {
             var appointmentRepository = new AppointmentRepository();

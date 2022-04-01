@@ -8,6 +8,9 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
+    /// <summary>
+    ///     Starts the application and handles the different state the application can be in.
+    /// </summary>
     public class HandleStateMachine
     {
         private readonly State _state = State.RegisteredCheck;

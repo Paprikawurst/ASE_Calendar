@@ -94,7 +94,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
         }
 
         /// <summary>
-        ///     Starts the progress of the login on the ui.
+        ///     Starts the process of the login on the ui.
         /// </summary>
         public UserEntity StartLogin()
         {

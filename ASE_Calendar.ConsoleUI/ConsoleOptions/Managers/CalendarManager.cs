@@ -6,6 +6,9 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 {
+    /// <summary>
+    ///     Manages the calendar output on the console.
+    /// </summary>
     public class CalendarManager
     {
         private readonly UserEntity _currentUser;
@@ -21,14 +24,21 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
             _selectedTime = new DateTime(currentTime.Year, currentTime.Month, 1);
             _currentUser = currentUser;
         }
-
+        /// <summary>
+        /// Initially creates the calendar for the current local date and time.
+        /// </summary>
         public void CreateCalendar()
         {
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthDayString(_selectedTime.Month) + "\n");
             CreateCalendarHelper();
         }
-
+        /// <summary>
+        /// Creates the calendar for the current month.
+        /// </summary>
+        /// <returns>
+        /// A DateTime object with the current local date and time.
+        /// </returns>
         public DateTime CreateCalendarCurrentMonth()
         {
             _selectedTime = DateTime.Now;
@@ -38,10 +48,16 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 
             return _selectedTime;
         }
-
-        public DateTime CreateCalendarNextMonth(DateTime test)
+        /// <summary>
+        /// Uses the input DateTime to create a calendar for the next month.
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns>
+        /// The updated DateTime object
+        /// </returns>
+        public DateTime CreateCalendarNextMonth(DateTime time)
         {
-            _checkDate = new CheckDateService(test.Year, test.Month + 1);
+            _checkDate = new CheckDateService(time.Year, time.Month + 1);
             _selectedTime = _checkDate.Check();
 
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
@@ -51,9 +67,16 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
             return _selectedTime;
         }
 
-        public DateTime CreateCalendarPrevMonth(DateTime test)
+        /// <summary>
+        /// Uses the input DateTime to create a calendar for the previous month.
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns>
+        /// The updated DateTime object
+        /// </returns>
+        public DateTime CreateCalendarPrevMonth(DateTime time)
         {
-            _checkDate = new CheckDateService(test.Year, test.Month - 1);
+            _checkDate = new CheckDateService(time.Year, time.Month - 1);
             _selectedTime = _checkDate.Check();
 
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
@@ -63,7 +86,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
             return _selectedTime;
         }
 
-
+        /// <summary>
+        /// Manages the console output with all appointments for a calendar.
+        /// </summary>
         private void CreateCalendarHelper()
         {
             AppointmentRepository appointmentRepository = new();
