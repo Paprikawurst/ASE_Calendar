@@ -7,7 +7,7 @@ using ASE_Calendar.ConsoleUI.Enums;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class which starts the process on the ui to change the description of an appointment.
+    ///     A class which starts the process on the ui to change the description of an appointment.
     /// </summary>
     public class ChangeAppointmentDescription
     {
@@ -15,15 +15,15 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
         public ChangeAppointmentDescription()
         {
-            ChangeAppointmentDescriptionState changeDescriptionAppointmentSate = ChangeAppointmentDescriptionState.CheckForAppointments;
-            Guid appointmentGuid = Guid.Empty;
+            var changeDescriptionAppointmentSate = ChangeAppointmentDescriptionState.CheckForAppointments;
+            var appointmentGuid = Guid.Empty;
             var inputGuidString = "";
             var appointmentDescription = "";
 
             switch (changeDescriptionAppointmentSate)
             {
                 case ChangeAppointmentDescriptionState.CheckForAppointments:
-                    AppointmentRepository appointmentRepository = new AppointmentRepository();
+                    var appointmentRepository = new AppointmentRepository();
 
                     if (appointmentRepository.ReturnAllAppointmentsString() == null)
                     {
@@ -32,6 +32,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         Console.ReadLine();
                         break;
                     }
+
                     goto case ChangeAppointmentDescriptionState.UserInputId;
 
                 case ChangeAppointmentDescriptionState.UserInputId:

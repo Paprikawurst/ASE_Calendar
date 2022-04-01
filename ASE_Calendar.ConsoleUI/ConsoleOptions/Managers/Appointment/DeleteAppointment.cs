@@ -6,9 +6,9 @@ using ASE_Calendar.ConsoleUI.Enums;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
- /// <summary>
- /// A class which starts the process on the ui to delete an appointment.
- /// </summary>
+    /// <summary>
+    ///     A class which starts the process on the ui to delete an appointment.
+    /// </summary>
     public class DeleteAppointment
     {
         private readonly ConsoleColorHelper _colorHelper = new();

@@ -8,7 +8,7 @@ using ASE_Calendar.ConsoleUI.Enums;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
     /// <summary>
-    /// A class which starts the process on the ui to change the date of an appointment.
+    ///     A class which starts the process on the ui to change the date of an appointment.
     /// </summary>
     public class ChangeAppointmentDate
     {
@@ -16,9 +16,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
         public ChangeAppointmentDate(DateTime selectedTime)
         {
-            ChangeAppointmentDateState changeDateAppointmentSate = ChangeAppointmentDateState.CheckForAppointments;
-            Guid appointmentGuid = Guid.Empty;
-            DateTime newDateTime = new DateTime();
+            var changeDateAppointmentSate = ChangeAppointmentDateState.CheckForAppointments;
+            var appointmentGuid = Guid.Empty;
+            var newDateTime = new DateTime();
             var inputGuidString = "";
             var appointmentDayString = "";
             var appointmentMonthString = "";
@@ -41,6 +41,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         Console.ReadLine();
                         break;
                     }
+
                     goto case ChangeAppointmentDateState.UserInputId;
 
                 case ChangeAppointmentDateState.UserInputId:
@@ -181,8 +182,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                     break;
             }
         }
+
         /// <summary>
-        /// gets a list of appointment entities from the repository and outputs it to the console
+        ///     gets a list of appointment entities from the repository and outputs it to the console
         /// </summary>
         public void ShowAppointmentsOnConsole()
         {
