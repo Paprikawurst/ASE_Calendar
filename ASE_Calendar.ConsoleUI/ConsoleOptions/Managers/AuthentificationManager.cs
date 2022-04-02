@@ -17,7 +17,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
         private LoginState _loginState;
 
         private RegistrationState _registrationState;
-        public AuthentificationService AuthService = new();
 
         /// <summary>
         ///     Starts the progress of the registration on the ui.
