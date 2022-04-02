@@ -1,7 +1,7 @@
 using ASE_Calendar.Application.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests
+namespace ASE_Calendar.Tests
 {
     [TestClass]
     public class UnitTestCheckDateService
