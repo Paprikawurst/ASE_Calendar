@@ -29,15 +29,15 @@ namespace ASE_Calendar.Tests
 
 
             //Assert
-            Assert.AreEqual(true, appointmentDict.ContainsKey(15));
-            Assert.AreEqual(true, appointmentDict[15].ContainsKey(5));
-            Assert.AreEqual(user.UserId.Value, appointmentDict[15][5].UserId.Value);
-            Assert.AreEqual(appointmentEntity.AppointmentId.Value, appointmentDict[15][5].AppointmentId.Value);
-            Assert.AreEqual(appointmentEntity.AppointmentData.TimeSlot, appointmentDict[15][5].AppointmentData.TimeSlot);
-            Assert.AreEqual(changedDescription, appointmentDict[15][5].AppointmentData.Description);
-            Assert.AreEqual(testDateTime.Day, appointmentDict[15][5].AppointmentData.Date.Day);
-            Assert.AreEqual(testDateTime.Month, appointmentDict[15][5].AppointmentData.Date.Month);
-            Assert.AreEqual(testDateTime.Year, appointmentDict[15][5].AppointmentData.Date.Year);
+            Assert.AreEqual(true, appointmentDict.ContainsKey(12));
+            Assert.AreEqual(true, appointmentDict[12].ContainsKey(5));
+            Assert.AreEqual(user.UserId.Value, appointmentDict[12][5].UserId.Value);
+            Assert.AreEqual(appointmentEntity.AppointmentId.Value, appointmentDict[12][5].AppointmentId.Value);
+            Assert.AreEqual(appointmentEntity.AppointmentData.TimeSlot, appointmentDict[12][5].AppointmentData.TimeSlot);
+            Assert.AreEqual(changedDescription, appointmentDict[12][5].AppointmentData.Description);
+            Assert.AreEqual(testDateTime.Day, appointmentDict[12][5].AppointmentData.Date.Day);
+            Assert.AreEqual(testDateTime.Month, appointmentDict[12][5].AppointmentData.Date.Month);
+            Assert.AreEqual(testDateTime.Year, appointmentDict[12][5].AppointmentData.Date.Year);
 
         }
     }
