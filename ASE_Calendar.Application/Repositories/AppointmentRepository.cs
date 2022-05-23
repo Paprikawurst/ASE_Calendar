@@ -25,78 +25,37 @@ namespace ASE_Calendar.Application.Repositories
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json", json + "\n");
         }
 
-        /// <summary>
-        ///     Reads existing entries from ASECalendarAppointments.json for a specific user
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns>
-        ///     A formatted string with appointment entries.
-        /// </returns>
-        public string ReturnUserAppointmentString(UserEntity user)
+        public Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDict()
         {
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
+            Dictionary<int, Dictionary<int, AppointmentEntity>> appointmentDict = new();
+
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
-                return null;
-            }
+                var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+                var jsonSplit = json.Split("\n");
 
-            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            var jsonSplit = json.Split("\n");
-            string appointmentsString = null;
-
-            foreach (var subString in jsonSplit)
-            {
-                var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
-
-                if (appointmentEntity != null)
+                foreach (var subString in jsonSplit)
                 {
-                    if (appointmentEntity.UserId.Value == user.UserId.Value)
+                    var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
+
+                    if (appointmentEntity != null)
                     {
-                        appointmentsString = appointmentsString +
-                                             appointmentEntity.AppointmentData.Date.ToLongDateString() +
-                                             " " +
-                                             _calendarHelper.TimeSlotToTimeStamp(appointmentEntity.AppointmentData
-                                                 .TimeSlot) +
-                                             " " + appointmentEntity.AppointmentData.Description + "\n";
+                        if (appointmentDict.ContainsKey(appointmentEntity.AppointmentData.Date.Day))
+                        {
+                            appointmentDict[appointmentEntity.AppointmentData.Date.Day][
+                                appointmentEntity.AppointmentData.TimeSlot] = appointmentEntity;
+                        }
+                        else
+                        {
+                            Dictionary<int, AppointmentEntity> appointmentEntities = new();
+                            appointmentEntities[appointmentEntity.AppointmentData.TimeSlot] = appointmentEntity;
+                            appointmentDict.Add(appointmentEntity.AppointmentData.Date.Day, appointmentEntities);
+                        }
                     }
                 }
             }
 
-            return appointmentsString;
-        }
-
-        /// <summary>
-        ///     Reads all existing entries from ASECalendarAppointments.json
-        /// </summary>
-        /// <returns>
-        ///     A formatted string with appointment entries.
-        /// </returns>
-        public string ReturnAllAppointmentsString()
-        {
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
-            {
-                return null;
-            }
-
-            var json = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
-            var jsonSplit = json.Split("\n");
-            string appointmentsString = null;
-
-            foreach (var subString in jsonSplit)
-            {
-                var appointment = _customJsonConverter.DeserializeObject(subString);
-
-                if (appointment != null)
-                {
-                    appointmentsString = appointmentsString + appointment.AppointmentId.Value +
-                                         " " +
-                                         appointment.AppointmentData.Date.ToLongDateString() +
-                                         " " +
-                                         _calendarHelper.TimeSlotToTimeStamp(appointment.AppointmentData.TimeSlot) +
-                                         " " + appointment.AppointmentData.Description + "\n";
-                }
-            }
-
-            return appointmentsString;
+            return appointmentDict;
         }
 
         /// <summary>

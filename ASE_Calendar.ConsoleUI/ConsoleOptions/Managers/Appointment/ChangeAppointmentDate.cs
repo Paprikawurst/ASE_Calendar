@@ -33,8 +33,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                 case ChangeAppointmentDateState.CheckForAppointments:
 
                     var appointmentRepository = new AppointmentRepository();
+                    var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
+                    AppointmentConverter appointmentConverter = new AppointmentConverter();
+                    string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
 
-                    if (appointmentRepository.ReturnAllAppointmentsString() == null)
+                    if (appointmentsString == null)
                     {
                         _colorHelper.WriteLineRed("\nThere are no appointments at the moment!");
                         _colorHelper.WriteLineRed("Any key to continue.");
@@ -189,9 +192,11 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         public static void ShowAppointmentsOnConsole()
         {
             var appointmentRepository = new AppointmentRepository();
-            var allAppointments = appointmentRepository.ReturnAllAppointmentsString();
+            var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
+            AppointmentConverter appointmentConverter = new AppointmentConverter();
+            string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
 
-            Console.WriteLine("\n\n" + allAppointments + "\n");
+            Console.WriteLine("\n\n" + appointmentsString + "\n");
         }
     }
 }

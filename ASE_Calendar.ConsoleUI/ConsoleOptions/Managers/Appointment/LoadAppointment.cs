@@ -24,11 +24,15 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         public void LoadAppointments()
         {
             Console.WriteLine("\nYour Appointments:\n");
-            var appointmentData = AppointmentService.LoadAppointments(CurrentUser);
+            var appointmentDict = AppointmentService.LoadAppointments();
 
-            if (appointmentData != null)
+            AppointmentConverter appointmentConverter = new AppointmentConverter();
+            string appointmentsString = appointmentConverter.ReturnUserAppointmentString(CurrentUser, appointmentDict);
+
+            if (appointmentsString != null)
             {
-                Console.WriteLine(appointmentData);
+                Console.WriteLine(appointmentsString);
+                _colorHelper.WriteLineGreen("Any key to continue!");
                 Console.ReadLine();
             }
             else
@@ -45,11 +49,15 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         public void LoadAllAppointments()
         {
             Console.WriteLine("\nAll Appointments:\n");
-            var appointmentData = AppointmentService.LoadAllAppointments();
+            var appointmentDict = AppointmentService.LoadAppointments();
 
-            if (appointmentData != null)
+            AppointmentConverter appointmentConverter = new AppointmentConverter();
+            string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
+
+            if (appointmentsString != null)
             {
-                Console.WriteLine(appointmentData);
+                Console.WriteLine(appointmentsString);
+                _colorHelper.WriteLineGreen("Any key to continue!");
                 Console.ReadLine();
             }
             else

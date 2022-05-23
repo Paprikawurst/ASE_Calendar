@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.Domain.Entities;
+
+
 
 namespace ASE_Calendar.Application.Services
 {
@@ -12,19 +15,12 @@ namespace ASE_Calendar.Application.Services
             appointmentRepository.CreateAppointment(appointment);
         }
 
-        public static string LoadAppointments(UserEntity user)
+        public static Dictionary<int, Dictionary<int, AppointmentEntity>> LoadAppointments()
         {
             AppointmentRepository appointmentRepository = new();
-
-            return appointmentRepository.ReturnUserAppointmentString(user);
+            return appointmentRepository.ReturnAllAppointmentsDict();
         }
 
-        public static string LoadAllAppointments()
-        {
-            AppointmentRepository appointmentRepository = new();
-
-            return appointmentRepository.ReturnAllAppointmentsString();
-        }
 
         public static bool DeleteAnAppointment(Guid appointmentGuid)
         {
