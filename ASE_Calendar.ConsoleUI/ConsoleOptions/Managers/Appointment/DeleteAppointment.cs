@@ -1,6 +1,5 @@
 ﻿using System;
 using ASE_Calendar.Application.Repositories;
-using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.ConsoleUI.Enums;
 
@@ -24,7 +23,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             {
                 case DeleteAppointmentState.CheckForAppointments:
                     var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict(); ;
-                    AppointmentConverter appointmentConverter = new AppointmentConverter();
+                    AppointmentConverterHelper appointmentConverter = new AppointmentConverterHelper();
                     string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
 
                     if (appointmentsString == null)
@@ -80,7 +79,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         {
             var appointmentRepository = new AppointmentRepository();
             var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
-            AppointmentConverter appointmentConverter = new AppointmentConverter();
+            AppointmentConverterHelper appointmentConverter = new AppointmentConverterHelper();
             string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
 
             Console.WriteLine("\n\n" + appointmentsString + "\n");

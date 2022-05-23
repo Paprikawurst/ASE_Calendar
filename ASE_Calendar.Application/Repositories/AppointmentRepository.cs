@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using ASE_Calendar.Application.Services;
 using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
 
@@ -12,7 +11,6 @@ namespace ASE_Calendar.Application.Repositories
     /// </summary>
     public class AppointmentRepository
     {
-        private readonly CalendarHelperService _calendarHelper = new();
         private readonly CustomJsonConverter<AppointmentEntity> _customJsonConverter = new();
 
         /// <summary>

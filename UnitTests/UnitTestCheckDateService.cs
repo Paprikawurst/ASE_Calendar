@@ -1,4 +1,4 @@
-using ASE_Calendar.Application.Services;
+using ASE_Calendar.ConsoleUI.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ASE_Calendar.Tests

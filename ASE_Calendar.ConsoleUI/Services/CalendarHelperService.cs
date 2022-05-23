@@ -1,4 +1,4 @@
-﻿namespace ASE_Calendar.Application.Services
+﻿namespace ASE_Calendar.ConsoleUI.Services
 {
     /// <summary>
     ///     A service that contains helper functions for creating the calendar

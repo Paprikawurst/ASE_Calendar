@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ASE_Calendar.Application.Services
+namespace ASE_Calendar.ConsoleUI.Services
 {
     /// <summary>
     ///     A service that checks whether a given month and year is input correctly.

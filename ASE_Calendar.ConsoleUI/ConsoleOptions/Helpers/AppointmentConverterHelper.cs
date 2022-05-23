@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ASE_Calendar.Application.Services;
+﻿using System.Collections.Generic;
+using ASE_Calendar.ConsoleUI.Services;
 using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
 {
-    public class AppointmentConverter
+    public class AppointmentConverterHelper
     {
         private readonly CalendarHelperService _calendarHelper = new();
 

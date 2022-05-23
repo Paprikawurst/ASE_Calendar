@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
 using ASE_Calendar.Application.Repositories;
+using AppointmentService = ASE_Calendar.ConsoleUI.Services.AppointmentService;
+using CalendarHelperService = ASE_Calendar.ConsoleUI.Services.CalendarHelperService;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {

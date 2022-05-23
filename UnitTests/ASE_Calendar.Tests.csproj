@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASE_Calendar.Application\ASE_Calendar.Application.csproj" />
+    <ProjectReference Include="..\ASE_Calendar.ConsoleUI\ASE_Calendar.ConsoleUI.csproj" />
   </ItemGroup>
 
 </Project>
