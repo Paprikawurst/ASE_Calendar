@@ -9,7 +9,7 @@ using ASE_Calendar.Domain.Entities;
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 {
     /// <summary>
-    ///     A class that starts the progress of the authentification.
+    ///     A class that starts the process of the authentification.
     /// </summary>
     public class AuthentificationManager
     {
@@ -17,10 +17,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
         private LoginState _loginState;
 
         private RegistrationState _registrationState;
-        public AuthentificationService AuthService = new();
 
         /// <summary>
-        ///     Starts the progress of the registration on the ui.
+        ///     Starts the process of the registration on the ui.
         /// </summary>
         public void StartRegistration()
         {
