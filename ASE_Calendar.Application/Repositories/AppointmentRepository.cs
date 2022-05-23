@@ -133,7 +133,18 @@ namespace ASE_Calendar.Application.Repositories
                 i++;
             }
 
-            RecreateFile(jsonSplit);
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+
+            foreach (var subString in jsonSplit)
+            {
+                if (subString != "")
+                {
+                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
+                    var appointment = customJsonConverter.DeserializeObject(subString);
+                    CreateAppointment(appointment);
+                }
+            }
+
             return true;
         }
 
@@ -159,7 +170,8 @@ namespace ASE_Calendar.Application.Repositories
 
             foreach (var subString in jsonSplit)
             {
-                var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
+                var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
+                var appointmentEntity = customJsonConverter.DeserializeObject(subString);
 
                 if (appointmentEntity != null)
                 {
@@ -167,16 +179,18 @@ namespace ASE_Calendar.Application.Repositories
                     {
                         jsonSplit[i] = "";
                         changedAppointment = new AppointmentEntity(appointmentEntity.AppointmentData.Date,
-                            appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId,
-                            appointmentEntity.AppointmentId.Value,
-                            newDescription);
+                             appointmentEntity.AppointmentData.TimeSlot, appointmentEntity.UserId, appointmentEntity.AppointmentId.Value, newDescription);
+
+
                     }
                 }
 
                 i++;
             }
 
-            RecreateFile(jsonSplit);
+            RecreateFile(jsonSplit, changedAppointment);
+
+            
             return true;
         }
 
@@ -219,7 +233,7 @@ namespace ASE_Calendar.Application.Repositories
                 i++;
             }
 
-            RecreateFile(jsonSplit);
+            RecreateFile(jsonSplit, changedAppointment);
             CreateAppointment(changedAppointment);
             return true;
         }
@@ -228,7 +242,7 @@ namespace ASE_Calendar.Application.Repositories
         ///     Deletes ASECalendarAppointments.json and recreates it with given json-Objects
         /// </summary>
         /// <param name="jsonSplit"></param>
-        private void RecreateFile(string[] jsonSplit)
+        private void RecreateFile(string[] jsonSplit,AppointmentEntity changedAppointment)
         {
             File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
 
@@ -236,10 +250,14 @@ namespace ASE_Calendar.Application.Repositories
             {
                 if (subString != "")
                 {
-                    var appointmentEntity = _customJsonConverter.DeserializeObject(subString);
-                    CreateAppointment(appointmentEntity);
+                    var customJsonConverter = new CustomJsonConverter<AppointmentEntity>();
+                    var appointment = customJsonConverter.DeserializeObject(subString);
+                    CreateAppointment(appointment);
                 }
             }
+
+            CreateAppointment(changedAppointment);
+
         }
     }
 }
