@@ -2,6 +2,7 @@
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.Domain.Entities;
+using ASE_Calendar.Application.Repositories;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
@@ -24,7 +25,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         public void LoadAppointments()
         {
             Console.WriteLine("\nYour Appointments:\n");
-            var appointmentDict = AppointmentService.LoadAppointments();
+            var appointmentRepository = new AppointmentRepository();
+            var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
 
             AppointmentConverter appointmentConverter = new AppointmentConverter();
             string appointmentsString = appointmentConverter.ReturnUserAppointmentString(CurrentUser, appointmentDict);
@@ -49,7 +51,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         public void LoadAllAppointments()
         {
             Console.WriteLine("\nAll Appointments:\n");
-            var appointmentDict = AppointmentService.LoadAppointments();
+            var appointmentRepository = new AppointmentRepository();
+            var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
 
             AppointmentConverter appointmentConverter = new AppointmentConverter();
             string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);

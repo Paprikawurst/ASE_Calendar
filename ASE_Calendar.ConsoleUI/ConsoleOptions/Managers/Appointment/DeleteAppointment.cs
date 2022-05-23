@@ -18,12 +18,12 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             const DeleteAppointmentState deleteAppointmentSate = DeleteAppointmentState.CheckForAppointments;
             var appointmentGuid = Guid.Empty;
             var inputGuidString = "";
+            var appointmentRepository = new AppointmentRepository();
 
             switch (deleteAppointmentSate)
             {
                 case DeleteAppointmentState.CheckForAppointments:
-                    
-                    var appointmentDict = AppointmentService.LoadAppointments();
+                    var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict(); ;
                     AppointmentConverter appointmentConverter = new AppointmentConverter();
                     string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
 
@@ -56,7 +56,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                     goto case DeleteAppointmentState.UserInputId;
 
                 case DeleteAppointmentState.DeleteAppointment:
-                    var successfulDeletion = AppointmentService.DeleteAnAppointment(appointmentGuid);
+                    var successfulDeletion = appointmentRepository.DeleteAppointment(appointmentGuid);
                     if (successfulDeletion)
                     {
                         _colorHelper.WriteLineGreen("The appointment has been deleted!");

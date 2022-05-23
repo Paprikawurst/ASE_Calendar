@@ -4,6 +4,7 @@ using ASE_Calendar.Application.Services;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
+using ASE_Calendar.Application.Repositories;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {
@@ -15,7 +16,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         private readonly ConsoleColorHelper _colorHelper = new();
         public UserEntity CurrentUser;
         public DateTime DateSelected;
-
+        
         public CreateAppointment(UserEntity currentUser, DateTime dateSelected)
         {
             CurrentUser = currentUser;
@@ -92,7 +93,9 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
             AppointmentEntity appointment =
                 new(date, int.Parse(timeSlot), CurrentUser.UserId, Guid.NewGuid(), description);
-            AppointmentService.CreateAppointment(appointment);
+
+            var appointmentRepository = new AppointmentRepository();
+            appointmentRepository.CreateAppointment(appointment);
         }
     }
 }

@@ -27,12 +27,12 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             short appointmentDayInt = 0;
             short appointmentMonthInt = 0;
             short appointmentYearInt = 0;
+            var appointmentRepository = new AppointmentRepository();
 
             switch (changeDateAppointmentSate)
             {
                 case ChangeAppointmentDateState.CheckForAppointments:
 
-                    var appointmentRepository = new AppointmentRepository();
                     var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
                     AppointmentConverter appointmentConverter = new AppointmentConverter();
                     string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
@@ -167,7 +167,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeAppointmentDateState.ChangeDate:
 
-                    var successfulChangeDate = AppointmentService.ChangeDate(appointmentGuid, newDateTime);
+                    var successfulChangeDate = appointmentRepository.ChangeDate(appointmentGuid, newDateTime);
 
                     if (successfulChangeDate)
                     {

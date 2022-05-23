@@ -19,11 +19,12 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             var appointmentGuid = Guid.Empty;
             var inputGuidString = "";
             var appointmentDescription = "";
-
+            var appointmentRepository = new AppointmentRepository();
+            
             switch (changeDescriptionAppointmentSate)
             {
                 case ChangeAppointmentDescriptionState.CheckForAppointments:
-                    var appointmentRepository = new AppointmentRepository();
+                    
                     var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
                     AppointmentConverter appointmentConverter = new AppointmentConverter();
                     string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
@@ -80,8 +81,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeAppointmentDescriptionState.changeDescription:
 
-                    var successfulChangeDescription =
-                        AppointmentService.ChangeDescription(appointmentGuid, appointmentDescription);
+                    var successfulChangeDescription = appointmentRepository.ChangeDescription(appointmentGuid, appointmentDescription);
 
                     if (successfulChangeDescription)
                     {

@@ -9,40 +9,6 @@ namespace ASE_Calendar.Application.Services
 {
     public class AppointmentService
     {
-        public static void CreateAppointment(AppointmentEntity appointment)
-        {
-            AppointmentRepository appointmentRepository = new();
-            appointmentRepository.CreateAppointment(appointment);
-        }
-
-        public static Dictionary<int, Dictionary<int, AppointmentEntity>> LoadAppointments()
-        {
-            AppointmentRepository appointmentRepository = new();
-            return appointmentRepository.ReturnAllAppointmentsDict();
-        }
-
-
-        public static bool DeleteAnAppointment(Guid appointmentGuid)
-        {
-            AppointmentRepository appointmentRepository = new();
-
-            return appointmentRepository.DeleteAppointment(appointmentGuid);
-        }
-
-        public static bool ChangeDescription(Guid appointmentGuid, string description)
-        {
-            AppointmentRepository appointmentRepository = new();
-
-            return appointmentRepository.ChangeDescription(appointmentGuid, description);
-        }
-
-        public static bool ChangeDate(Guid appointmentGuid, DateTime newDate)
-        {
-            AppointmentRepository appointmentRepository = new();
-
-            return appointmentRepository.ChangeDate(appointmentGuid, newDate);
-        }
-
         public static bool CheckIfTimeSlotIsFree(DateTime Date, int timeSlot, int selectedDay)
         {
             AppointmentRepository appointmentRepository = new();
