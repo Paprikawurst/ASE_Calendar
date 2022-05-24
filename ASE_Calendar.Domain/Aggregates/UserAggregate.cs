@@ -58,7 +58,7 @@ namespace ASE_Calendar.Domain.Aggregates
                         fileStream.Close();
                     }
 
-                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","User Error: " + validationResult + errorTime.ToString() + "\n");
+                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","User Error: " + validationResult + " " + errorTime.ToString() + "\n");
                 }
             }
         }

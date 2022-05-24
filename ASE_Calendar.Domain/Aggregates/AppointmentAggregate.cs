@@ -62,7 +62,7 @@ namespace ASE_Calendar.Domain.Aggregates
                         var fileStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt", 40000);
                         fileStream.Close();
                     }
-                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","Appointment Error: " + validationResult + errorTime.ToString() + "\n");
+                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","Appointment Error: " + validationResult + " " + errorTime.ToString() + "\n");
                 }
             }
         }
