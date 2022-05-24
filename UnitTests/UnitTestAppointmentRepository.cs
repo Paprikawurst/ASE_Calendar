@@ -77,6 +77,7 @@ namespace ASE_Calendar.Tests
 
         }
 
+        [TestMethod]
         public void ChangeAppointmentDescriptionTest()
         {// Arrange
             DateTime dateTime = new DateTime(2022, 9, 15);
@@ -86,6 +87,10 @@ namespace ASE_Calendar.Tests
             AppointmentEntity appointmentEntity = new AppointmentEntity(dateTime, timeSlot, user.UserId, Guid.NewGuid(), "UnitTest");
             AppointmentRepository appointmentRepository = new AppointmentRepository();
 
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
+            {
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            }
 
             // Act
             appointmentRepository.CreateAppointment(appointmentEntity);
@@ -101,6 +106,33 @@ namespace ASE_Calendar.Tests
             Assert.AreEqual(appointmentEntity.AppointmentId.Value, appointmentDict[15][5].AppointmentId.Value);
             Assert.AreEqual(changedDescription, appointmentDict[15][5].AppointmentData.Description);
 
+        }
+
+        [TestMethod]
+        public void DeleteAppointmentTest()
+        {// Arrange
+            DateTime dateTime = new DateTime(2022, 9, 15);
+            int timeSlot = 5;
+            string changedDescription = "UnitTestTest";
+            UserEntity user = new UserEntity("Nico", "12345", 0, Guid.NewGuid());
+            AppointmentEntity appointmentEntity = new AppointmentEntity(dateTime, timeSlot, user.UserId, Guid.NewGuid(), "UnitTest");
+            AppointmentRepository appointmentRepository = new AppointmentRepository();
+
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
+            {
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
+            }
+
+            // Act
+            appointmentRepository.CreateAppointment(appointmentEntity);
+            var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
+            appointmentRepository.DeleteAppointment(appointmentEntity.AppointmentId.Value);
+            appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
+
+
+            //Assert
+            Assert.IsFalse(appointmentDict.ContainsKey(9));
+           
         }
     }
 }

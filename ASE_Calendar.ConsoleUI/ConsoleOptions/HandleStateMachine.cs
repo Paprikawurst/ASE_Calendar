@@ -27,6 +27,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 case State.RegisteredCheck:
 
                     Console.WriteLine("Do you already have an account? Y/N");
+                    Console.Write("Y");
+                    
                     var userInput = Console.ReadLine();
 
                     if (userInput is "y" or "Y")
