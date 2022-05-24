@@ -60,7 +60,6 @@ namespace ASE_Calendar.Domain.Aggregates
 
                     File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","User Error: " + validationResult + errorTime.ToString() + "\n");
                 }
-                //TODO: Ausgabe von validationErrors über Log oder Exception
             }
         }
     }
