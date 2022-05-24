@@ -28,9 +28,9 @@ namespace ASE_Calendar.Tests
         {
             // Arrange
             int year = 2022;
-            int month3 = 13;
+            int month = 13;
 
-            CheckDateService checkDateService = new CheckDateService(year, month3);
+            CheckDateService checkDateService = new CheckDateService(year, month);
 
 
             // Act
@@ -46,9 +46,9 @@ namespace ASE_Calendar.Tests
         {
             // Arrange
             int year = 2022;
-            int month2 = 0;
+            int month = 0;
 
-            CheckDateService checkDateService = new CheckDateService(year, month2);
+            CheckDateService checkDateService = new CheckDateService(year, month);
 
             // Act
             var checkedDate = checkDateService.Check();

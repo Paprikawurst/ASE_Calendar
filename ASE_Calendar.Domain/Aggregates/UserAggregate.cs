@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using ASE_Calendar.Domain.Entities;
+using System.IO;
+using System;
 
 namespace ASE_Calendar.Domain.Aggregates
 {
@@ -47,13 +49,17 @@ namespace ASE_Calendar.Domain.Aggregates
 
             if (_validationResults.Count > 0)
             {
-                var appender = new StringBuilder();
+                var errorTime = DateTime.Now;
                 foreach (var validationResult in _validationResults)
                 {
-                    appender.Append(validationResult.ErrorMessage);
-                }
+                    if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt"))
+                    {
+                        var fileStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt", 40000);
+                        fileStream.Close();
+                    }
 
-                var validationErrors = appender.ToString();
+                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","User Error: " + validationResult + errorTime.ToString() + "\n");
+                }
                 //TODO: Ausgabe von validationErrors über Log oder Exception
             }
         }
