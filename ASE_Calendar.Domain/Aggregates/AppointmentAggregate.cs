@@ -55,13 +55,15 @@ namespace ASE_Calendar.Domain.Aggregates
             if (_validationResults.Count > 0)
             {
                 var errorTime = DateTime.Now;
+
+                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt"))
+                {
+                    var fileStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt", 40000);
+                    fileStream.Close();
+                }
+
                 foreach (var validationResult in _validationResults)
                 {
-                    if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt"))
-                    {
-                        var fileStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt", 40000);
-                        fileStream.Close();
-                    }
                     File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","Appointment Error: " + validationResult + " " + errorTime.ToString() + "\n");
                 }
             }
