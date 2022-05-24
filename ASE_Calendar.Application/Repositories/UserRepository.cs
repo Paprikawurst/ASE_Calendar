@@ -38,6 +38,12 @@ namespace ASE_Calendar.Application.Repositories
         /// </summary>
         private void CreateUser()
         {
+            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
+            {
+                var fileStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", 40000);
+                fileStream.Close();
+            }
+
             var json = _customJsonConverter.SerializeObject(_userEntity);
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", json + "\n");
         }

@@ -22,12 +22,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var auth = new AuthentificationManager();
             var infoHelper = new InfoHelper();
 
-            if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json"))
-            {
-                var fileStream = File.Create(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", 40000);
-                fileStream.Close();
-            }
-
             switch (_state)
             {
                 case State.RegisteredCheck:
