@@ -6,10 +6,17 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.Domain.Aggregates
 {
+    /// <summary>
+    /// An aggregate to validate user entities with.
+    /// </summary>
     public class UserAggregate
     {
         private readonly List<ValidationResult> _validationResults = new List<ValidationResult>();
 
+        /// <summary>
+        /// Validates each value of the user entity.
+        /// </summary>
+        /// <param name="user"></param>
         public void Validate(UserEntity user)
         {
             _validationResults.Clear();

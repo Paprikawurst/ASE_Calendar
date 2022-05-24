@@ -7,10 +7,17 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.Domain.Aggregates
 {
+    /// <summary>
+    /// An aggregate to validate the appointment entities with.
+    /// </summary>
     public class AppointmentAggregate
     {
         private readonly List<ValidationResult> _validationResults = new List<ValidationResult>();
 
+        /// <summary>
+        /// Validates each value of the appointment entity.
+        /// </summary>
+        /// <param name="appointment"></param>
         public void Validate(AppointmentEntity appointment)
         {
             _validationResults.Clear();
