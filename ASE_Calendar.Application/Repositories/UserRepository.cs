@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ASE_Calendar.Application.Services;
 using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
 
@@ -11,6 +12,7 @@ namespace ASE_Calendar.Application.Repositories
     public class UserRepository
     {
         private readonly CustomJsonConverter<UserEntity> _customJsonConverter = new();
+        private readonly ValidationService _validationService = new();
         private readonly UserEntity _userEntity;
 
         public UserRepository(string username, string password)
@@ -44,6 +46,7 @@ namespace ASE_Calendar.Application.Repositories
                 fileStream.Close();
             }
 
+            _validationService.ValidateUser(_userEntity);
             var json = _customJsonConverter.SerializeObject(_userEntity);
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarUsers.json", json + "\n");
         }

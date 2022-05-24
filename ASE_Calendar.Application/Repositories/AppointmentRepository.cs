@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using ASE_Calendar.Application.Services;
 using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
 
@@ -12,6 +13,7 @@ namespace ASE_Calendar.Application.Repositories
     public class AppointmentRepository
     {
         private readonly CustomJsonConverter<AppointmentEntity> _customJsonConverter = new();
+        private readonly ValidationService _validationService = new();
 
         /// <summary>
         ///     Serializes an appointment entity to a json format and appends it to the ASECalendarAppointments.json
@@ -19,6 +21,7 @@ namespace ASE_Calendar.Application.Repositories
         /// <param name="appointmentEntity"></param>
         public void CreateAppointment(AppointmentEntity appointmentEntity)
         {
+            _validationService.ValidateAppointment(appointmentEntity);
             var json = _customJsonConverter.SerializeObject(appointmentEntity);
             File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json", json + "\n");
         }
@@ -188,6 +191,7 @@ namespace ASE_Calendar.Application.Repositories
                 i++;
             }
 
+            _validationService.ValidateAppointment(changedAppointment);
             RecreateFile(jsonSplit, changedAppointment);
 
             
@@ -233,6 +237,7 @@ namespace ASE_Calendar.Application.Repositories
                 i++;
             }
 
+            _validationService.ValidateAppointment(changedAppointment);
             RecreateFile(jsonSplit, changedAppointment);
             CreateAppointment(changedAppointment);
             return true;
