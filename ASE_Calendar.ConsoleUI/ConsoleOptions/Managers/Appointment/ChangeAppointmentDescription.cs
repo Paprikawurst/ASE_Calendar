@@ -68,7 +68,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case ChangeAppointmentDescriptionState.CheckInputDescription:
 
-                    if (string.IsNullOrEmpty(appointmentDescription) || appointmentDescription.Length > 25)
+                    if (string.IsNullOrEmpty(appointmentDescription) || appointmentDescription.Length > 25 || string.IsNullOrWhiteSpace(appointmentDescription))
                     {
                         _colorHelper.WriteLineRed("Please enter a valid description!");
                         goto case ChangeAppointmentDescriptionState.UserInputDescription;

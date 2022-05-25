@@ -42,11 +42,6 @@ namespace ASE_Calendar.Domain.Aggregates
                 _validationResults.Add(new ValidationResult("Appointment data is null", new[] { nameof(appointment.AppointmentData)}));
             }
 
-            if (appointment.AppointmentData.Date.Year <= DateTime.Now.Year)
-            {
-                _validationResults.Add(new ValidationResult("Year of date is incorrect", new[] { nameof(appointment.AppointmentData.Date) }));
-            }
-
             if (!Enumerable.Range(1, 8).Contains(appointment.AppointmentData.TimeSlot))
             {
                 _validationResults.Add(new ValidationResult("Incorrect TimeSlot", new[] { nameof(appointment.AppointmentData.TimeSlot) }));

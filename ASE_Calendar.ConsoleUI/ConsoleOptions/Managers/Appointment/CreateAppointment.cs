@@ -81,7 +81,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                 case CreateAppointmentState.CheckInputDescription:
 
-                    if (description.Length > 25 || description == "")
+                    if (description.Length > 25 || description == "" || string.IsNullOrWhiteSpace(description))
                     {
                         _colorHelper.WriteLineRed("Wrong input! Enter more than 0 and less than 25 signs!");
                         goto case CreateAppointmentState.UserInputDescription;
