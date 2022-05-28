@@ -1,5 +1,4 @@
-﻿using ASE_Calendar.Application.Services;
-using ASE_Calendar.Domain.Entities;
+﻿using ASE_Calendar.Domain.Entities;
 using ASE_Calendar.Application.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -25,13 +24,13 @@ namespace ASE_Calendar.Tests
             userRepository.Password = "12345";
 
             // Act
-            UserEntity useerData = userRepository.ReturnUserEntity();
+            UserEntity userData = userRepository.ReturnUserEntity();
 
             //Assert
-            Assert.AreEqual(useerData.UserDataRegistered.Username, user.UserDataRegistered.Username);
-            Assert.AreEqual(useerData.UserDataRegistered.Password, user.UserDataRegistered.Password);
-            Assert.AreEqual(useerData.UserDataRegistered.RoleId, user.UserDataRegistered.RoleId);
-            Assert.AreEqual(useerData.UserId.Value, user.UserId.Value);
+            Assert.AreEqual(userData.UserDataRegistered.Username, user.UserDataRegistered.Username);
+            Assert.AreEqual(userData.UserDataRegistered.Password, user.UserDataRegistered.Password);
+            Assert.AreEqual(userData.UserDataRegistered.RoleId, user.UserDataRegistered.RoleId);
+            Assert.AreEqual(userData.UserId.Value, user.UserId.Value);
         }
 
         [TestMethod]

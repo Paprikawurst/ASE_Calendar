@@ -1,5 +1,4 @@
-﻿using ASE_Calendar.Application.Services;
-using ASE_Calendar.Domain.Entities;
+﻿using ASE_Calendar.Domain.Entities;
 using ASE_Calendar.Application.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
@@ -11,7 +10,7 @@ namespace ASE_Calendar.Tests
     public class UnitTestAppointmentRepository
     {
         [TestMethod]
-        public void CreateAndRetrunAppointmentTest()
+        public void CreateAndReturnAppointmentTest()
         {
             // Arrange
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -79,7 +78,8 @@ namespace ASE_Calendar.Tests
 
         [TestMethod]
         public void ChangeAppointmentDescriptionTest()
-        {// Arrange
+        {
+            // Arrange
             DateTime dateTime = new DateTime(2022, 9, 15);
             int timeSlot = 5;
             string changedDescription = "UnitTestTest";
