@@ -22,7 +22,7 @@ namespace ASE_Calendar.ConsoleUI.Services
         /// <returns>
         ///     A DateTime object.
         /// </returns>
-        public DateTime Check()
+        public DateTime AdjustYearAndMonthReturnDateTime()
         {
             if (_month > 12)
             {
