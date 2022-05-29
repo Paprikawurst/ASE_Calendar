@@ -10,7 +10,7 @@ namespace ASE_Calendar.Application.Repositories
     /// <summary>
     ///     This repository manages the CRUD operations for the appointment entity.
     /// </summary>
-    public class AppointmentRepository
+    public class AppointmentRepository : IAppointmentRepository
     {
         private readonly CustomJsonConverter<AppointmentEntity> _customJsonConverter = new();
         private readonly ValidationService _validationService = new();
@@ -194,7 +194,7 @@ namespace ASE_Calendar.Application.Repositories
             _validationService.ValidateAppointment(changedAppointment);
             RecreateFile(jsonSplit, changedAppointment);
 
-            
+
             return true;
         }
 
@@ -247,7 +247,7 @@ namespace ASE_Calendar.Application.Repositories
         ///     Deletes ASECalendarAppointments.json and recreates it with given json-Objects
         /// </summary>
         /// <param name="jsonSplit"></param>
-        private void RecreateFile(string[] jsonSplit,AppointmentEntity changedAppointment)
+        private void RecreateFile(string[] jsonSplit, AppointmentEntity changedAppointment)
         {
             File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
 
