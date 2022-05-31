@@ -20,7 +20,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new AuthentificationManager();
-            var infoHelper = new InfoHelper();
+            var infoHelper = InfoHelper.GetInstance();
 
             switch (_state)
             {

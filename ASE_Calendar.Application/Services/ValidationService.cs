@@ -6,10 +6,11 @@ namespace ASE_Calendar.Application.Services
     /// <summary>
     ///  A service to manage the validation of entities.
     /// </summary>
-    public class ValidationService
+    public sealed class ValidationService
     {
         private readonly UserAggregate _userAggregate = new();
         private readonly AppointmentAggregate _appointmentAggregate = new();
+
 
         /// <summary>
         /// Validates user entities.
