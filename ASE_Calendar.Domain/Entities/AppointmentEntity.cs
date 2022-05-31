@@ -6,7 +6,7 @@ namespace ASE_Calendar.Domain.Entities
     /// <summary>
     ///     An entity that contains appointment information.
     /// </summary>
-    public class AppointmentEntity : IAppointmentEntity
+    public class AppointmentEntity
     {
         public AppointmentEntity(DateTime date, int timeSlot, UserId userId, Guid appointmentIdGuid, string description)
         {

@@ -7,7 +7,7 @@ namespace ASE_Calendar.Domain.Entities
     /// <summary>
     ///     An entity that contains user information.
     /// </summary>
-    public class UserEntity : IUserEntity
+    public class UserEntity
     {
         public UserEntity(string username, string password, int roleId, Guid userIdGuid)
         {
