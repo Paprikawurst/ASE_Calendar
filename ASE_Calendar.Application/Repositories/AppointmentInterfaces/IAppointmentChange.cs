@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ASE_Calendar.Application.Repositories
 {
-    public interface IAppointmentChangeRepository
+    public interface IAppointmentChange
     {
         bool ChangeDate(Guid appointmentGuid, DateTime newDate);
         bool ChangeDescription(Guid appointmentGuid, string newDescription);

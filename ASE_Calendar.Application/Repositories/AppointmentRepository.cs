@@ -10,7 +10,7 @@ namespace ASE_Calendar.Application.Repositories
     /// <summary>
     ///     This repository manages the CRUD operations for the appointment entity.
     /// </summary>
-    public class AppointmentRepository : IAppointmentChangeRepository, IAppointmentCreateRepository,IAppointmentDeleteRepository,IAppointmentReadRepository
+    public class AppointmentRepository : IAppointmentChange, IAppointmentCreate,IAppointmentDelete,IAppointmentRead
     {
         private readonly CustomJsonConverter<AppointmentEntity> _customJsonConverter = new();
         private readonly ValidationService _validationService = new();

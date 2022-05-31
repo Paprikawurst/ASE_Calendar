@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ASE_Calendar.Application.Repositories
 {
-    public interface IAppointmentReadRepository
+    public interface IAppointmentRead
     {
         Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDict();
         Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDictSelectedMonth(DateTime selectedDate);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ASE_Calendar.Application.Repositories
 {
-    public interface IAppointmentCreateRepository
+    public interface IAppointmentCreate
     {
         void CreateAppointment(AppointmentEntity appointmentEntity);      
     }

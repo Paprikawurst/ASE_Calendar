@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ASE_Calendar.Application.Repositories
 {
-    public interface IAppointmentDeleteRepository
+    public interface IAppointmentDelete
     {
         bool DeleteAppointment(Guid appointmentGuid);
     }
