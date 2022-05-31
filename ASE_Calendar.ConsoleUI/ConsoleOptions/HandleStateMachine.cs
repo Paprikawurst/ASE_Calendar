@@ -5,6 +5,7 @@ using ASE_Calendar.ConsoleUI.ConsoleOptions.Managers;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.InfoHelper;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
@@ -32,7 +33,6 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new AuthentificationManager();
-            var infoHelper = new InfoHelper();
 
             switch (_state)
             {
@@ -173,7 +173,10 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                     goto case State.CalendarViewer;
 
                 case State.Info:
-                    infoHelper.ShowInfo(currentUser);
+                    Information information = InformationFactory.GetInformation(currentUser.UserDataRegistered.RoleId);
+                    var test = information.ShowInformation();
+                    Console.WriteLine(test);
+                    Console.ReadLine();
                     goto case State.CalendarViewer;
 
                 case State.Logout:
