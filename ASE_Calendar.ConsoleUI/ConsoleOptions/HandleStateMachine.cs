@@ -174,8 +174,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 
                 case State.Info:
                     Information information = InformationFactory.GetInformation(currentUser.UserDataRegistered.RoleId);
-                    var test = information.ShowInformation();
-                    Console.WriteLine(test);
+                    var informationString = information.ShowInformation();
+                    Console.WriteLine(informationString);
                     Console.ReadLine();
                     goto case State.CalendarViewer;
 
