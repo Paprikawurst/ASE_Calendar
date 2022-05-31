@@ -1,6 +1,6 @@
 ﻿using ASE_Calendar.Domain.Entities;
 
-namespace ASE_Calendar.Application.Repositories
+namespace ASE_Calendar.Application.Repositories.UserInterfaces
 {
     public interface IUserRepository
     {

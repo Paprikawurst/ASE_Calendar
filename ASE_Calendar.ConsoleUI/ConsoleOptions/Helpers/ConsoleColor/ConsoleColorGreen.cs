@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
+namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.ConsoleColor
 {
     /// <summary>
     ///     Contains methods to output colored text to the console.
@@ -9,14 +9,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
     {
         public override void Write(String input)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = System.ConsoleColor.Green;
             Console.Write(input);
             Console.ResetColor();
         }
 
         public override void WriteLine(String input)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = System.ConsoleColor.Green;
             Console.WriteLine(input);
             Console.ResetColor();
         }

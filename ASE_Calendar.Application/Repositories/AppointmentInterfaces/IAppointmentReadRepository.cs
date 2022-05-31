@@ -1,8 +1,8 @@
-﻿using ASE_Calendar.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ASE_Calendar.Domain.Entities;
 
-namespace ASE_Calendar.Application.Repositories
+namespace ASE_Calendar.Application.Repositories.AppointmentInterfaces
 {
     public interface IAppointmentReadRepository
     {
