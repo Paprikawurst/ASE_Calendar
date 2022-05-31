@@ -6,7 +6,7 @@ namespace ASE_Calendar.ConsoleUI
     {
         private static void Main()
         {
-            HandleStateMachine stateMachine = new();
+            HandleStateMachine stateMachine = HandleStateMachine.GetInstance();
             stateMachine.StartStateMachine();
         }
     }

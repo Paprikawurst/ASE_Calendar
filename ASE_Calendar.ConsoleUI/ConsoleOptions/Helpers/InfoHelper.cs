@@ -3,19 +3,8 @@ using ASE_Calendar.Domain.Entities;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
 {
-    public sealed class InfoHelper
+    public class InfoHelper
     {
-        private InfoHelper() { }
-        private static InfoHelper _instance;
-
-        public static InfoHelper GetInstance()
-        {
-            if (_instance == null)
-            {
-                _instance = new InfoHelper();
-            }
-            return _instance;
-        }
         /// <summary>
         ///     Shows the user on the console what he is allowed to do inside the application depending on his role
         /// </summary>

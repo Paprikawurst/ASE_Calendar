@@ -11,8 +11,20 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
     /// <summary>
     ///     Starts the application and handles the different state the application can be in.
     /// </summary>
-    public class HandleStateMachine
+    public sealed class HandleStateMachine
     {
+        private HandleStateMachine() { }
+        private static HandleStateMachine _instance;
+
+        public static HandleStateMachine GetInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new HandleStateMachine();
+            }
+            return _instance;
+        }
+
         private readonly State _state = State.RegisteredCheck;
 
         public void StartStateMachine()
@@ -20,7 +32,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
             var selectedTime = DateTime.Now;
             UserEntity currentUser = null;
             var auth = new AuthentificationManager();
-            var infoHelper = InfoHelper.GetInstance();
+            var infoHelper = new InfoHelper();
 
             switch (_state)
             {
