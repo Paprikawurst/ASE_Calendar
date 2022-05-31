@@ -60,7 +60,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
         public DateTime CreateCalendarNextMonth(DateTime time)
         {
             _checkDate = new CheckDateService(time.Year, time.Month + 1);
-            _selectedTime = _checkDate.Check();
+            _selectedTime = _checkDate.AdjustYearAndMonthReturnDateTime();
 
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthDayString(_selectedTime.Month) + "\n");
@@ -79,7 +79,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
         public DateTime CreateCalendarPrevMonth(DateTime time)
         {
             _checkDate = new CheckDateService(time.Year, time.Month - 1);
-            _selectedTime = _checkDate.Check();
+            _selectedTime = _checkDate.AdjustYearAndMonthReturnDateTime();
 
             Console.WriteLine(_selectedTime.ToLongDateString() + "\n");
             Console.WriteLine(CalendarHelperService.GetMonthDayString(_selectedTime.Month) + "\n");

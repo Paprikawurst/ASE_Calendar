@@ -15,7 +15,7 @@ namespace ASE_Calendar.Tests
             CheckDateService checkDateService = new CheckDateService(year, month);
 
             // Act
-            var checkedDate = checkDateService.Check();
+            var checkedDate = checkDateService.AdjustYearAndMonthReturnDateTime();
 
             //Assert
             Assert.AreEqual(2022, checkedDate.Year, "Year is not same");
@@ -34,7 +34,7 @@ namespace ASE_Calendar.Tests
 
 
             // Act
-            var checkedDate = checkDateService.Check();
+            var checkedDate = checkDateService.AdjustYearAndMonthReturnDateTime();
 
             //Assert
             Assert.AreEqual(2023, checkedDate.Year, "Year did not increase");
@@ -51,7 +51,7 @@ namespace ASE_Calendar.Tests
             CheckDateService checkDateService = new CheckDateService(year, month);
 
             // Act
-            var checkedDate = checkDateService.Check();
+            var checkedDate = checkDateService.AdjustYearAndMonthReturnDateTime();
 
             //Assert
             Assert.AreEqual(2021, checkedDate.Year, "Year did not decrease");
