@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using ASE_Calendar.ConsoleUI.Services;
+﻿using ASE_Calendar.ConsoleUI.Services;
 using ASE_Calendar.Domain.Entities;
+using System.Collections.Generic;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
 {
@@ -12,7 +12,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
         {
             string appointmentString = null;
 
-            for (int i = 1 ; i <= 31; i++)
+            for (int i = 1; i <= 31; i++)
             {
                 if (appointmentDictionary.ContainsKey(i))
                 {
@@ -38,13 +38,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers
                             }
 
                         }
-                            
+
                     }
-                    
+
                 }
-                
-                
-                
+
+
+
             }
 
             return appointmentString;

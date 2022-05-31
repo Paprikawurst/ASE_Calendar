@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
-using ASE_Calendar.Domain.Entities;
-using ASE_Calendar.Application.Repositories;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.ConsoleColor;
+using ASE_Calendar.Domain.Entities;
+using System;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 {

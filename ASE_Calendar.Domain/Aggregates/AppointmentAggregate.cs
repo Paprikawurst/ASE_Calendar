@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ASE_Calendar.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using ASE_Calendar.Domain.Entities;
 using System.IO;
+using System.Linq;
 
 namespace ASE_Calendar.Domain.Aggregates
 {
@@ -39,7 +38,7 @@ namespace ASE_Calendar.Domain.Aggregates
 
             if (appointment.AppointmentData == null)
             {
-                _validationResults.Add(new ValidationResult("Appointment data is null", new[] { nameof(appointment.AppointmentData)}));
+                _validationResults.Add(new ValidationResult("Appointment data is null", new[] { nameof(appointment.AppointmentData) }));
             }
 
             if (!Enumerable.Range(1, 8).Contains(appointment.AppointmentData.TimeSlot))
@@ -59,7 +58,7 @@ namespace ASE_Calendar.Domain.Aggregates
 
                 foreach (var validationResult in _validationResults)
                 {
-                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","Appointment Error: " + validationResult + " " + errorTime.ToString() + "\n");
+                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt", "Appointment Error: " + validationResult + " " + errorTime.ToString() + "\n");
                 }
             }
         }

@@ -1,15 +1,8 @@
-﻿using ASE_Calendar.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.InfoHelper
+﻿namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.InfoHelper
 {
     public class AdminInformation : Information
     {
-        
+
         public override string GetInformationForRole()
         {
 
@@ -23,8 +16,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.InfoHelper
                                     "Additional information: \n" +
                                     "- The green appointments in the calendar are yours\n" +
                                     "- The red appointments are from other users and blocked for you\n\n" +
-                                    "Press any key to continue..."; 
-            
+                                    "Press any key to continue...";
+
             return adminInformation;
 
         }

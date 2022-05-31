@@ -1,10 +1,9 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
+﻿using ASE_Calendar.Application.Repositories;
+using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.ConsoleColor;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
-using ASE_Calendar.Application.Repositories;
-using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.ConsoleColor;
+using System;
+using System.Text.RegularExpressions;
 using AppointmentService = ASE_Calendar.ConsoleUI.Services.AppointmentService;
 using CalendarHelperService = ASE_Calendar.ConsoleUI.Services.CalendarHelperService;
 
@@ -18,7 +17,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         private readonly ConsoleColorRed _consoleColorRed = new();
         public UserEntity CurrentUser;
         public DateTime DateSelected;
-        
+
         public CreateAppointment(UserEntity currentUser, DateTime dateSelected)
         {
             CurrentUser = currentUser;

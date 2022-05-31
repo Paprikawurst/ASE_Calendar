@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ASE_Calendar.Application.Services;
+﻿using ASE_Calendar.Application.Services;
 using ASE_Calendar.Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 
@@ -26,7 +26,7 @@ namespace ASE_Calendar.Tests
             {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt");
             }
-            
+
             validationService.ValidateAppointment(appointmentEntity);
 
             //Assert
@@ -40,7 +40,7 @@ namespace ASE_Calendar.Tests
             // Arrange
             ValidationService validationService = new ValidationService();
             UserEntity user = new UserEntity("Adrian", "12345", 0, Guid.NewGuid());
-            
+
             // Act
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt"))
             {

@@ -4,6 +4,6 @@ namespace ASE_Calendar.Application.Repositories.AppointmentInterfaces
 {
     public interface IAppointmentCreate
     {
-        void CreateAppointment(AppointmentEntity appointmentEntity);      
+        void CreateAppointment(AppointmentEntity appointmentEntity);
     }
 }

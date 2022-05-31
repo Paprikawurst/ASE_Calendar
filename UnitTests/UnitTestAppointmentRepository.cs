@@ -1,9 +1,9 @@
-﻿using ASE_Calendar.Domain.Entities;
-using ASE_Calendar.Application.Repositories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using System;
+﻿using ASE_Calendar.Application.Repositories;
+using ASE_Calendar.Domain.Entities;
 using FakeItEasy;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
 
 namespace ASE_Calendar.Tests
 {
@@ -129,7 +129,7 @@ namespace ASE_Calendar.Tests
 
             //Assert
             Assert.IsFalse(appointmentDict.ContainsKey(fakeAppointment.AppointmentData.Date.Day));
-           
+
         }
     }
 }

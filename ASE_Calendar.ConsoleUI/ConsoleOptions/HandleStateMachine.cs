@@ -1,11 +1,9 @@
-﻿using System;
-using System.IO;
-using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers;
+﻿using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.InfoHelper;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Managers;
 using ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment;
 using ASE_Calendar.ConsoleUI.Enums;
 using ASE_Calendar.Domain.Entities;
-using ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.InfoHelper;
+using System;
 
 namespace ASE_Calendar.ConsoleUI.ConsoleOptions
 {
@@ -39,7 +37,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions
                 case State.RegisteredCheck:
 
                     Console.WriteLine("Do you already have an account? Y/N");
-                    
+
                     var userInput = Console.ReadLine();
 
                     if (userInput is "y" or "Y")

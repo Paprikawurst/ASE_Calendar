@@ -1,5 +1,5 @@
-﻿using System;
-using ASE_Calendar.Domain.ValueObjects;
+﻿using ASE_Calendar.Domain.ValueObjects;
+using System;
 
 namespace ASE_Calendar.Domain.Entities
 {

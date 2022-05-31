@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ASE_Calendar.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
-using ASE_Calendar.Domain.ValueObjects;
 
 namespace ASE_Calendar.Domain.Entities
 {

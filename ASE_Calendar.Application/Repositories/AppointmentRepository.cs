@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using ASE_Calendar.Application.Repositories.AppointmentInterfaces;
+﻿using ASE_Calendar.Application.Repositories.AppointmentInterfaces;
 using ASE_Calendar.Application.Services;
 using ASE_Calendar.Application.Shared;
 using ASE_Calendar.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace ASE_Calendar.Application.Repositories
 {
     /// <summary>
     ///     This repository manages the CRUD operations for the appointment entity.
     /// </summary>
-    public class AppointmentRepository : IAppointmentChange, IAppointmentCreate,IAppointmentDelete,IAppointmentRead
+    public class AppointmentRepository : IAppointmentChange, IAppointmentCreate, IAppointmentDelete, IAppointmentRead
     {
         private readonly CustomJsonConverter<AppointmentEntity> _customJsonConverter = new();
         private readonly ValidationService _validationService = new();

@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using ASE_Calendar.Domain.Entities;
-using System.IO;
+﻿using ASE_Calendar.Domain.Entities;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
 
 namespace ASE_Calendar.Domain.Aggregates
 {
@@ -32,7 +31,7 @@ namespace ASE_Calendar.Domain.Aggregates
                 _validationResults.Add(new ValidationResult("Username is empty", new[] { nameof(user.UserDataRegistered.Username) }));
             }
 
-            if (user.UserDataRegistered == null) 
+            if (user.UserDataRegistered == null)
             {
                 _validationResults.Add(new ValidationResult("User data is null", new[] { nameof(user.UserDataRegistered) }));
             }
@@ -59,7 +58,7 @@ namespace ASE_Calendar.Domain.Aggregates
 
                 foreach (var validationResult in _validationResults)
                 {
-                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt","User Error: " + validationResult + " " + errorTime.ToString() + "\n");
+                    File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarLog.txt", "User Error: " + validationResult + " " + errorTime.ToString() + "\n");
                 }
             }
         }

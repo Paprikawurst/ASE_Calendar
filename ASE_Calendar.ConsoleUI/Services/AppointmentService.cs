@@ -1,5 +1,5 @@
-﻿using System;
-using ASE_Calendar.Application.Repositories;
+﻿using ASE_Calendar.Application.Repositories;
+using System;
 
 namespace ASE_Calendar.ConsoleUI.Services
 {

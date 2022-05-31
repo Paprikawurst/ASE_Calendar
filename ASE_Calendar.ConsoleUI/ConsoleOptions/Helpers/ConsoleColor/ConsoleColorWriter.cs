@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.ConsoleColor
+﻿namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Helpers.ConsoleColor
 {
     /// <summary>
     ///     Defines the methods a ConsoleColor class has to implement.
