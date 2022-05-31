@@ -3,6 +3,7 @@ using ASE_Calendar.Application.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System;
+using FakeItEasy;
 
 namespace ASE_Calendar.Tests
 {
@@ -18,26 +19,25 @@ namespace ASE_Calendar.Tests
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json");
             }
 
-            DateTime dateTime = new System.DateTime(2022, 10, 15);
-            int timeSlot = 5;
-            UserEntity user = new UserEntity("Adrian", "12345", 0, Guid.NewGuid());
-            AppointmentEntity appointmentEntity = new AppointmentEntity(dateTime, timeSlot, user.UserId, Guid.NewGuid(), "UnitTest");
+            UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
+            AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
+                DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
             AppointmentRepository appointmentRepository = new AppointmentRepository();
 
             // Act
-            appointmentRepository.CreateAppointment(appointmentEntity);
+            appointmentRepository.CreateAppointment(fakeAppointment);
             var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
 
             //Assert
-            Assert.AreEqual(true, appointmentDict.ContainsKey(15));
-            Assert.AreEqual(true, appointmentDict[15].ContainsKey(5));
-            Assert.AreEqual(user.UserId.Value, appointmentDict[15][5].UserId.Value);
-            Assert.AreEqual(appointmentEntity.AppointmentId.Value, appointmentDict[15][5].AppointmentId.Value);
-            Assert.AreEqual(appointmentEntity.AppointmentData.TimeSlot, appointmentDict[15][5].AppointmentData.TimeSlot);
-            Assert.AreEqual(appointmentEntity.AppointmentData.Description, appointmentDict[15][5].AppointmentData.Description);
-            Assert.AreEqual(appointmentEntity.AppointmentData.Date.Day, appointmentDict[15][5].AppointmentData.Date.Day);
-            Assert.AreEqual(appointmentEntity.AppointmentData.Date.Month, appointmentDict[15][5].AppointmentData.Date.Month);
-            Assert.AreEqual(appointmentEntity.AppointmentData.Date.Year, appointmentDict[15][5].AppointmentData.Date.Year);
+            Assert.AreEqual(true, appointmentDict.ContainsKey(fakeAppointment.AppointmentData.Date.Day));
+            Assert.AreEqual(true, appointmentDict[fakeAppointment.AppointmentData.Date.Day].ContainsKey(fakeAppointment.AppointmentData.TimeSlot));
+            Assert.AreEqual(fakeUser.UserId.Value, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].UserId.Value);
+            Assert.AreEqual(fakeAppointment.AppointmentId.Value, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentId.Value);
+            Assert.AreEqual(fakeAppointment.AppointmentData.TimeSlot, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.TimeSlot);
+            Assert.AreEqual(fakeAppointment.AppointmentData.Description, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Description);
+            Assert.AreEqual(fakeAppointment.AppointmentData.Date.Day, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Date.Day);
+            Assert.AreEqual(fakeAppointment.AppointmentData.Date.Month, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Date.Month);
+            Assert.AreEqual(fakeAppointment.AppointmentData.Date.Year, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Date.Year);
 
         }
 
@@ -45,11 +45,10 @@ namespace ASE_Calendar.Tests
         public void ChangeAppointmentDateTest()
         {
             // Arrange
-            DateTime dateTime = new DateTime(2022, 9, 15);
             DateTime testDateTime = new DateTime(2021, 9, 12);
-            int timeSlot = 5;
-            UserEntity user = new UserEntity("Nico", "12345", 0, Guid.NewGuid());
-            AppointmentEntity appointmentEntity = new AppointmentEntity(dateTime, timeSlot, user.UserId, Guid.NewGuid(), "UnitTest");
+            UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
+            AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
+                DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
             AppointmentRepository appointmentRepository = new AppointmentRepository();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -58,21 +57,21 @@ namespace ASE_Calendar.Tests
             }
 
             // Act
-            appointmentRepository.CreateAppointment(appointmentEntity);
+            appointmentRepository.CreateAppointment(fakeAppointment);
             var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
-            appointmentRepository.ChangeDate(appointmentEntity.AppointmentId.Value, testDateTime);
+            appointmentRepository.ChangeDate(fakeAppointment.AppointmentId.Value, testDateTime);
             appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
 
 
             //Assert
-            Assert.AreEqual(true, appointmentDict.ContainsKey(12));
-            Assert.AreEqual(true, appointmentDict[12].ContainsKey(5));
-            Assert.AreEqual(user.UserId.Value, appointmentDict[12][5].UserId.Value);
-            Assert.AreEqual(appointmentEntity.AppointmentId.Value, appointmentDict[12][5].AppointmentId.Value);
-            Assert.AreEqual(appointmentEntity.AppointmentData.TimeSlot, appointmentDict[12][5].AppointmentData.TimeSlot);
-            Assert.AreEqual(testDateTime.Day, appointmentDict[12][5].AppointmentData.Date.Day);
-            Assert.AreEqual(testDateTime.Month, appointmentDict[12][5].AppointmentData.Date.Month);
-            Assert.AreEqual(testDateTime.Year, appointmentDict[12][5].AppointmentData.Date.Year);
+            Assert.AreEqual(true, appointmentDict.ContainsKey(testDateTime.Day));
+            Assert.AreEqual(true, appointmentDict[testDateTime.Day].ContainsKey(fakeAppointment.AppointmentData.TimeSlot));
+            Assert.AreEqual(fakeUser.UserId.Value, appointmentDict[testDateTime.Day][fakeAppointment.AppointmentData.TimeSlot].UserId.Value);
+            Assert.AreEqual(fakeAppointment.AppointmentId.Value, appointmentDict[testDateTime.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentId.Value);
+            Assert.AreEqual(fakeAppointment.AppointmentData.TimeSlot, appointmentDict[testDateTime.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.TimeSlot);
+            Assert.AreEqual(testDateTime.Day, appointmentDict[testDateTime.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Date.Day);
+            Assert.AreEqual(testDateTime.Month, appointmentDict[testDateTime.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Date.Month);
+            Assert.AreEqual(testDateTime.Year, appointmentDict[testDateTime.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Date.Year);
 
         }
 
@@ -80,11 +79,10 @@ namespace ASE_Calendar.Tests
         public void ChangeAppointmentDescriptionTest()
         {
             // Arrange
-            DateTime dateTime = new DateTime(2022, 9, 15);
-            int timeSlot = 5;
             string changedDescription = "UnitTestTest";
-            UserEntity user = new UserEntity("Nico", "12345", 0, Guid.NewGuid());
-            AppointmentEntity appointmentEntity = new AppointmentEntity(dateTime, timeSlot, user.UserId, Guid.NewGuid(), "UnitTest");
+            UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
+            AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
+                DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
             AppointmentRepository appointmentRepository = new AppointmentRepository();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -93,29 +91,28 @@ namespace ASE_Calendar.Tests
             }
 
             // Act
-            appointmentRepository.CreateAppointment(appointmentEntity);
+            appointmentRepository.CreateAppointment(fakeAppointment);
             var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
-            appointmentRepository.ChangeDescription(appointmentEntity.AppointmentId.Value, changedDescription);
+            appointmentRepository.ChangeDescription(fakeAppointment.AppointmentId.Value, changedDescription);
             appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
 
 
             //Assert
-            Assert.AreEqual(true, appointmentDict.ContainsKey(15));
-            Assert.AreEqual(true, appointmentDict[15].ContainsKey(5));
-            Assert.AreEqual(user.UserId.Value, appointmentDict[15][5].UserId.Value);
-            Assert.AreEqual(appointmentEntity.AppointmentId.Value, appointmentDict[15][5].AppointmentId.Value);
-            Assert.AreEqual(changedDescription, appointmentDict[15][5].AppointmentData.Description);
+            Assert.AreEqual(true, appointmentDict.ContainsKey(fakeAppointment.AppointmentData.Date.Day));
+            Assert.AreEqual(true, appointmentDict[fakeAppointment.AppointmentData.Date.Day].ContainsKey(fakeAppointment.AppointmentData.TimeSlot));
+            Assert.AreEqual(fakeUser.UserId.Value, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].UserId.Value);
+            Assert.AreEqual(fakeAppointment.AppointmentId.Value, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentId.Value);
+            Assert.AreEqual(changedDescription, appointmentDict[fakeAppointment.AppointmentData.Date.Day][fakeAppointment.AppointmentData.TimeSlot].AppointmentData.Description);
 
         }
 
         [TestMethod]
         public void DeleteAppointmentTest()
-        {// Arrange
-            DateTime dateTime = new DateTime(2022, 9, 15);
-            int timeSlot = 5;
-            string changedDescription = "UnitTestTest";
-            UserEntity user = new UserEntity("Nico", "12345", 0, Guid.NewGuid());
-            AppointmentEntity appointmentEntity = new AppointmentEntity(dateTime, timeSlot, user.UserId, Guid.NewGuid(), "UnitTest");
+        {
+            // Arrange
+            UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
+            AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
+                DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
             AppointmentRepository appointmentRepository = new AppointmentRepository();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
@@ -124,14 +121,14 @@ namespace ASE_Calendar.Tests
             }
 
             // Act
-            appointmentRepository.CreateAppointment(appointmentEntity);
+            appointmentRepository.CreateAppointment(fakeAppointment);
             var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
-            appointmentRepository.DeleteAppointment(appointmentEntity.AppointmentId.Value);
+            appointmentRepository.DeleteAppointment(fakeAppointment.AppointmentId.Value);
             appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
 
 
             //Assert
-            Assert.IsFalse(appointmentDict.ContainsKey(9));
+            Assert.IsFalse(appointmentDict.ContainsKey(fakeAppointment.AppointmentData.Date.Day));
            
         }
     }
