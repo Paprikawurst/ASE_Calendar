@@ -37,7 +37,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                 case ChangeAppointmentDateState.CheckForAppointments:
 
                     var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
-                    AppointmentConverterHelper appointmentConverter = new AppointmentConverterHelper();
+                    AppointmentConverterHelper appointmentConverter = new();
                     string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
 
                     if (appointmentsString == null)
@@ -196,7 +196,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
         {
             var appointmentRepository = new AppointmentRepository();
             var appointmentDict = appointmentRepository.ReturnAllAppointmentsDict();
-            AppointmentConverterHelper appointmentConverter = new AppointmentConverterHelper();
+            AppointmentConverterHelper appointmentConverter = new();
             string appointmentsString = appointmentConverter.ReturnAllAppointmentsString(appointmentDict);
 
             Console.WriteLine("\n\n" + appointmentsString + "\n");

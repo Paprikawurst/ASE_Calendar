@@ -22,7 +22,7 @@ namespace ASE_Calendar.Tests
             UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
             AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
                 DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
-            AppointmentRepository appointmentRepository = new AppointmentRepository();
+            AppointmentRepository appointmentRepository = new();
 
             // Act
             appointmentRepository.CreateAppointment(fakeAppointment);
@@ -45,11 +45,11 @@ namespace ASE_Calendar.Tests
         public void ChangeAppointmentDateTest()
         {
             // Arrange
-            DateTime testDateTime = new DateTime(2021, 9, 12);
+            DateTime testDateTime = new(2021, 9, 12);
             UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
             AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
                 DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
-            AppointmentRepository appointmentRepository = new AppointmentRepository();
+            AppointmentRepository appointmentRepository = new();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
@@ -83,7 +83,7 @@ namespace ASE_Calendar.Tests
             UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
             AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
                 DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
-            AppointmentRepository appointmentRepository = new AppointmentRepository();
+            AppointmentRepository appointmentRepository = new();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
@@ -113,7 +113,7 @@ namespace ASE_Calendar.Tests
             UserEntity fakeUser = A.Fake<UserEntity>(x => x.WithArgumentsForConstructor(() => new UserEntity("Adrian", "12345", 0, Guid.NewGuid())));
             AppointmentEntity fakeAppointment = A.Fake<AppointmentEntity>(x => x.WithArgumentsForConstructor(() => new AppointmentEntity(
                 DateTime.Now, 4, fakeUser.UserId, Guid.NewGuid(), "iAmATest")));
-            AppointmentRepository appointmentRepository = new AppointmentRepository();
+            AppointmentRepository appointmentRepository = new();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "ASECalendarAppointments.json"))
             {
