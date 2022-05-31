@@ -9,7 +9,7 @@ namespace ASE_Calendar.Application.Repositories
     /// <summary>
     ///     This repository manages the CRUD operations for the user entity.
     /// </summary>
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly CustomJsonConverter<UserEntity> _customJsonConverter = new();
         private readonly ValidationService _validationService = new();

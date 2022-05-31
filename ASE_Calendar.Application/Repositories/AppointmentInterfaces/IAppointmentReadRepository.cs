@@ -4,12 +4,8 @@ using System.Collections.Generic;
 
 namespace ASE_Calendar.Application.Repositories
 {
-    public interface IAppointmentRepository
+    public interface IAppointmentReadRepository
     {
-        bool ChangeDate(Guid appointmentGuid, DateTime newDate);
-        bool ChangeDescription(Guid appointmentGuid, string newDescription);
-        void CreateAppointment(AppointmentEntity appointmentEntity);
-        bool DeleteAppointment(Guid appointmentGuid);
         Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDict();
         Dictionary<int, Dictionary<int, AppointmentEntity>> ReturnAllAppointmentsDictSelectedMonth(DateTime selectedDate);
     }
