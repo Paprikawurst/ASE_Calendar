@@ -13,7 +13,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// </summary>
     public class ChangeAppointmentDate
     {
-        private readonly ConsoleColorHelper _colorHelper = new();
+        private readonly ConsoleColorGreen _consoleColorGreen = new();
+        private readonly ConsoleColorRed _consoleColorRed = new();
 
         public ChangeAppointmentDate(DateTime selectedTime)
         {
@@ -40,8 +41,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (appointmentsString == null)
                     {
-                        _colorHelper.WriteLineRed("\nThere are no appointments at the moment!");
-                        _colorHelper.WriteLineRed("Any key to continue.");
+                        _consoleColorRed.WriteLine("\nThere are no appointments at the moment!");
+                        _consoleColorRed.WriteLine("Any key to continue.");
                         Console.ReadLine();
                         break;
                     }
@@ -93,7 +94,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         goto case ChangeAppointmentDateState.UserInputDay;
                     }
 
-                    _colorHelper.WriteLineRed("Please enter a valid guid!");
+                    _consoleColorRed.WriteLine("Please enter a valid guid!");
 
                     goto case ChangeAppointmentDateState.UserInputId;
 
@@ -103,7 +104,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (!isValidDay || appointmentDayInt > 31 || appointmentDayInt <= 0)
                     {
-                        _colorHelper.WriteLineRed("Please enter a valid day!");
+                        _consoleColorRed.WriteLine("Please enter a valid day!");
                         goto case ChangeAppointmentDateState.UserInputDay;
                     }
 
@@ -115,7 +116,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (!isValidMonth || appointmentMonthInt > 12 || appointmentMonthInt <= 0)
                     {
-                        _colorHelper.WriteLineRed("Please enter a valid month!");
+                        _consoleColorRed.WriteLine("Please enter a valid month!");
                         goto case ChangeAppointmentDateState.UserInputMonth;
                     }
 
@@ -127,7 +128,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (!isValidYear || appointmentYearInt < selectedTime.Year)
                     {
-                        _colorHelper.WriteLineRed("Please enter a valid year!");
+                        _consoleColorRed.WriteLine("Please enter a valid year!");
                         goto case ChangeAppointmentDateState.UserInputYear;
                     }
 
@@ -139,14 +140,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (!isNumber || appointmentTimeSlotString == "")
                     {
-                        _colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
+                        _consoleColorRed.WriteLine("\n" + "Please enter a correct time slot!" + "\n");
                         goto case ChangeAppointmentDateState.UserInputTimeSlot;
                     }
 
                     if (!AppointmentService.CheckIfTimeSlotIsFree(newDateTime, short.Parse(appointmentTimeSlotString),
                             appointmentDayInt))
                     {
-                        _colorHelper.WriteLineRed("\n" + "Time slot is occupied!" + "\n");
+                        _consoleColorRed.WriteLine("\n" + "Time slot is occupied!" + "\n");
                         goto case ChangeAppointmentDateState.UserInputTimeSlot;
                     }
 
@@ -158,7 +159,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                     if (CalendarHelperService.GetMaxMonthDayInt(appointmentMonthInt, appointmentYearInt) <
                         appointmentDayInt)
                     {
-                        _colorHelper.WriteLineRed("Please enter a valid date!");
+                        _consoleColorRed.WriteLine("Please enter a valid date!");
                         goto case ChangeAppointmentDateState.UserInputDay;
                     }
 
@@ -172,14 +173,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (successfulChangeDate)
                     {
-                        _colorHelper.WriteLineGreen("The appointment has been edited!");
-                        _colorHelper.WriteLineGreen("Any key to continue!");
+                        _consoleColorGreen.WriteLine("The appointment has been edited!");
+                        _consoleColorGreen.WriteLine("Any key to continue!");
                         Console.ReadLine();
                     }
                     else
                     {
-                        _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                        _colorHelper.WriteLineRed("Any key to continue!");
+                        _consoleColorRed.WriteLine("There are no appointments booked at the moment!");
+                        _consoleColorRed.WriteLine("Any key to continue!");
                         Console.ReadLine();
                     }
 

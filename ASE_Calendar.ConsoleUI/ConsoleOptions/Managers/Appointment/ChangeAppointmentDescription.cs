@@ -10,7 +10,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// </summary>
     public class ChangeAppointmentDescription
     {
-        private readonly ConsoleColorHelper _colorHelper = new();
+        private readonly ConsoleColorGreen _consoleColorGreen = new();
+        private readonly ConsoleColorRed _consoleColorRed = new();
 
         public ChangeAppointmentDescription()
         {
@@ -30,8 +31,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (appointmentsString == null)
                     {
-                        _colorHelper.WriteLineRed("\nThere are no appointments at the moment!");
-                        _colorHelper.WriteLineRed("Any key to continue.");
+                        _consoleColorRed.WriteLine("\nThere are no appointments at the moment!");
+                        _consoleColorRed.WriteLine("Any key to continue.");
                         Console.ReadLine();
                         break;
                     }
@@ -62,7 +63,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         goto case ChangeAppointmentDescriptionState.UserInputDescription;
                     }
 
-                    _colorHelper.WriteLineRed("Please enter a valid guid!");
+                    _consoleColorRed.WriteLine("Please enter a valid guid!");
 
                     goto case ChangeAppointmentDescriptionState.UserInputId;
 
@@ -70,7 +71,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (string.IsNullOrEmpty(appointmentDescription) || appointmentDescription.Length > 25 || string.IsNullOrWhiteSpace(appointmentDescription))
                     {
-                        _colorHelper.WriteLineRed("Please enter a valid description!");
+                        _consoleColorRed.WriteLine("Please enter a valid description!");
                         goto case ChangeAppointmentDescriptionState.UserInputDescription;
                     }
                     else
@@ -84,14 +85,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (successfulChangeDescription)
                     {
-                        _colorHelper.WriteLineGreen("The appointment has been edited!");
-                        _colorHelper.WriteLineGreen("Any key to continue!");
+                        _consoleColorGreen.WriteLine("The appointment has been edited!");
+                        _consoleColorGreen.WriteLine("Any key to continue!");
                         Console.ReadLine();
                     }
                     else
                     {
-                        _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                        _colorHelper.WriteLineRed("Any key to continue!");
+                        _consoleColorRed.WriteLine("There are no appointments booked at the moment!");
+                        _consoleColorRed.WriteLine("Any key to continue!");
                         Console.ReadLine();
                     }
 

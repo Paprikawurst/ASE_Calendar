@@ -13,7 +13,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
     /// </summary>
     public class AuthentificationManager
     {
-        private readonly ConsoleColorHelper _colorHelper = new();
+        private readonly ConsoleColorRed _consoleColorRed = new();
         private LoginState _loginState;
 
         private RegistrationState _registrationState;
@@ -57,7 +57,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                     if (credentialsRepository.ReadFromJsonFileReturnTrueIfUsernameExists())
                     {
                         Console.Clear();
-                        _colorHelper.WriteLineRed("Username already exists!" + "\n");
+                        _consoleColorRed.WriteLine("Username already exists!" + "\n");
                         goto case RegistrationState.UserInputUsername;
                     }
 
@@ -68,7 +68,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                     if (inputPassword.Length < 5 || inputPassword == "")
                     {
                         Console.Clear();
-                        _colorHelper.WriteLineRed("Password must contain at least 5 symbols!" + "\n");
+                        _consoleColorRed.WriteLine("Password must contain at least 5 symbols!" + "\n");
                         goto case RegistrationState.UserInputPassword;
                     }
 
@@ -82,7 +82,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                         short.Parse(inputUserRole) > 2)
                     {
                         Console.Clear();
-                        _colorHelper.WriteLineRed("Please select a role as shown!" + "\n");
+                        _consoleColorRed.WriteLine("Please select a role as shown!" + "\n");
                         goto case RegistrationState.UserInputRole;
                     }
 
@@ -119,7 +119,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                     if (successfulLogin == null)
                     {
                         Console.Clear();
-                        _colorHelper.WriteLineRed("Please use valid credentials!" + "\n");
+                        _consoleColorRed.WriteLine("Please use valid credentials!" + "\n");
                         goto case LoginState.UserInput;
                     }
 

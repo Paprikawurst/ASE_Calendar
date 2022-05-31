@@ -13,7 +13,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
     public class CalendarManager
     {
         private readonly UserEntity _currentUser;
-        private readonly ConsoleColorHelper colorHelper = new();
+        private readonly ConsoleColorGreen _consoleColorGreen = new();
+        private readonly ConsoleColorRed _consoleColorRed = new();
         private CheckDateService _checkDate;
         private DateTime _selectedTime;
 
@@ -119,7 +120,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
 
                                         if (appointmentDict[i][j].UserId.Value == _currentUser.UserId.Value)
                                         {
-                                            colorHelper.WriteGreen(
+                                            _consoleColorGreen.Write(
                                                 CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
                                                     .AppointmentData.TimeSlot) +
                                                 " " +
@@ -127,7 +128,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                                         }
                                         else
                                         {
-                                            colorHelper.WriteRed(
+                                            _consoleColorRed.Write(
                                                 CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
                                                     .AppointmentData.TimeSlot));
                                         }
@@ -137,7 +138,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                                         Console.Write(" | ");
                                         if (appointmentDict[i][j].UserId.Value == _currentUser.UserId.Value)
                                         {
-                                            colorHelper.WriteGreen(
+                                            _consoleColorGreen.Write(
                                                 CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
                                                     .AppointmentData.TimeSlot) +
                                                 " " +
@@ -145,7 +146,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers
                                         }
                                         else
                                         {
-                                            colorHelper.WriteRed(
+                                            _consoleColorRed.Write(
                                                 CalendarHelperService.TimeSlotToTimeStamp(appointmentDict[i][j]
                                                     .AppointmentData.TimeSlot));
                                         }

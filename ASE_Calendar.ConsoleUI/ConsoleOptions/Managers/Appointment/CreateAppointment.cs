@@ -14,7 +14,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// </summary>
     public class CreateAppointment
     {
-        private readonly ConsoleColorHelper _colorHelper = new();
+        private readonly ConsoleColorRed _consoleColorRed = new();
         public UserEntity CurrentUser;
         public DateTime DateSelected;
         
@@ -51,7 +51,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (!isNumber || day == "" || short.Parse(day) <= 0 || short.Parse(day) > maxDays)
                     {
-                        _colorHelper.WriteLineRed("\n" + "Please enter the correct day!" + "\n");
+                        _consoleColorRed.WriteLine("\n" + "Please enter the correct day!" + "\n");
                         goto case CreateAppointmentState.UserInputDay;
                     }
 
@@ -66,7 +66,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         !AppointmentService.CheckIfTimeSlotIsFree(DateSelected, short.Parse(timeSlot),
                             short.Parse(day)))
                     {
-                        _colorHelper.WriteLineRed("\n" + "Please enter a correct time slot!" + "\n");
+                        _consoleColorRed.WriteLine("\n" + "Please enter a correct time slot!" + "\n");
                         goto case CreateAppointmentState.UserInputTimeSlot;
                     }
 
@@ -83,7 +83,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (description.Length > 25 || description == "" || string.IsNullOrWhiteSpace(description))
                     {
-                        _colorHelper.WriteLineRed("Wrong input! Enter more than 0 and less than 25 signs!");
+                        _consoleColorRed.WriteLine("Wrong input! Enter more than 0 and less than 25 signs!");
                         goto case CreateAppointmentState.UserInputDescription;
                     }
 

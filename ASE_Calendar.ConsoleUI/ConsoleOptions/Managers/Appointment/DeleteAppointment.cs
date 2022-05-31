@@ -10,7 +10,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// </summary>
     public class DeleteAppointment
     {
-        private readonly ConsoleColorHelper _colorHelper = new();
+        private readonly ConsoleColorGreen _consoleColorGreen = new();
+        private readonly ConsoleColorRed _consoleColorRed = new();
 
         public DeleteAppointment()
         {
@@ -28,8 +29,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
 
                     if (appointmentsString == null)
                     {
-                        _colorHelper.WriteLineRed("\nThere are no appointments at the moment!");
-                        _colorHelper.WriteLineRed("Any key to continue.");
+                        _consoleColorRed.WriteLine("\nThere are no appointments at the moment!");
+                        _consoleColorRed.WriteLine("Any key to continue.");
                         Console.ReadLine();
                         break;
                     }
@@ -50,7 +51,7 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                         goto case DeleteAppointmentState.DeleteAppointment;
                     }
 
-                    _colorHelper.WriteLineRed("Please enter a valid guid!");
+                    _consoleColorRed.WriteLine("Please enter a valid guid!");
 
                     goto case DeleteAppointmentState.UserInputId;
 
@@ -58,14 +59,14 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
                     var successfulDeletion = appointmentRepository.DeleteAppointment(appointmentGuid);
                     if (successfulDeletion)
                     {
-                        _colorHelper.WriteLineGreen("The appointment has been deleted!");
-                        _colorHelper.WriteLineGreen("Any key to continue!");
+                        _consoleColorGreen.WriteLine("The appointment has been deleted!");
+                        _consoleColorGreen.WriteLine("Any key to continue!");
                         Console.ReadLine();
                     }
                     else
                     {
-                        _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                        _colorHelper.WriteLineRed("Any key to continue!");
+                        _consoleColorRed.WriteLine("There are no appointments booked at the moment!");
+                        _consoleColorRed.WriteLine("Any key to continue!");
                         Console.ReadLine();
                     }
 

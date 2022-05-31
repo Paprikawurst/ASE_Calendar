@@ -10,7 +10,8 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
     /// </summary>
     public class LoadAppointment
     {
-        private readonly ConsoleColorHelper _colorHelper = new();
+        private readonly ConsoleColorGreen _consoleColorGreen = new();
+        private readonly ConsoleColorRed _consoleColorRed = new();
         public UserEntity CurrentUser;
 
         public LoadAppointment(UserEntity currentUser)
@@ -33,13 +34,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             if (appointmentsString != null)
             {
                 Console.WriteLine(appointmentsString);
-                _colorHelper.WriteLineGreen("Any key to continue!");
+                _consoleColorGreen.WriteLine("Any key to continue!");
                 Console.ReadLine();
             }
             else
             {
-                _colorHelper.WriteLineRed("You don't have any appointments at the moment!");
-                _colorHelper.WriteLineRed("Any key to continue!");
+                _consoleColorRed.WriteLine("You don't have any appointments at the moment!");
+                _consoleColorRed.WriteLine("Any key to continue!");
                 Console.ReadLine();
             }
         }
@@ -59,13 +60,13 @@ namespace ASE_Calendar.ConsoleUI.ConsoleOptions.Managers.Appointment
             if (appointmentsString != null)
             {
                 Console.WriteLine(appointmentsString);
-                _colorHelper.WriteLineGreen("Any key to continue!");
+                _consoleColorGreen.WriteLine("Any key to continue!");
                 Console.ReadLine();
             }
             else
             {
-                _colorHelper.WriteLineRed("There are no appointments booked at the moment!");
-                _colorHelper.WriteLineRed("Any key to continue!");
+                _consoleColorRed.WriteLine("There are no appointments booked at the moment!");
+                _consoleColorRed.WriteLine("Any key to continue!");
                 Console.ReadLine();
             }
         }
